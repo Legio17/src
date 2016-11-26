@@ -188,7 +188,6 @@ public class Game extends Canvas implements Runnable{
 		//////////// Everything we want to draw on our screen /////////
 		if (login){
 			fancyBoard.render(g);	
-			fontLog.renderNick(g, 0, 170, 190, 30);
 		} else {
 			map1.render(g, 94, 1); //94 - borders are already ignored in grab image
 			player.render(g);

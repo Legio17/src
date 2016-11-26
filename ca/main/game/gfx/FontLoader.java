@@ -43,7 +43,7 @@ public class FontLoader {
 		for (int col = 1; col <= nrOfRow; col++ ){
 			BufferedImage img;
 			//System.out.println(col +" "+row);
-			img = fontSheet.grabImage(col, row, 85, 99, 1);
+			img = fontSheet.grabImage(col, row, 87, 101, 1);
 			//System.out.println(((row-1)*nrOfCol)+col-1);
 			tempArr[((row-1)*nrOfCol)+col-1] = img;
 			if (col == nrOfCol){
