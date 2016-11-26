@@ -19,6 +19,7 @@ public class Player {
 	private double velY = 0; //they are not necessary, but movement looks nicer
 	
 	private String playerName;
+	private int size;
 	
 	SpriteSheetLoader sprite_sheet_loader;
 	SpriteSheet player_sheet;
@@ -40,6 +41,7 @@ public class Player {
 	public Player(double x, double y, Game game, int model_nr){
 		this.x = x;
 		this.y = y;
+		this.size = 96;
 		
 		sprite_sheet_loader = game.getSpriteSheetLoader();//fetch SpriteSheet from Game class
 		player_sheet = sprite_sheet_loader.retrivePlayerModel(model_nr);
@@ -156,5 +158,11 @@ public class Player {
 		return playerName;
 	}
 	
-	
+	public int[] getCenter()
+	{
+		int[] cord = new int[2];
+		cord[0] = (int)(getX()+getX()+size)/2;
+		cord[1] = (int)(getY()+getY()+size)/2;
+		return cord;
+	}
 }
