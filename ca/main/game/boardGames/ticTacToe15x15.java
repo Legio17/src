@@ -136,7 +136,7 @@ public class ticTacToe15x15 {
 		if (array[selectorPosX][selectorPosY] == null){
 			array[selectorPosX][selectorPosY] = currentMark;
 			switchMark();
-			System.out.println(Count.isThereFive(5, array));
+			//System.out.println(Count.isThereFive(5, array));
 		}
 	}
 
