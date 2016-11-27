@@ -29,6 +29,7 @@ public class Player {
 	private BufferedImage player_left;
 	private BufferedImage player_up;
 	private BufferedImage player_down;
+	private BufferedImage player_sit;
 	
 	
 	/**
@@ -142,10 +143,12 @@ public class Player {
 	 * loads all images for different positions, they are used based on what direction is facing 
 	 */
 	public void loadBasicPositioning(){
+		int size = 96;
 		player_right = player_sheet.grabImage(3, 1, 96, 96,  1);
 		player_left = BufferedImageMet.flipVertically(player_right);
 		player_up = player_sheet.grabImage(1, 1, 96, 96, 1);
 		player_down = player_sheet.grabImage(5, 1, 96, 96, 1);
+		player_sit = player_sheet.grabImage(10, 1, size, size, 1);
 	}
 	
 	public void setPlayerName(String name)
@@ -164,5 +167,12 @@ public class Player {
 		cord[0] = (int)(getX()+getX()+size)/2;
 		cord[1] = (int)(getY()+getY()+size)/2;
 		return cord;
+	}
+
+	public void ticTac15x15() {
+		if (player != player_sit) player = player_sit;
+		else player = player_down;
+		
+		
 	}
 }

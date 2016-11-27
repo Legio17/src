@@ -262,6 +262,9 @@ public class Game extends Canvas implements Runnable{
 			player.setVelY(-5);
 			
 		// Special actions
+		}else if(key == KeyEvent.VK_3){
+			player.ticTac15x15();
+			
 		}else if(key == KeyEvent.VK_E){
 			if (!displayScore && !sthDisplayed){ 
 				displayScore = true;
