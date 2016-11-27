@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import ca.main.game.boardGames.ticTacToe15x15;
 import ca.main.game.control.KeyInput;
 import ca.main.game.gfx.FontLoader;
 import ca.main.game.gfx.Player;
@@ -54,6 +55,8 @@ public class Game extends Canvas implements Runnable{
 	
 	private boolean login;
 	
+	private ticTacToe15x15 T;
+	
 	private GameClient socketClient;
 	private GameServer socketServer;
 	
@@ -80,6 +83,8 @@ public class Game extends Canvas implements Runnable{
 		displayScore = false;
 		displayGame = false;
 		sthDisplayed = false;
+		
+		T = new ticTacToe15x15(this);
 		
 		socketClient.sendData("ping".getBytes());
 		
@@ -189,12 +194,13 @@ public class Game extends Canvas implements Runnable{
 		if (login){
 			fancyBoard.render(g);	
 			fontLog.renderNick(g, 0, 170, 190, 45);
-		} else {
+		}else if(displayGame){
+			T.render(g);
+		}else{
+		
 			map1.render(g, 94, 1); //94 - borders are already ignored in grab image
 			player.render(g);
-			
-			if (displayScore) scoreBoard.render(g);
-			else if (displayGame) gameBoard.render(g);
+			if (displayScore)scoreBoard.render(g);
 		}
 		/////////// end of drawing here! /////////////////////////////
 		g.dispose();
@@ -208,7 +214,7 @@ public class Game extends Canvas implements Runnable{
 	 */
 	public void keyPressed(KeyEvent e){
 		int key = e.getExtendedKeyCode();
-		
+		//================= Controls login ======================
 		if (login){
 			if(key == KeyEvent.VK_ENTER){
 				login = false;
@@ -219,7 +225,33 @@ public class Game extends Canvas implements Runnable{
 				fontLog.addToNickName(c);
 				
 			}
-		} else{
+			
+		//================= Controls Tic-Tac-Toe ================
+		}else if(displayGame){
+			if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
+				T.incPosX();
+			}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
+				T.decPosX();
+			}else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
+				T.incPosY();
+			}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
+				T.decPosY();
+			}else if(key == KeyEvent.VK_ENTER){
+				T.mark();
+			}else if(key == KeyEvent.VK_Q || key == KeyEvent.VK_ESCAPE){
+				if (!displayGame && !sthDisplayed){
+					displayGame = true;
+					sthDisplayed = true;
+				}
+				else if (displayGame){
+					displayGame = false;
+					sthDisplayed = false;
+					}
+				}
+		
+		//================= Controls Lobby ======================
+		}else{
+		
 		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
 			player.setVelX(5);
 		}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
@@ -248,8 +280,9 @@ public class Game extends Canvas implements Runnable{
 			else if (displayGame){
 				displayGame = false;
 				sthDisplayed = false;
+				}
 			}
-		}}
+		}
 	}
 	
 	/**
@@ -285,6 +318,10 @@ public class Game extends Canvas implements Runnable{
 	 */
 	public SpriteSheetLoader getSpriteSheetLoader() { //fetches "main" spritesheet when other classes need models
 		return sprite_sheet_loader;
+	}
+	
+	public BoardManager getBoardManager(){
+		return boardManager;
 	}
 	
 	/**

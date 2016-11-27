@@ -7,6 +7,8 @@ import java.io.IOException;
 import ca.main.game.Game;
 import ca.main.game.gfx.BufferImageLoader;
 import ca.main.game.gfx.Sprite;
+import ca.main.game.gfx.SpriteSheet;
+import ca.main.game.gfx.SpriteSheetLoader;
 
 
 public class Board {
@@ -15,6 +17,8 @@ public class Board {
 	private Sprite writableSprite = null;
 	private Sprite gridSprite = null;
 	private BufferImageLoader loader;
+	private SpriteSheetLoader sprite_sheet_loader;
+	private SpriteSheet tile_sheet;
 	
 	private BufferedImage solidBackground;
 	private BufferedImage writableBackground;

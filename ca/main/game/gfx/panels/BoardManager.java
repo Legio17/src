@@ -33,6 +33,11 @@ public class BoardManager {
 		
 		boardList.add(new Board(gameWidth, gameHeight,"gameBoard", 640, 420,"/img/boards/score_background.png","/img/boards/paper_background.png", "/img/boards/grid00_background.png"));
 		boardListNames.add(boardList.get(boardList.size() - 1).getBoardName());
+		
+		boardList.add(new Board(gameWidth, gameHeight,"ticTacToeBoard", 762, 566,"/img/boards/tic-tac-toe/playerboard.png"));
+		boardListNames.add(boardList.get(boardList.size() - 1).getBoardName());
+		
+		
 	}
 	
 	public Board retriveByName(String name){

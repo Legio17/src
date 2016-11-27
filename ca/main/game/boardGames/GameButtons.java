@@ -1,4 +1,4 @@
-package ca.main.game.logics;
+package ca.main.game.boardGames;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
-public class Game extends JFrame {
+public class GameButtons extends JFrame {
 
 	private JPanel mainPanel;
 	private MyButtonListener listener;
@@ -29,7 +29,7 @@ public class Game extends JFrame {
 	private JButton panel8;
 	
 
-	public Game() {
+	public GameButtons() {
 		super("Amoba");
 		listener = new MyButtonListener();
 		mainPanel = new JPanel();
@@ -829,7 +829,7 @@ public class Game extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		Game game = new Game();
+		GameButtons game = new GameButtons();
 	}
 
 }

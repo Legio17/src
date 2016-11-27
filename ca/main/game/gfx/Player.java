@@ -143,7 +143,7 @@ public class Player {
 	 */
 	public void loadBasicPositioning(){
 		player_right = player_sheet.grabImage(3, 1, 96, 96,  1);
-		player_left = player_sheet.grabImage(14, 1, 96, 96, 1);
+		player_left = BufferedImageMet.flipVertically(player_right);
 		player_up = player_sheet.grabImage(1, 1, 96, 96, 1);
 		player_down = player_sheet.grabImage(5, 1, 96, 96, 1);
 	}

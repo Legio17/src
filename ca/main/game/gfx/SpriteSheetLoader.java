@@ -31,9 +31,11 @@ public class SpriteSheetLoader{
 		
 		//===================== player models ==================
 		loadPlayerModel("/sheets/player_models/", "applejack");
+		loadPlayerModel("/sheets/player_models/", "pinkamena");
 		
-		//===================== maps ===========================
+		//===================== tiles ===========================
 		loadTile("/sheets/tiles/", "terrain");
+		loadTile("/sheets/tiles/", "tic-tacTile");
 		
 		//===================== load fonts =====================
 		loadFont("/sheets/fonts/", "fontLog");

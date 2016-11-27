@@ -1,4 +1,4 @@
-package ca.main.game.logics;
+package ca.main.game.boardGames;
 
 public class Count {
 
