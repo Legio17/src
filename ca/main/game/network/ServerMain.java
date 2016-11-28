@@ -8,13 +8,13 @@ import java.net.SocketException;
 
 import ca.main.game.Game;
 
-public class GameServer extends Thread{
+public class ServerMain extends Thread{
 
 	private DatagramSocket socket;
 	private Game game;
 	private int port; 
 
-	public GameServer(Game game, int port) {
+	public ServerMain(Game game, int port) {
 		this.game = game;
 		this.port = port;
 		

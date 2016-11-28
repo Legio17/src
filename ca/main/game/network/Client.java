@@ -9,14 +9,14 @@ import java.net.UnknownHostException;
 
 import ca.main.game.Game;
 
-public class GameClient extends Thread {
+public class Client extends Thread {
 
 	private InetAddress ipAddress;
 	private DatagramSocket socket;
 	private Game game;
 	private int port;
 
-	public GameClient(Game game, String ipAddress, int port) {
+	public Client(Game game, String ipAddress, int port) {
 		this.game = game;
 		this.port = port;
 		

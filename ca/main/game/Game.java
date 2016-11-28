@@ -18,8 +18,8 @@ import ca.main.game.gfx.SpriteSheetLoader;
 import ca.main.game.gfx.level.Map;
 import ca.main.game.gfx.panels.Board;
 import ca.main.game.gfx.panels.BoardManager;
-import ca.main.game.network.GameClient;
-import ca.main.game.network.GameServer;
+import ca.main.game.network.Client;
+import ca.main.game.network.ServerMain;
 
 public class Game extends Canvas implements Runnable{
 
@@ -57,8 +57,8 @@ public class Game extends Canvas implements Runnable{
 	
 	private ticTacToe15x15 T;
 	
-	private GameClient socketClient;
-	private GameServer socketServer;
+	private Client client;
+
 	
 	/**
 	 * 	construction of necessary items before game can start
@@ -86,7 +86,7 @@ public class Game extends Canvas implements Runnable{
 		
 		T = new ticTacToe15x15(this);
 		
-		socketClient.sendData("ping".getBytes());
+		client.sendData("ping".getBytes());
 		
 	}
 
@@ -100,20 +100,17 @@ public class Game extends Canvas implements Runnable{
 		thread = new Thread(this);
 		thread.start();
 		
-		if (JOptionPane.showConfirmDialog(this, "start server? ") == 0){
-			socketServer = new GameServer(this, 4200);
-			socketServer.start();
-		}
 		
-		socketClient = new GameClient(this, "localhost", 4200);
-		socketClient.start();
+		client = new Client(this, "localhost", 4200);
+		client.start();
 	}
 	
 	
 	/**
 	 * 	stop game thread
 	 */
-	public synchronized void stop(){
+	
+	/*public synchronized void stop(){
 		if (!running) return; //if game is already dead ignore
 		
 		running = false;
@@ -124,7 +121,7 @@ public class Game extends Canvas implements Runnable{
 		}
 		System.exit(1);
 		
-	}
+	}*/
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Runnable#run()
@@ -163,7 +160,7 @@ public class Game extends Canvas implements Runnable{
 				frames= 0;
 			}
 		}
-		stop();
+		//stop();
 	}
 	
 	/**
