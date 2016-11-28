@@ -19,7 +19,7 @@ public class connect
             
          } catch (ClassNotFoundException e){ 
             
-            Class.forName("postgresql-9.4.1209.jre6");
+            Class.forName("postgresql-9.4.1212.jre6");
          }
          
          try{ 
