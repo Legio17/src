@@ -156,7 +156,7 @@ public class Player {
 		this.playerName = name;
 	}
 	
-	public String getPlayerName()
+	public String getName()
 	{
 		return playerName;
 	}

@@ -19,6 +19,7 @@ import ca.main.game.gfx.level.Map;
 import ca.main.game.gfx.panels.Board;
 import ca.main.game.gfx.panels.BoardManager;
 import ca.main.game.network.Client;
+import ca.main.game.network.PlayerMP;
 import ca.main.game.network.ServerMain;
 
 public class Game extends Canvas implements Runnable{
@@ -39,6 +40,7 @@ public class Game extends Canvas implements Runnable{
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	
 	private Player player;
+	private PlayerMP otherPlayer;
 	private SpriteSheetLoader sprite_sheet_loader;
 	
 	private Map map1;
@@ -215,8 +217,8 @@ public class Game extends Canvas implements Runnable{
 		if (login){
 			if(key == KeyEvent.VK_ENTER){
 				login = false;
-				player.setPlayerName(fontLog.retriveNickName());
-				System.out.println(player.getPlayerName());
+				player.setPlayerName(fontLog.getNickName());
+				System.out.println(player.getName());
 			} else{
 				String c = Character.toString((char)key);
 				fontLog.addToNickName(c);
@@ -294,12 +296,16 @@ public class Game extends Canvas implements Runnable{
 		
 		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
 			player.setVelX(0);
+			client.sendData(("x:"+player.getX()).getBytes());
 		}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
 			player.setVelX(0);
+			client.sendData(("x:"+player.getX()).getBytes());
 		}else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
 			player.setVelY(0);
+			client.sendData(("y:"+player.getY()).getBytes());
 		}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
 			player.setVelY(0);
+			client.sendData(("y:"+player.getY()).getBytes());
 		}
 	}
 	
@@ -336,6 +342,16 @@ public class Game extends Canvas implements Runnable{
 	 */
 	public int getFrameHeight(){
 		return HEIGHT;
+	}
+	
+	public PlayerMP getOtherPlayer()
+	{
+		return otherPlayer;
+	}
+	
+	public Player getPlayer()
+	{
+		return player;
 	}
 	
 	/**

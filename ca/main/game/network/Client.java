@@ -15,10 +15,12 @@ public class Client extends Thread {
 	private DatagramSocket socket;
 	private Game game;
 	private int port;
+	private String name;
 
 	public Client(Game game, String ipAddress, int port) {
 		this.game = game;
 		this.port = port;
+		name = game.getPlayer().getName();
 		
 		try {
 			this.socket = new DatagramSocket();
@@ -42,7 +44,17 @@ public class Client extends Thread {
 				e.printStackTrace();
 			}
 			String message = new String(packet.getData());
-			System.out.println("SERVER "+ message);
+			String[] array = message.split(":");
+			double coordinate = Double.parseDouble(array[1]);
+			if (array[0].equalsIgnoreCase("x"))
+			{
+				
+				game.getOtherPlayer().setX(coordinate);	
+			}
+			else if(array[0].equalsIgnoreCase("y"))
+			{
+				game.getOtherPlayer().setY(coordinate);
+			}
 		}
 	}
 	
@@ -54,5 +66,10 @@ public class Client extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public String getClientName()
+	{
+		return name;
 	}
 }

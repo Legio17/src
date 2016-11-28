@@ -86,7 +86,7 @@ public class FontLoader {
 
 	}
 	
-	public String retriveNickName(){
+	public String getNickName(){
 		return nickName;
 	}
 }
