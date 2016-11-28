@@ -63,8 +63,7 @@ public class NewClient extends Thread {
 		
 		DatagramPacket sendPacket = new DatagramPacket(sendDataTestMessage,
 				sendDataTestMessage.length, inetIPAddress, port); //port mio chose to be open all the time
-		//DatagramPacket sendPacketPlayerPosition = new DatagramPacket(sendDataTestMessage,
-		//		sendDataTestMessage.length, inetIPAddress, port); //port mio chose to be open all the time
+		
 		try {
 			clientSocket.send(sendPacket);
 		} catch (IOException e) {
