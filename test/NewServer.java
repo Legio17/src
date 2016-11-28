@@ -7,19 +7,30 @@ import java.net.InetAddress;
 import java.net.SocketException;
 
 public class NewServer extends Thread {
+	private DatagramSocket serverSocket;
+	private byte[] receiveData, sendData;
+	private DatagramPacket receivePacket,sendPacket;
+	private String position;
+	private InetAddress IPAddress;
+	private int port;
+	private String capitalizedSentence;
+	
+	public NewServer()
+	{
+	try {
+		serverSocket = new DatagramSocket(1099);
+	} catch (SocketException e) {
+		e.printStackTrace();
+	}
+	receiveData = new byte[1024];
+	sendData = new byte[1024];	
+	}
+	
+	
 	public void run() {
-		DatagramSocket serverSocket = null;
-		try {
-			serverSocket = new DatagramSocket(9876);
-		} catch (SocketException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		byte[] receiveData = new byte[1024];
-		byte[] sendData = new byte[1024];
-
+				
 		while (true) {
-			DatagramPacket receivePacket = new DatagramPacket(receiveData,
+			receivePacket = new DatagramPacket(receiveData,
 					receiveData.length);
 			try {
 				serverSocket.receive(receivePacket);
@@ -27,13 +38,13 @@ public class NewServer extends Thread {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			String sentence = new String(receivePacket.getData());
-			InetAddress IPAddress = receivePacket.getAddress();
-			int port = receivePacket.getPort();
+			position = new String(receivePacket.getData());
+			IPAddress = receivePacket.getAddress();
+			port = receivePacket.getPort();
 
-			String capitalizedSentence = sentence.toUpperCase();
+			capitalizedSentence = sentence.toUpperCase();
 			sendData = capitalizedSentence.getBytes();
-			DatagramPacket sendPacket = new DatagramPacket(sendData,
+			sendPacket = new DatagramPacket(sendData,
 					sendData.length, IPAddress, port);
 			try {
 				serverSocket.send(sendPacket);
@@ -45,7 +56,7 @@ public class NewServer extends Thread {
 	}
 	public static void main(String[] args){
 		NewServer server = new NewServer();
-
+		
 		server.start();
 	}
 }
