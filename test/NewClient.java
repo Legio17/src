@@ -8,35 +8,63 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Arrays;
+
+import ca.main.game.Game;
 
 public class NewClient extends Thread {
-	public void run() {
-
-		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(
-				System.in));
-		DatagramSocket clientSocket = null;
+	private DatagramSocket clientSocket;
+	private String serverIPAddress;
+	private int port;
+	private InetAddress inetIPAddress;
+	private byte[] sendDataTestMessage;
+	private byte[] sendDataPosition;
+	private byte[] receiveData;
+	private String sentence;
+	private int[] playerPosition;
+	
+	public NewClient(){
 		try {
 			clientSocket = new DatagramSocket();
 		} catch (SocketException e) {
 			e.printStackTrace();
 		}
-		InetAddress IPAddress = null;
+		serverIPAddress = "10.52.237.183"; //mio test
+		port = 1099;
 		try {
-			IPAddress = InetAddress.getByName("localhost");
+			inetIPAddress = InetAddress.getByName(serverIPAddress);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
-		byte[] sendData = new byte[1024];
-		byte[] receiveData = new byte[1024];
-		String sentence = "Error reading input";
+		receiveData = new byte[1024];
+		sentence = "Error reading input";
+		playerPosition = new int[2];
+	}
+	
+	public void run() {
+
+		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(
+				System.in));
+		
 		try {
 			sentence = inFromUser.readLine();
+			sendDataTestMessage = new byte[sentence.getBytes().length];
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		sendData = sentence.getBytes();
-		DatagramPacket sendPacket = new DatagramPacket(sendData,
-				sendData.length, IPAddress, 9876);
+		sendDataTestMessage = sentence.getBytes();
+		
+		///
+		playerPosition[0] = 5;
+		playerPosition[1] = 7;
+		String s = Arrays.toString(playerPosition);
+		sendDataPosition = new byte[s.getBytes().length];
+		///
+		
+		DatagramPacket sendPacket = new DatagramPacket(sendDataTestMessage,
+				sendDataTestMessage.length, inetIPAddress, port); //port mio chose to be open all the time
+		//DatagramPacket sendPacketPlayerPosition = new DatagramPacket(sendDataTestMessage,
+		//		sendDataTestMessage.length, inetIPAddress, port); //port mio chose to be open all the time
 		try {
 			clientSocket.send(sendPacket);
 		} catch (IOException e) {
