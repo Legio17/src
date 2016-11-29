@@ -47,7 +47,6 @@ public class Client extends Thread {
 			double coordinate = Double.parseDouble(array[1]);
 			if (array[0].equalsIgnoreCase("x"))
 			{
-				
 				game.getOtherPlayer().setX(coordinate);	
 			}
 			else if(array[0].equalsIgnoreCase("y"))

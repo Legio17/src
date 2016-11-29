@@ -13,52 +13,84 @@ import test2.MessageBroadcast;
 import test2.ServerConnection;
 import ca.main.game.Game;
 
-public class ServerMain extends Thread {
+public class ServerMain extends Thread{
 
 	private DatagramSocket serverSocket;
 	private byte[] receiveData, sendData;
-	private DatagramPacket receivePacket, sendPacket;
-	private String position;
-	private InetAddress IPAddress;
+	private DatagramPacket receivePacket;
+	private InetAddress ipAddress;
 	private int port;
-	private String capitalizedSentence;
-	private ClientList cl = new ClientList();
+	private ConnectionList cl = new ConnectionList();
 
 	public ServerMain() {
+
 		try {
 			serverSocket = new DatagramSocket(1099);
 			System.out.println("Server socket created.");
 		} catch (SocketException e) {
 			e.printStackTrace();
 		}
-		receiveData = new byte[1024];
+	}
+
+	public void run() {
 
 		while (true) {
+			receiveData = new byte[1024];
 			System.out.println("Ready to receive.");
 			receivePacket = new DatagramPacket(receiveData, receiveData.length);
 			try {
 				serverSocket.receive(receivePacket);
-				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
-			position = new String(receivePacket.getData());
-			IPAddress = receivePacket.getAddress();
+			sendData = receivePacket.getData();
+			ipAddress = receivePacket.getAddress();
 			port = receivePacket.getPort();
+
+			createConn(sendData, ipAddress, port);	
 			
-			BroadcastToClients btc = new BroadcastToClients(position,
-					IPAddress, port,cl);
-			//System.out.println(position+", "+IPAddress+":"+port);
-			cl.addConnection(btc);
-			
-			new Thread(btc, "Communication").start();
+		}
+	}
+	
+	public InetAddress getIP()
+	{
+		return ipAddress;
+	}
+	
+	public byte[] getData()
+	{
+		return sendData;
+	}
+	
+	public int getPort()
+	{
+		return port;
+	}
+	
+	public ConnectionList getList()
+	{
+		return cl;
+	}
+
+	private void createConn(byte[] sendData, InetAddress ipAddress, int port) {
+
+		boolean found = false;
+		for (int i = 0; i <= cl.size(); i++) {
+			if (ipAddress.equals(cl.getIP(i))) {
+				found = true;
+				break;
+			}
+		}
+		if (!found) {
+			Connection newCon = new Connection(sendData, ipAddress, port);
+			cl.addConnection(newCon);
 		}
 	}
 
 	public static void main(String[] args) {
 		ServerMain server = new ServerMain();
-
+		BroadcastToClients btc = new BroadcastToClients(server);
+		btc.start();
 		server.start();
 	}
 }

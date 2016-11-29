@@ -6,13 +6,13 @@ import java.util.List;
 
 import test2.ServerConnection;
 
-public class ClientList {
-	private List<BroadcastToClients> conns = new ArrayList<>();
+public class ConnectionList {
+	private ArrayList<Connection> conns = new ArrayList<>();
 
-	public ClientList() {
+	public ConnectionList() {
 	};
 
-	public void addConnection(BroadcastToClients c) {
+	public void addConnection(Connection c) {
 		conns.add(c);
 	}
 	
@@ -21,14 +21,9 @@ public class ClientList {
 		return conns.size();
 	}
 	
-	public BroadcastToClients element(int i)
+	public ArrayList<Connection> getAll()
 	{
-		return conns.get(i);
-	}
-	
-	public String getBody(int i)
-	{
-		return conns.get(i).getPosition();
+		return conns;
 	}
 	
 	public int getPort(int i)

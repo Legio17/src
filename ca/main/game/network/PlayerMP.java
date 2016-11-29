@@ -15,6 +15,4 @@ public class PlayerMP extends Player{
 		super(x, y, game, model_nr);
 
 	}
-
-	
 }

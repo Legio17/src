@@ -88,7 +88,6 @@ public class Game extends Canvas implements Runnable{
 		
 		T = new ticTacToe15x15(this);
 		
-		client.sendData("ping".getBytes());
 		
 	}
 
@@ -103,7 +102,7 @@ public class Game extends Canvas implements Runnable{
 		thread.start();
 		
 		
-		client = new Client(this, "localhost", 4200);
+		client = new Client(this, "localhost", 1099);
 		client.start();
 	}
 	
