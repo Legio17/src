@@ -16,6 +16,7 @@ public class ServerMain extends Thread{
 	private DatagramPacket receivePacket;
 	private InetAddress ipAddress;
 	private int port;
+	private boolean newData;
 	private ConnectionList cl = new ConnectionList();
 
 	public ServerMain() {
@@ -31,13 +32,14 @@ public class ServerMain extends Thread{
 	public void run() {
 
 		while (true) {
+			newData = false;
 			receiveData = new byte[25];
 			
 			receivePacket = new DatagramPacket(receiveData, receiveData.length);
 			
 			try {
 				serverSocket.receive(receivePacket);
-				
+				newData = true;
 				System.out.println("receiving data"+new String(receivePacket.getData()));
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -101,5 +103,9 @@ public class ServerMain extends Thread{
 		BroadcastToClients btc = new BroadcastToClients(server);
 		btc.start();
 		server.start();
+	}
+
+	public boolean isNewData() {
+		return newData;
 	}
 }
