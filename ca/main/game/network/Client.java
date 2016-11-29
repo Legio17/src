@@ -39,10 +39,12 @@ public class Client extends Thread {
 			
 			try {
 				socket.receive(packet);
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			String message = new String(packet.getData());
+			System.out.println(message);
 			String[] array = message.split(":");
 			double coordinate = Double.parseDouble(array[1]);
 			if (array[0].equalsIgnoreCase("x"))

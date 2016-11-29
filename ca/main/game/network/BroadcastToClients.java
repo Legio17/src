@@ -22,7 +22,8 @@ public class BroadcastToClients extends Thread {
 
 	public void run() {
 		while (true) {
-			
+			try{ wait();}
+			catch(Exception e) {}
 			for (int i = 0; i < cl.size(); i++) {
 				
 				sendPacket = new DatagramPacket(server.getData(), server.getData().length,

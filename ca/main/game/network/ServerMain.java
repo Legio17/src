@@ -4,14 +4,10 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
+
 import java.net.SocketException;
 
-import test.NewServer;
-import test2.MessageBroadcast;
-import test2.ServerConnection;
-import ca.main.game.Game;
+
 
 public class ServerMain extends Thread{
 
@@ -41,6 +37,7 @@ public class ServerMain extends Thread{
 			
 			try {
 				serverSocket.receive(receivePacket);
+				notifyAll();
 				System.out.println("receiving data"+new String(receivePacket.getData()));
 			} catch (IOException e) {
 				e.printStackTrace();

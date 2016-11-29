@@ -102,7 +102,7 @@ public class Game extends Canvas implements Runnable{
 		thread.start();
 		
 		
-		client = new Client(this, "localhost", 1099);
+		client = new Client(this, "10.52.237.166", 1099);
 		client.start();
 	}
 	
