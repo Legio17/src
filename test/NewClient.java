@@ -29,7 +29,7 @@ public class NewClient extends Thread {
 		} catch (SocketException e) {
 			e.printStackTrace();
 		}
-		serverIPAddress = "10.52.237.183"; //mio test
+		serverIPAddress = "localhost"; //mio test
 		port = 1099;
 		try {
 			inetIPAddress = InetAddress.getByName(serverIPAddress);
