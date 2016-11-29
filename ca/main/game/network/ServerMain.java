@@ -31,13 +31,13 @@ public class ServerMain extends Thread{
 	public void run() {
 
 		while (true) {
-			receiveData = new byte[15];
+			receiveData = new byte[25];
 			
 			receivePacket = new DatagramPacket(receiveData, receiveData.length);
 			
 			try {
 				serverSocket.receive(receivePacket);
-				notifyAll();
+				
 				System.out.println("receiving data"+new String(receivePacket.getData()));
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -90,6 +90,8 @@ public class ServerMain extends Thread{
 		if (!found) {
 			Connection newCon = new Connection(sendData, ipAddress, port);
 			cl.addConnection(newCon);
+			
+			
 		}
 		
 	}

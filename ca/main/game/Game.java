@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -249,19 +251,25 @@ public class Game extends Canvas implements Runnable{
 		
 		//================= Controls Lobby ======================
 		}else{
-		
+			
+			String ipAddress="ipError";
+			try {
+				ipAddress = InetAddress.getLocalHost().getHostAddress();
+			} catch (UnknownHostException e1) {
+				e1.printStackTrace();
+			}
 		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
 			player.moveX(5);
-			client.sendData(("x:"+player.getX()).getBytes());
+			client.sendData((ipAddress+":x:"+player.getX()).getBytes());
 		}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
 			player.moveX(-5);
-			client.sendData(("x:"+player.getX()).getBytes());
+			client.sendData((ipAddress+":x:"+player.getX()).getBytes());
 		}else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
 			player.moveY(5);
-			client.sendData(("y:"+player.getY()).getBytes());
+			client.sendData((ipAddress+":y:"+player.getY()).getBytes());
 		}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
 			player.moveY(-5);
-			client.sendData(("y:"+player.getY()).getBytes());
+			client.sendData((ipAddress+":y:"+player.getY()).getBytes());
 		}
 		// Special actions
 		else if(key == KeyEvent.VK_3){

@@ -6,6 +6,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 import ca.main.game.Game;
 
@@ -16,6 +17,7 @@ public class Client extends Thread {
 	private Game game;
 	private int port;
 	private String name;
+	private ArrayList<String> ipList;
 
 	public Client(Game game, String ipAddress, int port) {
 		this.game = game;
@@ -47,11 +49,11 @@ public class Client extends Thread {
 			System.out.println(message);
 			String[] array = message.split(":");
 			double coordinate = Double.parseDouble(array[1]);
-			if (array[0].equalsIgnoreCase("x"))
+			if (array[1].equalsIgnoreCase("x"))
 			{
 				game.getOtherPlayer().setX(coordinate);	
 			}
-			else if(array[0].equalsIgnoreCase("y"))
+			else if(array[1].equalsIgnoreCase("y"))
 			{
 				game.getOtherPlayer().setY(coordinate);
 			}
@@ -72,4 +74,6 @@ public class Client extends Thread {
 	{
 		return name;
 	}
+	
+	
 }
