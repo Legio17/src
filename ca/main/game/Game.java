@@ -252,13 +252,13 @@ public class Game extends Canvas implements Runnable{
 		}else{
 		
 		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
-			player.setVelX(5);
+			player.moveX(5);
 		}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
-			player.setVelX(-5);
+			player.moveX(-5);
 		}else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
-			player.setVelY(5);
+			player.moveY(5);
 		}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
-			player.setVelY(-5);
+			player.moveY(-5);
 			
 		// Special actions
 		}else if(key == KeyEvent.VK_3){
@@ -295,16 +295,16 @@ public class Game extends Canvas implements Runnable{
 		int key = e.getExtendedKeyCode();
 		
 		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
-			player.setVelX(0);
+			player.moveX(0);
 			client.sendData(("x:"+player.getX()).getBytes());
 		}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
-			player.setVelX(0);
+			player.moveX(0);
 			client.sendData(("x:"+player.getX()).getBytes());
 		}else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
-			player.setVelY(0);
+			player.moveY(0);
 			client.sendData(("y:"+player.getY()).getBytes());
 		}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
-			player.setVelY(0);
+			player.moveY(0);
 			client.sendData(("y:"+player.getY()).getBytes());
 		}
 	}
