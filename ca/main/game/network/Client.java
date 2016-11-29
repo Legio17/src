@@ -20,7 +20,6 @@ public class Client extends Thread {
 	public Client(Game game, String ipAddress, int port) {
 		this.game = game;
 		this.port = port;
-		name = game.getPlayer().getName();
 		
 		try {
 			this.socket = new DatagramSocket();
