@@ -48,22 +48,33 @@ public class InsertExecutor {
 			ResultSet rsRetrive = stRetrive.executeQuery(sqlRetrivePlayers);
 			
 	        while(rsRetrive.next()){
-	        	if(rsRetrive.getString("login").equalsIgnoreCase("player1")){
+	        	if(rsRetrive.getString("login").equalsIgnoreCase(player1)){
 	        		int wins=Integer.parseInt(rsRetrive.getString("wins"))+1;
 	        		int losses= Integer.parseInt(rsRetrive.getString("losses"));
-	        		double ratio= (double) wins/losses;
+	        		double ratio;
+	        		if(wins==0 || losses==0){
+	        			ratio=1;
+	        		}
+	        		else {ratio= (double) wins/losses;}
 	        		sqlUpdate="UPDATE Score_info SET wins="+wins+" WHERE  login='"+player1+"'";
+	        		sqlMet.executeStatement(st, sqlUpdate);
 	        		sqlUpdate="UPDATE Score_info SET winloss_ratio="+ratio+" WHERE  login='"+player1+"'";
+	        		sqlMet.executeStatement(st, sqlUpdate);
 	        	}
-	        	else if(rsRetrive.getString("login").equalsIgnoreCase("player2")){
+	        	else if(rsRetrive.getString("login").equalsIgnoreCase(player2)){
 	        		int wins=Integer.parseInt(rsRetrive.getString("wins"));
 	        		int losses= Integer.parseInt(rsRetrive.getString("losses"))+1;
-	        		double ratio= (double) wins/losses;
+	        		double ratio;
+	        		if(wins==0 || losses==0){
+	        			ratio=1;
+	        		}
+	        		else {ratio= (double) wins/losses;}
 	        		sqlUpdate="UPDATE Score_info SET wins="+losses+" WHERE  login='"+player2+"'";
+	        		sqlMet.executeStatement(st, sqlUpdate);
 	        		sqlUpdate="UPDATE Score_info SET winloss_ratio="+ratio+" WHERE  login='"+player2+"'";
+	        		sqlMet.executeStatement(st, sqlUpdate);
 	        	}
 	        }
-	        sqlMet.executeStatement(st, sqlUpdate);
 		}
 		
 		// in case player2 wins
@@ -73,22 +84,34 @@ public class InsertExecutor {
 			ResultSet rsRetrive = stRetrive.executeQuery(sqlRetrivePlayers);
 			
 	        while(rsRetrive.next()){
-	        	if(rsRetrive.getString("login").equalsIgnoreCase("player1")){
+	        	if(rsRetrive.getString("login").equalsIgnoreCase(player1)){
+	        		System.out.println("here");
 	        		int wins=Integer.parseInt(rsRetrive.getString("wins"));
-	        		int losses= Integer.parseInt(rsRetrive.getString("losses")+1);
-	        		double ratio= (double) wins/losses;
-	        		sqlUpdate="UPDATE Score_info SET wins="+losses+" WHERE  login='"+player1+"'";
+	        		int losses= Integer.parseInt(rsRetrive.getString("losses"))+1;
+	        		double ratio;
+	        		if(wins==0 || losses==0){
+	        			ratio=1;
+	        		}
+	        		else {ratio= (double) wins/losses;}
+	        		sqlUpdate="UPDATE Score_info SET losses="+losses+" WHERE  login='"+player1+"'";
+	        		sqlMet.executeStatement(st, sqlUpdate);
 	        		sqlUpdate="UPDATE Score_info SET winloss_ratio="+ratio+" WHERE  login='"+player1+"'";
+	        		sqlMet.executeStatement(st, sqlUpdate);
 	        	}
-	        	else if(rsRetrive.getString("login").equalsIgnoreCase("player2")){
-	        		int wins=Integer.parseInt(rsRetrive.getString("wins")+1);
+	        	else if(rsRetrive.getString("login").equalsIgnoreCase(player2)){
+	        		int wins=Integer.parseInt(rsRetrive.getString("wins"))+1;
 	        		int losses= Integer.parseInt(rsRetrive.getString("losses"));
-	        		double ratio= (double) wins/losses;
+	        		double ratio;
+	        		if(wins==0 || losses==0){
+	        			ratio=1;
+	        		}
+	        		else {ratio= (double) wins/losses;}
 	        		sqlUpdate="UPDATE Score_info SET wins="+wins+" WHERE  login='"+player2+"'";
+	        		sqlMet.executeStatement(st, sqlUpdate);
 	        		sqlUpdate="UPDATE Score_info SET winloss_ratio="+ratio+" WHERE  login='"+player2+"'";
+	        		sqlMet.executeStatement(st, sqlUpdate);
 	        	}
 	        }
-	        sqlMet.executeStatement(st, sqlUpdate);
 		}
 		
 		
@@ -116,9 +139,29 @@ public class InsertExecutor {
         }
         String sqlAddLogin;
 		sqlAddLogin = "INSERT INTO PLAYER_INFO VALUES('"+login+"','"+model+"');";
-		sqlCreateScoreInfo = "INSERT INTO SCORE_INFO VALUES((SELECT COUNT(*) FROM SCORE_INFO),'"+login+"','0','0','0','0');";
+		sqlCreateScoreInfo = "INSERT INTO SCORE_INFO VALUES('"+login+"','0','0','0','0');";
 		
 		sqlMet.executeStatement(stWriteTo, sqlAddLogin);
 		sqlMet.executeStatement(stWriteTo, sqlCreateScoreInfo);
+	}
+	
+	public void updateRanks() throws SQLException{
+		Statement st = connection.createStatement();
+		Statement stRetrive = connection.createStatement();
+		String sqlRetrivePlayers;
+		String sqlUpdatePlayerRank;
+		
+		sqlRetrivePlayers = "SELECT rank, winloss_ratio, login FROM score_info ORDER BY winloss_ratio DESC;";
+		stRetrive = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rsRetrive = stRetrive.executeQuery(sqlRetrivePlayers);
+		
+		int rank =1;
+		while(rsRetrive.next()){
+			sqlUpdatePlayerRank="UPDATE Score_info SET rank="+rank+" WHERE login='"+rsRetrive.getString("login")+"'";;
+			rank++;
+    		sqlMet.executeStatement(st, sqlUpdatePlayerRank);
+        	
+        }
+		
 	}
 }

@@ -18,7 +18,7 @@ public class buildDbMain
    public static void main(String args[]) throws ClassNotFoundException, SQLException
    {
 	  Connection con = null;
-	  con = connect.PostgreSQLJDBC("SEP2_data", "jens");
+	  con = connect.PostgreSQLJDBC("SEP2_data", "Postgres");
 	  
 	  CreateDomainEx exD = new CreateDomainEx(con); 
 	  CreateTableEx exT = new CreateTableEx(con); 
@@ -45,14 +45,15 @@ public class buildDbMain
 //	  //database_methods.updateBookingPrice(con, 0);
 //	  database_methods.updateAllBookingPrices(con);
 	  
-	  insertEx.insertToGameHistory("Mio", "Signe", "3X3", "2016-11-26", "tie");
+	
 	  
 	  insertEx.insertPlayer("Adam");
 	  insertEx.insertPlayer("Mio");
 	  insertEx.insertPlayer("Iulia");
 	  insertEx.insertPlayer("Signe");
 	  insertEx.insertPlayer("Filip");
-	  
+	  insertEx.insertToGameHistory("Mio", "Signe", "3X3", "2016-11-26", "lost");
+	  insertEx.updateRanks();
 
    }
    
@@ -65,10 +66,9 @@ public class buildDbMain
    
    public static void createTables(CreateTableEx exT ) throws SQLException
    {
-	   //exT.createTable("PLAYER_INFO", new String[][]{{"login","VARCHAR NOT NULL"},{"model","VARCHAR NOT NULL"}}, new String[]{"pk:(login)"},false,false);
-	   //exT.createTable("SCORE_INFO",  new String[][]{{"ID", "INTEGER"},{"login","VARCHAR NOT NULL"},{"rank","INTEGER NOT NULL"},{"winloss_ratio","REAL"},{"wins","INTEGER"},{"losses","INTEGER"}}, new String[]{"pk:(ID)","fk:(login):rf:PLAYER_INFO(login)"}, true, true);
-	   //exT.createTable("RANK_INFO", new String[][]{{"ID", "INTEGER"},{"login","VARCHAR NOT NULL"},{"rank","INTEGER NOT NULL"}}, new String[]{"pk:(ID)","fk:(login):rf:PLAYER_INFO(login)"}, true,true);
-	   //exT.createTable("GAME_HISTORY", new String[][]{{"ID", "INTEGER"},{"player1","VARCHAR NOT NULL"},{"player2","VARCHAR NOT NULL"},{"date","DATE"},{"type","TYPE"}, {"result_player1","RESULT"}}, new String[]{"pk:(ID)"}, false, false);
+	   exT.createTable("PLAYER_INFO", new String[][]{{"login","VARCHAR NOT NULL"},{"model","VARCHAR NOT NULL"}}, new String[]{"pk:(login)"},false,false);
+	   exT.createTable("SCORE_INFO",  new String[][]{{"login","VARCHAR NOT NULL"},{"rank","INTEGER NOT NULL"},{"winloss_ratio","REAL"},{"wins","INTEGER"},{"losses","INTEGER"}}, new String[]{"pk:(login,rank)","fk:(login):rf:PLAYER_INFO(login)"}, true, true);
+	   exT.createTable("GAME_HISTORY", new String[][]{{"ID", "INTEGER"},{"player1","VARCHAR NOT NULL"},{"player2","VARCHAR NOT NULL"},{"date","DATE"},{"type","TYPE"}, {"result_player1","RESULT"}}, new String[]{"pk:(ID)"}, false, false);
    }
    
 //   public static void addSomeEmployee(Connection con) throws SQLException
@@ -84,5 +84,7 @@ public class buildDbMain
 //	   database_methods.updateAtribute(con, "booking", "booking_id", "amount_to_pay", "0", "3000");
 //	   
 //   }
+   
+   
    
 }
