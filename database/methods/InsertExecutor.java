@@ -16,16 +16,58 @@ public class InsertExecutor {
 	
 	public void insertToGameHistory(String player1, String player2, String type,String date, String result) throws SQLException{
 		String sql;
+		String sqlUpdate;
+		String sqlRetrivePlayers;
 		Statement st = connection.createStatement();
+		Statement stRetrive = connection.createStatement();
 		//INSERT INTO TABLE_NAME VALUES (value1,value2,value3,...valueN);
 		
 		
 		sql = "INSERT INTO Game_History VALUES(";
         sql += "(SELECT COUNT(*) FROM Game_History)"+",'"+player1 +"','" + player2 + "','" + date + "','" + type + "','" + result +"');";
-		System.out.println(sql);
-		
+        
+		if (result.equals("won")){
+			sqlRetrivePlayers = "SELECT login, wins, losses FROM score_info";
+			stRetrive = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			ResultSet rsRetrive = stRetrive.executeQuery(sqlRetrivePlayers);
+			
+	        while(rsRetrive.next()){
+	        	if(rsRetrive.getString("login").equalsIgnoreCase("player1")){
+	        		int wins=Integer.parseInt(rsRetrive.getString("wins"))+1;
+	        		int losses= Integer.parseInt(rsRetrive.getString("losses"));
+	        		double ratio= (double) wins/losses;
+	        		
+	        	}
+	        }
+		}
 		sqlMet.executeStatement(st, sql);
-	}
+	} 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public void insertPlayer(String login) throws SQLException{
 		String sqlRetrivePlayers, model;
