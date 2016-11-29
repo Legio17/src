@@ -117,26 +117,28 @@ public class Player {
 		this.y = y;
 	}
 	
-	/**
-	 * @param velX
-	 * handles changes for player in X position coordinate
-	 */
+	/*
+	
 	public void setVelX(double velX){
 		if (velX + this.velX > this.velX){player = player_right;} //use turn right sprite
 		else if(velX + this.velX == this.velX){} //keep last sprite used
 		else{player = player_left;} //use left sprite
 		this.velX = velX;
-	}
+	} 
 
-	/**
-	 * @param velY
-	 * handles changes for player in Y position coordinate
-	 */
+	
 	public void setVelY(double velY){
 		if (velY + this.velY > this.velY){player = player_down;} //use turn down sprite
 		else if(velY + this.velY == this.velY){} //keep last sprite used
 		else{player = player_up;} //use up sprite
 		this.velY = velY;
+	}
+	*/
+	public void moveX(double x){
+		this.x += x;
+	}
+	public void moveY(double y){
+		this.y += y;
 	}
 	
 	/**
