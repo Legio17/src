@@ -11,21 +11,24 @@ public class BroadcastToClients extends Thread {
 	int port = 0;
 	ConnectionList cl;
 	private DatagramPacket sendPacket;
-	private byte[] sendData;
 	private DatagramSocket serverSocket;
+	private ServerMain server;
 
 	public BroadcastToClients(ServerMain server) {
-		this.ipAddress = server.getIP();
-		this.port = server.getPort();
-		sendData = server.getData();
-		this.cl=server.getList();
+		serverSocket = server.getServerSocket();
+		this.server = server;
+		cl=server.getList();
 	}
 
 	public void run() {
 		while (true) {
+			
 			for (int i = 0; i < cl.size(); i++) {
-				sendPacket = new DatagramPacket(sendData, sendData.length,
-						ipAddress, port);
+				
+				sendPacket = new DatagramPacket(server.getData(), server.getData().length,
+						cl.getIP(i), cl.getPort(i));
+				System.out.println("send data"+new String(server.getData())+" "+ server.getData().length+" "+
+						cl.getIP(i)+" "+ cl.getPort(i));
 				try {
 					serverSocket.send(sendPacket);
 				} catch (IOException e) {

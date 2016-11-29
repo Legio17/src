@@ -2,14 +2,14 @@ package ca.main.game.network;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
-import java.util.List;
 
-import test2.ServerConnection;
+
 
 public class ConnectionList {
-	private ArrayList<Connection> conns = new ArrayList<>();
+	private ArrayList<Connection> conns;
 
 	public ConnectionList() {
+		conns = new ArrayList<>();
 	};
 
 	public void addConnection(Connection c) {

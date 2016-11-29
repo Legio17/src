@@ -35,11 +35,13 @@ public class ServerMain extends Thread{
 	public void run() {
 
 		while (true) {
-			receiveData = new byte[1024];
-			System.out.println("Ready to receive.");
+			receiveData = new byte[15];
+			
 			receivePacket = new DatagramPacket(receiveData, receiveData.length);
+			
 			try {
 				serverSocket.receive(receivePacket);
+				System.out.println("receiving data"+new String(receivePacket.getData()));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -67,6 +69,11 @@ public class ServerMain extends Thread{
 		return port;
 	}
 	
+	public DatagramSocket getServerSocket()
+	{
+		return serverSocket;
+	}
+	
 	public ConnectionList getList()
 	{
 		return cl;
@@ -75,16 +82,19 @@ public class ServerMain extends Thread{
 	private void createConn(byte[] sendData, InetAddress ipAddress, int port) {
 
 		boolean found = false;
-		for (int i = 0; i <= cl.size(); i++) {
+		
+		for (int i = 0; i < cl.size(); i++) {
 			if (ipAddress.equals(cl.getIP(i))) {
 				found = true;
 				break;
 			}
 		}
+		
 		if (!found) {
 			Connection newCon = new Connection(sendData, ipAddress, port);
 			cl.addConnection(newCon);
 		}
+		
 	}
 
 	public static void main(String[] args) {

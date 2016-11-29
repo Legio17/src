@@ -252,15 +252,19 @@ public class Game extends Canvas implements Runnable{
 		
 		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
 			player.moveX(5);
+			client.sendData(("x:"+player.getX()).getBytes());
 		}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
 			player.moveX(-5);
+			client.sendData(("x:"+player.getX()).getBytes());
 		}else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
 			player.moveY(5);
+			client.sendData(("y:"+player.getY()).getBytes());
 		}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
 			player.moveY(-5);
-			
+			client.sendData(("y:"+player.getY()).getBytes());
+		}
 		// Special actions
-		}else if(key == KeyEvent.VK_3){
+		else if(key == KeyEvent.VK_3){
 			player.ticTac15x15();
 			
 		}else if(key == KeyEvent.VK_E){
@@ -295,16 +299,16 @@ public class Game extends Canvas implements Runnable{
 		
 		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
 			player.moveX(0);
-			client.sendData(("x:"+player.getX()).getBytes());
+			
 		}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
 			player.moveX(0);
-			client.sendData(("x:"+player.getX()).getBytes());
+			
 		}else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
 			player.moveY(0);
-			client.sendData(("y:"+player.getY()).getBytes());
+			
 		}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
 			player.moveY(0);
-			client.sendData(("y:"+player.getY()).getBytes());
+			
 		}
 	}
 	
