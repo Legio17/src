@@ -65,34 +65,40 @@ public class ServerMain extends Thread {
 
 		}
 	}
-	
+
 	/**
-	 * The server will receive data from a client. This data needs to be send to all clients connected.
+	 * The server will receive data from a client. This data needs to be send to
+	 * all clients connected.
+	 * 
 	 * @return sendData the data that needs to be send to all clients
 	 */
 	public byte[] getData() {
 		return sendData;
 	}
-	
+
 	/**
 	 * @return serverSocket the datagram socket of the server
 	 */
 	public DatagramSocket getServerSocket() {
 		return serverSocket;
 	}
-	
+
 	/**
 	 * @return connections the list of connection objects
 	 */
 	public ConnectionList getConnectionList() {
 		return connections;
 	}
-	
+
 	/**
 	 * Create a new connection if the ipAddress is not already in the list
-	 * @param sendData the data the client is sending to the server
-	 * @param ipAddress the ipAddress of the client communicating with the server
+	 * 
+	 * @param sendData
+	 *            the data the client is sending to the server
+	 * @param ipAddress
+	 *            the ipAddress of the client communicating with the server
 	 * @param port
+	 *            the --------------------------------------
 	 */
 	private void createConn(byte[] sendData, InetAddress ipAddress, int port) {
 
@@ -113,15 +119,27 @@ public class ServerMain extends Thread {
 
 	}
 
+	/**
+	 * Boolean to unsure that the BroadcastToClients only broadcasts when the
+	 * server has received new data to not broadcast redundantly.
+	 * 
+	 * @return newData a boolean that should be true each time a new packet is received and false the rest of the time
+	 */
+	public boolean isNewData() {
+		return newData;
+	}
+
+	/**
+	 * Main method runs the thread for receiving data and the thread for
+	 * broadcasting the received data
+	 * ------------------------------------------------------------
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		ServerMain server = new ServerMain();
 		System.out.println("Server socket created.");
 		BroadcastToClients btc = new BroadcastToClients(server);
 		btc.start();
 		server.start();
-	}
-
-	public boolean isNewData() {
-		return newData;
 	}
 }
