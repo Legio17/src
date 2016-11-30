@@ -1,4 +1,4 @@
-package database.network.chatFromClass;
+package database.network.FilipchatFromClass;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

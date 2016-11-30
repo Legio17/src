@@ -1,4 +1,4 @@
-package database.network.chatFromClass;
+package database.network.FilipchatFromClass;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -22,7 +22,7 @@ public class ServerMain {
 			connectionSocket = welcomeSocket.accept();
 
 			ServerConnection c = new ServerConnection(connectionSocket,
-					messageBroadcast);
+					messageBroadcast, "name");
 			messageBroadcast.addConnection(c);
 			new Thread(c, "Communication").start();
 		}
