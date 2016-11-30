@@ -46,7 +46,7 @@ public class Client extends Thread {
 				e.printStackTrace();
 			}
 			String message = new String(packet.getData());
-			System.out.println(message);
+			//System.out.println(message);
 			String[] array = message.split(":");
 			double coordinate = Double.parseDouble(array[2]);
 

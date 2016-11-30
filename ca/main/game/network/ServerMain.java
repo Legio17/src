@@ -40,7 +40,7 @@ public class ServerMain extends Thread{
 			try {
 				serverSocket.receive(receivePacket);
 				newData = true;
-				System.out.println("receiving data"+new String(receivePacket.getData()));
+				//System.out.println("receiving data"+new String(receivePacket.getData()));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
