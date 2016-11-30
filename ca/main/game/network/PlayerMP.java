@@ -8,11 +8,18 @@ import ca.main.game.gfx.Player;
 
 public class PlayerMP extends Player{
 
-	public InetAddress ipAddress;
-	public int port;
+	private InetAddress ipAddress;
 	
 	public PlayerMP(double x, double y, Game game, int model_nr) {
 		super(x, y, game, model_nr);
-
 	}
+
+	public InetAddress getIpAddress() {
+		return ipAddress;
+	}
+
+	public void setIpAddress(InetAddress ipAddress) {
+		this.ipAddress = ipAddress;
+	}
+	
 }
