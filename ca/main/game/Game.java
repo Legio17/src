@@ -81,6 +81,7 @@ public class Game extends Canvas implements Runnable{
 		addKeyListener(new KeyInput(this));//add keyLister to main game
 		
 		player = new Player(100,100,this,"applejack");
+		otherPlayers = new OtherPlayersList();
 		
 		login = true;
 		
