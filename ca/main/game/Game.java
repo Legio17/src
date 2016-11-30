@@ -33,7 +33,7 @@ public class Game extends Canvas implements Runnable{
 	public final String TITLE = "java 2D game";
 	public static int buffering = 3;// it's not suggested to go over triple with buffering
 	
-
+	
 	private boolean running = false;
 	private Thread thread;
 	
@@ -65,6 +65,8 @@ public class Game extends Canvas implements Runnable{
 	private Client client;
 	
 	private String ipAddress="ipError";
+	
+	private int updateOnFifth;
 
 	
 	/**
@@ -86,6 +88,7 @@ public class Game extends Canvas implements Runnable{
 		otherPlayers = new OtherPlayersList();
 		
 		login = true;
+		updateOnFifth = 0;
 		
 		ranOnce = false;
 		displayScore = false;
@@ -178,9 +181,15 @@ public class Game extends Canvas implements Runnable{
 	 * game objects that requires update each time tick happens
 	 */
 	private void tick(){
+		updateOnFifth ++;
+		
+		if (updateOnFifth >= 5 && login == false){ //update every fifth tick
+			client.sendData((ipAddress+":x:"+player.getX()).getBytes());
+			client.sendData((ipAddress+":y:"+player.getY()).getBytes());
+			updateOnFifth = 0;
+		}
 		player.tick();//updates player position
-		client.sendData((ipAddress+":x:"+player.getX()).getBytes());
-		client.sendData((ipAddress+":y:"+player.getY()).getBytes());
+
 	}
 	
 	/**
