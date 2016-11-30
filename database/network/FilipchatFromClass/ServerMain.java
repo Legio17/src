@@ -22,7 +22,7 @@ public class ServerMain {
 			connectionSocket = welcomeSocket.accept();
 
 			ServerConnection c = new ServerConnection(connectionSocket,
-					messageBroadcast, "name");
+					messageBroadcast);
 			messageBroadcast.addConnection(c);
 			new Thread(c, "Communication").start();
 		}

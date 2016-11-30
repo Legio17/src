@@ -11,7 +11,6 @@ public class ServerConnection implements Runnable {
 	private Socket clientSocket;
 	private ObjectOutputStream outToClient;
 	private ObjectInputStream inFromClient;
-	private String name;
 	private MessageBroadcast mb;
 
 	public ServerConnection(Socket connectionSocket) {
@@ -25,10 +24,9 @@ public class ServerConnection implements Runnable {
 		}
 	}
 
-	public ServerConnection(Socket connectionSocket, MessageBroadcast mb,
-			String name) {
+	public ServerConnection(Socket connectionSocket, MessageBroadcast mb) {
 		try {
-			this.name = name;
+			
 			clientSocket = connectionSocket;
 			mb.setName(name);
 			this.mb = mb;
