@@ -12,7 +12,7 @@ public class PlayerMP extends Player{
 	private double x, y;
 	
 	public PlayerMP(Game game, String ipAddress) {
-		super(-5, -5, game, "applejack");
+		super(100, 100, game, "applejack");
 		this.ipAddress = ipAddress;
 	}
 
