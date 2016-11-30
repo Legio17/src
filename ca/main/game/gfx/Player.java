@@ -117,7 +117,7 @@ public class Player {
 		this.y = y;
 	}
 	
-	/*
+	
 	
 	public void setVelX(double velX){
 		if (velX + this.velX > this.velX){player = player_right;} //use turn right sprite
@@ -133,7 +133,7 @@ public class Player {
 		else{player = player_up;} //use up sprite
 		this.velY = velY;
 	}
-	*/
+	
 	public void moveX(double x){
 		this.x += x;
 	}

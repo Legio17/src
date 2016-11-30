@@ -115,7 +115,7 @@ public class Game extends Canvas implements Runnable{
 		thread.start();
 		
 		
-		client = new Client(this, "10.52.237.5", 1099);
+		client = new Client(this, "localhost", 1099);
 		client.start();
 	}
 	
@@ -181,14 +181,19 @@ public class Game extends Canvas implements Runnable{
 	 * game objects that requires update each time tick happens
 	 */
 	private void tick(){
-		updateOnFifth ++;
+		//updateOnFifth ++;
 		
-		if (updateOnFifth >= 5 && login == false){ //update every fifth tick
+		/*if (updateOnFifth >= 5 && login == false){ //update every fifth tick
 			client.sendData((ipAddress+":x:"+player.getX()).getBytes());
 			client.sendData((ipAddress+":y:"+player.getY()).getBytes());
 			updateOnFifth = 0;
+		}*/
+		
+		if (login == false){
+			client.sendData((ipAddress+":x:"+player.getX()).getBytes());
+			client.sendData((ipAddress+":y:"+player.getY()).getBytes());
+			player.tick();//updates player position
 		}
-		player.tick();//updates player position
 
 	}
 	
@@ -217,13 +222,12 @@ public class Game extends Canvas implements Runnable{
 		
 			map1.render(g, 94, 1); //94 - borders are already ignored in grab image
 			//player.render(g);
-			if(otherPlayers.size()>0)
-			{
+
 			for(int i=0;i<otherPlayers.size();i++)
 			{
 				otherPlayers.get(i).render(g);
 			}
-			}
+			
 			if (displayScore)scoreBoard.render(g);
 		}
 		/////////// end of drawing here! /////////////////////////////
@@ -285,16 +289,20 @@ public class Game extends Canvas implements Runnable{
 			
 			
 		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
-			player.moveX(5);
+			player.setVelX(5);
+			//player.moveX(5);
 			//client.sendData((ipAddress+":x:"+player.getX()).getBytes());
 		}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
-			player.moveX(-5);
+			player.setVelX(-5);;
+			//player.moveX(-5);
 			//client.sendData((ipAddress+":x:"+player.getX()).getBytes());
 		}else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
-			player.moveY(5);
+			player.setVelY(5);
+			//player.moveY(5);
 			//client.sendData((ipAddress+":y:"+player.getY()).getBytes());
 		}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
-			player.moveY(-5);
+			player.setVelY(-5);
+			//player.moveY(-5);
 			//client.sendData((ipAddress+":y:"+player.getY()).getBytes());
 		}
 		// Special actions
@@ -333,16 +341,20 @@ public class Game extends Canvas implements Runnable{
 		int key = e.getExtendedKeyCode();
 		
 		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
-			player.moveX(0);
+			player.setVelX(0);
+			//player.moveX(0);
 			//client.sendData((ipAddress+":x:"+player.getX()).getBytes());
 		}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
-			player.moveX(0);
+			player.setVelX(0);
+			//player.moveX(0);
 			//client.sendData((ipAddress+":x:"+player.getX()).getBytes());
 		}else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
-			player.moveY(0);
+			player.setVelY(0);
+			//player.moveY(0);
 			//client.sendData((ipAddress+":x:"+player.getX()).getBytes());
 		}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
-			player.moveY(0);
+			player.setVelY(0);
+			//player.moveY(0);
 			//client.sendData((ipAddress+":x:"+player.getX()).getBytes());
 		}
 	}
