@@ -117,6 +117,17 @@ public class Player {
 		this.y = y;
 	}
 	
+	public void setCoord(double x, double y){
+		this.x = x;
+		this.y = y;
+	}
+	
+	public void setCoord(double x, double y, String playerPos){
+		this.x = x;
+		this.y = y;
+		setPlayerPos(playerPos);
+	}
+	
 	
 	
 	public void setVelX(double velX){
@@ -173,8 +184,22 @@ public class Player {
 
 	public void ticTac15x15() {
 		if (player != player_sit) player = player_sit;
-		else player = player_down;
-		
-		
+		else player = player_down;	
+	}
+	
+	public void setPlayerPos(String playerPos){
+	     switch (playerPos) {
+         case "01":
+         case "02":player = player_down; break;
+         case "03":
+         case "04":player = player_left; break;
+         case "05":ticTac15x15(); break;
+         case "06":player = player_right; break;
+         case "07":
+         case "08":player = player_up; break;
+         case "09":
+         default:
+             throw new IllegalArgumentException("Invalid player position: " + playerPos);
+     }
 	}
 }

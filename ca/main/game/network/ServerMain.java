@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-
 import java.net.SocketException;
 
 /**
@@ -45,7 +44,7 @@ public class ServerMain extends Thread {
 	public void run() {
 		while (true) {
 			newData = false;
-			receiveData = new byte[25];
+			receiveData = new byte[35];
 
 			receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
@@ -57,11 +56,15 @@ public class ServerMain extends Thread {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			sendData = receivePacket.getData();
-			ipAddress = receivePacket.getAddress();
-			port = receivePacket.getPort();
+			String idetifier = UDPMethods.IndentifyDatagram(receivePacket);
 
-			createConn(sendData, ipAddress, port);
+			if (idetifier.equals("03")) {
+				sendData = receivePacket.getData();
+			} else if (idetifier.equals("00")) {
+				ipAddress = receivePacket.getAddress();
+				port = receivePacket.getPort();
+				createConnection(ipAddress, port);
+			}
 
 		}
 	}
@@ -103,8 +106,8 @@ public class ServerMain extends Thread {
 	private void createConn(byte[] sendData, InetAddress ipAddress, int port) {
 
 		boolean found = false;
-
 		for (int i = 0; i < connections.size(); i++) {
+
 			if (ipAddress.equals(connections.getIP(i))) {
 				found = true;
 				break;
@@ -119,11 +122,29 @@ public class ServerMain extends Thread {
 
 	}
 
+	public void createConnection(InetAddress ipAddress, int port) {
+		boolean found = false;
+
+		for (int i = 0; i < connections.size(); i++) {
+
+			if (ipAddress.equals(connections.getIP(i))) {
+				found = true;
+				break;
+			}
+		}
+		if (!found) {
+			Connection newCon = new Connection(ipAddress, port);
+			connections.addConnection(newCon);
+
+		}
+	}
+
 	/**
 	 * Boolean to unsure that the BroadcastToClients only broadcasts when the
 	 * server has received new data to not broadcast redundantly.
 	 * 
-	 * @return newData a boolean that should be true each time a new packet is received and false the rest of the time
+	 * @return newData a boolean that should be true each time a new packet is
+	 *         received and false the rest of the time
 	 */
 	public boolean isNewData() {
 		return newData;
@@ -133,6 +154,7 @@ public class ServerMain extends Thread {
 	 * Main method runs the thread for receiving data and the thread for
 	 * broadcasting the received data
 	 * ------------------------------------------------------------
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {

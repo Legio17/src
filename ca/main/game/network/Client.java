@@ -36,7 +36,7 @@ public class Client extends Thread {
 	public void run(){
 		
 		while(true){
-			byte[] data = new byte[25];
+			byte[] data = new byte[35];
 			DatagramPacket packet = new DatagramPacket(data, data.length);
 			
 			try {
@@ -48,41 +48,31 @@ public class Client extends Thread {
 			String message = new String(packet.getData());
 			
 			//System.out.println(message.substring(0, 2));
-			System.out.println(message);
+			//System.out.println(message);
 			String[] array = message.split(":");
-			double coordinate = Double.parseDouble(array[2]);
-
-			boolean found=false;
-			int index = 0;
-			for(int i=0; i<game.getOtherPlayers().size();i++)
-			{
-				if(array[0].equalsIgnoreCase(game.getOtherPlayers().get(i).getIpAddress()))
-				{
-					found=true;
-					index=i;
-					break;
-				}
-			}
-			if(!found)
-			{
-				game.getOtherPlayers().addOtherPlayer(new PlayerMP(game, array[0]));
-			}
 			
-			if (array[1].equalsIgnoreCase("x"))
-			{
-				game.getOtherPlayers().get(index).setX(coordinate);	
+			if (array[0].equals("03")){
+				movePlayer(array);
 			}
-			else if(array[1].equalsIgnoreCase("y"))
-			{
-				game.getOtherPlayers().get(index).setY(coordinate);
-			}
-			
 		}
 	}
 	
-	public void sendData(String data){
-		//String markedData = "03:" + data;
+	public void sendPlayerPos(String data){
+		data = "03:" + data;
 		DatagramPacket packet = new DatagramPacket(data.getBytes(), data.getBytes().length, ipAddress, port);
+	
+		
+		try {
+			socket.send(packet);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendLoginRequest(String data){
+		data = "00:" + data;
+		DatagramPacket packet = new DatagramPacket(data.getBytes(), data.getBytes().length, ipAddress, port);
+	
 		
 		try {
 			socket.send(packet);
@@ -96,5 +86,31 @@ public class Client extends Thread {
 		return name;
 	}
 	
+	public void movePlayer(String[] array){
+		
+		double coordinateX = Double.parseDouble(array[2]);
+		double coordinateY = Double.parseDouble(array[3]);
+		boolean found=false;
+		int index = 0;
+		for(int i=0; i<game.getOtherPlayers().size();i++)
+		{
+			if(array[1].equalsIgnoreCase(game.getOtherPlayers().get(i).getIpAddress()))
+			{
+				found=true;
+				index=i;
+				break;
+			}
+		}
+		if(!found)
+		{
+			game.getOtherPlayers().addOtherPlayer(new PlayerMP(game, array[1]));
+		}
+		
+		if (array[0].equals("03"))
+		{
+			game.getOtherPlayers().get(index).setCoord(coordinateX, coordinateY, array[4].substring(00, 02));
+		}
+		
+	}
 	
 }

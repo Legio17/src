@@ -44,6 +44,7 @@ public class Game extends Canvas implements Runnable{
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	
 	private Player player;
+	private String playerPose;
 	private OtherPlayersList otherPlayers;
 	private SpriteSheetLoader sprite_sheet_loader;
 	
@@ -87,6 +88,7 @@ public class Game extends Canvas implements Runnable{
 		addKeyListener(new KeyInput(this));//add keyLister to main game
 		
 		player = new Player(100,100,this,"applejack");
+		playerPose = "02";
 		otherPlayers = new OtherPlayersList();
 		
 		login = true;
@@ -117,10 +119,10 @@ public class Game extends Canvas implements Runnable{
 		thread.start();
 		
 		
-		client = new Client(this, "10.52.237.6", 1099);
+		client = new Client(this, "localhost", 1099);
 		client.start();
 		
-		dbClient.start();
+		//dbClient.start();
 	}
 	
 	
@@ -185,17 +187,9 @@ public class Game extends Canvas implements Runnable{
 	 * game objects that requires update each time tick happens
 	 */
 	private void tick(){
-		//updateOnFifth ++;
-		
-		/*if (updateOnFifth >= 5 && login == false){ //update every fifth tick
-			client.sendData((ipAddress+":x:"+player.getX()).getBytes());
-			client.sendData((ipAddress+":y:"+player.getY()).getBytes());
-			updateOnFifth = 0;
-		}*/
 		
 		if (login == false && displayGame == false){
-			client.sendData((ipAddress+":x:"+player.getX()));
-			client.sendData((ipAddress+":y:"+player.getY()));
+			client.sendPlayerPos((ipAddress+":"+player.getX()+":"+player.getY()+":"+playerPose));;
 			player.tick();//updates player position
 		}
 
@@ -257,7 +251,8 @@ public class Game extends Canvas implements Runnable{
 			if(key == KeyEvent.VK_ENTER){
 				login = false;
 				player.setPlayerName(fontLog.getNickName());
-				dbClient.sendName(player.getName());
+				//dbClient.sendName(player.getName());
+				client.sendLoginRequest(ipAddress);
 				System.out.println(player.getName());
 			} else{
 				String c = Character.toString((char)key);
@@ -295,24 +290,21 @@ public class Game extends Canvas implements Runnable{
 			
 		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
 			player.setVelX(5);
-			//player.moveX(5);
-			//client.sendData((ipAddress+":x:"+player.getX()).getBytes());
+			playerPose = "06";
 		}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
 			player.setVelX(-5);;
-			//player.moveX(-5);
-			//client.sendData((ipAddress+":x:"+player.getX()).getBytes());
+			playerPose = "04";
 		}else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
 			player.setVelY(5);
-			//player.moveY(5);
-			//client.sendData((ipAddress+":y:"+player.getY()).getBytes());
+			playerPose = "02";
 		}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
 			player.setVelY(-5);
-			//player.moveY(-5);
-			//client.sendData((ipAddress+":y:"+player.getY()).getBytes());
+			playerPose = "08";
 		}
 		// Special actions
-		else if(key == KeyEvent.VK_3){
+		else if(key == KeyEvent.VK_5){
 			player.ticTac15x15();
+			playerPose = "05";
 			
 		}else if(key == KeyEvent.VK_E){
 			if (!displayScore && !sthDisplayed){ 
@@ -347,20 +339,16 @@ public class Game extends Canvas implements Runnable{
 		
 		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
 			player.setVelX(0);
-			//player.moveX(0);
-			//client.sendData((ipAddress+":x:"+player.getX()).getBytes());
+
 		}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
 			player.setVelX(0);
-			//player.moveX(0);
-			//client.sendData((ipAddress+":x:"+player.getX()).getBytes());
+
 		}else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
 			player.setVelY(0);
-			//player.moveY(0);
-			//client.sendData((ipAddress+":x:"+player.getX()).getBytes());
+
 		}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
 			player.setVelY(0);
-			//player.moveY(0);
-			//client.sendData((ipAddress+":x:"+player.getX()).getBytes());
+
 		}
 	}
 	

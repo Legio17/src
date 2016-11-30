@@ -25,15 +25,18 @@ public class BroadcastToClients extends Thread {
 			if(server.isNewData()){
 				for (int i = 0; i < cl.size(); i++) {
 					
-					sendPacket = new DatagramPacket(server.getData(), server.getData().length,
-							cl.getIP(i), cl.getPort(i));
+					if (server.getData() != null){
+						sendPacket = new DatagramPacket(server.getData(), server.getData().length, cl.getIP(i), cl.getPort(i));
+						
+						try {
+							serverSocket.send(sendPacket);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+
 					/*System.out.println("send data"+new String(server.getData())+" "+ server.getData().length+" "+
 							cl.getIP(i)+" "+ cl.getPort(i));*/
-					try {
-						serverSocket.send(sendPacket);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
 			}
 				/*sendPacket = new DatagramPacket(ipAddress.toString().getBytes(), ipAddress.toString().getBytes().length,
 						cl.getIP(i), cl.getPort(i));

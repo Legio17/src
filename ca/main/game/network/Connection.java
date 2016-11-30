@@ -20,6 +20,11 @@ public class Connection {
 		}*/ 
 	}
 	
+	public Connection(InetAddress ipAddress, int port) {
+		this.port = port;
+		this.ipAddress = ipAddress;
+	}
+
 	public int getPort()
 	{
 		return port;
