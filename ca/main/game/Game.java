@@ -190,8 +190,8 @@ public class Game extends Canvas implements Runnable{
 		}*/
 		
 		if (login == false && displayGame == false){
-			client.sendData((ipAddress+":x:"+player.getX()).getBytes());
-			client.sendData((ipAddress+":y:"+player.getY()).getBytes());
+			client.sendData((ipAddress+":x:"+player.getX()));
+			client.sendData((ipAddress+":y:"+player.getY()));
 			player.tick();//updates player position
 		}
 
