@@ -115,7 +115,7 @@ public class Game extends Canvas implements Runnable{
 		thread.start();
 		
 		
-		client = new Client(this, "localhost", 1099);
+		client = new Client(this, "10.52.237.6", 1099);
 		client.start();
 	}
 	
@@ -124,7 +124,7 @@ public class Game extends Canvas implements Runnable{
 	 * 	stop game thread
 	 */
 	
-	/*public synchronized void stop(){
+	public synchronized void stop(){
 		if (!running) return; //if game is already dead ignore
 		
 		running = false;
@@ -135,7 +135,7 @@ public class Game extends Canvas implements Runnable{
 		}
 		System.exit(1);
 		
-	}*/
+	}
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Runnable#run()
@@ -174,7 +174,7 @@ public class Game extends Canvas implements Runnable{
 				frames= 0;
 			}
 		}
-		//stop();
+		stop();
 	}
 	
 	/**
@@ -189,7 +189,7 @@ public class Game extends Canvas implements Runnable{
 			updateOnFifth = 0;
 		}*/
 		
-		if (login == false){
+		if (login == false && displayGame == false){
 			client.sendData((ipAddress+":x:"+player.getX()).getBytes());
 			client.sendData((ipAddress+":y:"+player.getY()).getBytes());
 			player.tick();//updates player position
