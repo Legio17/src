@@ -24,10 +24,10 @@ public class dbServer {
 		
 		while(true){
 			Socket connectionSocket = welcomeSocket.accept();
-			BufferedReader inFromClient =
-			new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
+			BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 			DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
 			clientSentence = inFromClient.readLine();
+			
 			if (clientSentence.equals("heh")){
 				//System.out.println("what niggia");
 			}

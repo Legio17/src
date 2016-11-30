@@ -19,8 +19,6 @@ public class goofyServer {
 			}
 
 
-
-			
 			System.out.print("Sending string: '" + data + "'\n");
 
 			out.close();
