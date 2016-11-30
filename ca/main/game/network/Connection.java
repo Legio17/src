@@ -9,7 +9,7 @@ public class Connection {
 	private int port;
 	private byte[] data;
 
-	public Connection(byte[] data,InetAddress ipAddress, int port) {
+	public Connection(byte[] data, InetAddress ipAddress, int port) {
 		
 		this.port = port;
 		this.ipAddress = ipAddress;

@@ -1,18 +1,21 @@
-package database.network.chatFromClass;
+package ca.main.game.network.TCPClient;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import database.network.chatFromClass.ChatView;
+import database.network.chatFromClass.Message;
+
 public class ClientReceiver implements Runnable{
 	
 	private ObjectInputStream inFromServer;
-	private ChatView view;
+	private dbClient dbClient;
 	
-	public ClientReceiver(ObjectInputStream inFromServer,ChatView view)
+	public ClientReceiver(ObjectInputStream inFromServer,dbClient dbClient)
 	{
 		System.out.println("Created client receiver");
 		this.inFromServer=inFromServer;
-		this.view=view;
+		this.dbClient=dbClient;
 	}
 
 	@Override
@@ -20,8 +23,7 @@ public class ClientReceiver implements Runnable{
 		while(true){
 			try{
 			Message message= (Message) inFromServer.readObject();
-			System.out.println("Recceiver: "+ message);
-			view.updateMessages(message.getBody()+"\n");
+			System.out.println("Receiver: "+ message);
 			if(inFromServer==null){
 				System.out.println("inFromServer was null");
 				break;

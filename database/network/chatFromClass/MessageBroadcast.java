@@ -3,6 +3,8 @@ package database.network.chatFromClass;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.main.game.network.TCPServer.ServerConnection;
+
 public class MessageBroadcast {
 	private List<ServerConnection> conns= new ArrayList<>();
 	public MessageBroadcast(){}

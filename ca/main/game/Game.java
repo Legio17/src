@@ -24,6 +24,7 @@ import ca.main.game.network.Client;
 import ca.main.game.network.OtherPlayersList;
 import ca.main.game.network.PlayerMP;
 import ca.main.game.network.ServerMain;
+import ca.main.game.network.TCPClient.dbClient;
 
 public class Game extends Canvas implements Runnable{
 
@@ -63,6 +64,7 @@ public class Game extends Canvas implements Runnable{
 	private ticTacToe15x15 T;
 	
 	private Client client;
+	private dbClient dbClient;
 	
 	private String ipAddress="ipError";
 	
@@ -117,6 +119,8 @@ public class Game extends Canvas implements Runnable{
 		
 		client = new Client(this, "10.52.237.6", 1099);
 		client.start();
+		
+		dbClient.start();
 	}
 	
 	
@@ -253,6 +257,7 @@ public class Game extends Canvas implements Runnable{
 			if(key == KeyEvent.VK_ENTER){
 				login = false;
 				player.setPlayerName(fontLog.getNickName());
+				dbClient.sendName(player.getName());
 				System.out.println(player.getName());
 			} else{
 				String c = Character.toString((char)key);

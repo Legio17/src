@@ -10,32 +10,43 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+public class dbServer extends Thread {
 
+	private ServerSocket welcomeSocket;
+	private int port;
+	private dbClientList dbClientList;
 
-public class dbServer {
-
-	public static void main(String[] args) throws AlreadyBoundException, NotBoundException, IOException {
-		int port = 1099;
-
-		
-		String clientSentence;
-		String capitalizedSentence;
-		ServerSocket welcomeSocket = new ServerSocket(port);
-		
-		while(true){
-			Socket connectionSocket = welcomeSocket.accept();
-			BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-			DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
-			clientSentence = inFromClient.readLine();
-			
-			if (clientSentence.equals("heh")){
-				//System.out.println("what niggia");
-			}
-			//System.out.println("Received: " + clientSentence);
-			capitalizedSentence = clientSentence.toUpperCase() + '\n';
-			outToClient.writeBytes(capitalizedSentence);
-			}
+	public dbServer() {
+		port = 1098;
+		try {
+			welcomeSocket = new ServerSocket(port);
+			System.out.println("Server started");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
+	public void run() {
 
+		while (true) {
+			Socket connectionSocket;
+			try {
+				System.out.println("Waiting for a client");
+				connectionSocket = welcomeSocket.accept();
+							
+				ServerConnection c = new ServerConnection(connectionSocket,
+						dbClientList);
+				dbClientList.addConnection(c);
+				new Thread(c, ).start();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static void main(String[] args) throws AlreadyBoundException,
+			NotBoundException, IOException {
+
+	}
 }

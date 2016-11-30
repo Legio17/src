@@ -22,6 +22,5 @@ public class PlayerMP extends Player{
 
 	public void setIpAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
-	}
-	
+	}	
 }
