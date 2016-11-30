@@ -49,14 +49,32 @@ public class Client extends Thread {
 			System.out.println(message);
 			String[] array = message.split(":");
 			double coordinate = Double.parseDouble(array[1]);
+
+			boolean found=false;
+			int index=0;
+			for(int i=0; i<game.getOtherPlayers().size();i++)
+			{
+				if(array[0].equalsIgnoreCase(game.getOtherPlayers().get(i).getIpAddress()))
+				{
+					found=true;
+					index=i;
+					break;
+				}
+			}
+			if(!found)
+			{
+				game.getOtherPlayers().addOtherPlayer(new PlayerMP(game, array[0]));
+			}
+			
 			if (array[1].equalsIgnoreCase("x"))
 			{
-				game.getOtherPlayer().setX(coordinate);	
+				game.getOtherPlayers().get(index).setX(coordinate);	
 			}
 			else if(array[1].equalsIgnoreCase("y"))
 			{
-				game.getOtherPlayer().setY(coordinate);
+				game.getOtherPlayers().get(index).setY(coordinate);
 			}
+			
 		}
 	}
 	

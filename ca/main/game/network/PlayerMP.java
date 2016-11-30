@@ -8,17 +8,19 @@ import ca.main.game.gfx.Player;
 
 public class PlayerMP extends Player{
 
-	private InetAddress ipAddress;
+	private String ipAddress;
+	private double x, y;
 	
-	public PlayerMP(double x, double y, Game game, int model_nr) {
-		super(x, y, game, model_nr);
+	public PlayerMP(Game game, String ipAddress) {
+		super(-5, -5, game, "applejack");
+		this.ipAddress = ipAddress;
 	}
 
-	public InetAddress getIpAddress() {
+	public String getIpAddress() {
 		return ipAddress;
 	}
 
-	public void setIpAddress(InetAddress ipAddress) {
+	public void setIpAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
 	}
 	

@@ -21,6 +21,7 @@ import ca.main.game.gfx.level.Map;
 import ca.main.game.gfx.panels.Board;
 import ca.main.game.gfx.panels.BoardManager;
 import ca.main.game.network.Client;
+import ca.main.game.network.OtherPlayersList;
 import ca.main.game.network.PlayerMP;
 import ca.main.game.network.ServerMain;
 
@@ -42,7 +43,7 @@ public class Game extends Canvas implements Runnable{
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	
 	private Player player;
-	private PlayerMP otherPlayer;
+	private OtherPlayersList otherPlayers;
 	private SpriteSheetLoader sprite_sheet_loader;
 	
 	private Map map1;
@@ -200,6 +201,10 @@ public class Game extends Canvas implements Runnable{
 		
 			map1.render(g, 94, 1); //94 - borders are already ignored in grab image
 			player.render(g);
+			for(int i=0;i<otherPlayers.size();i++)
+			{
+				otherPlayers.get(i).render(g);
+			}
 			if (displayScore)scoreBoard.render(g);
 		}
 		/////////// end of drawing here! /////////////////////////////
@@ -355,9 +360,9 @@ public class Game extends Canvas implements Runnable{
 		return HEIGHT;
 	}
 	
-	public PlayerMP getOtherPlayer()
+	public OtherPlayersList getOtherPlayers()
 	{
-		return otherPlayer;
+		return otherPlayers;
 	}
 	
 	public Player getPlayer()

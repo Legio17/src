@@ -11,10 +11,18 @@ public class OtherPlayersList {
 		otherPlayers = new ArrayList<PlayerMP>();
 	}
 	
-	public void addOtherPlayers(PlayerMP otherPlayer)
+	public void addOtherPlayer(PlayerMP otherPlayer)
 	{
 		otherPlayers.add(otherPlayer);
 	}
 	
+	public int size()
+	{
+		return otherPlayers.size();
+	}
 	
+	public PlayerMP get(int i)
+	{
+		return otherPlayers.get(i);
+	}
 }
