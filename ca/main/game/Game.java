@@ -63,6 +63,8 @@ public class Game extends Canvas implements Runnable{
 	private ticTacToe15x15 T;
 	
 	private Client client;
+	
+	private String ipAddress="ipError";
 
 	
 	/**
@@ -92,7 +94,11 @@ public class Game extends Canvas implements Runnable{
 		
 		T = new ticTacToe15x15(this);
 		
-		
+		try {
+			ipAddress = InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	/**
@@ -173,8 +179,8 @@ public class Game extends Canvas implements Runnable{
 	 */
 	private void tick(){
 		player.tick();//updates player position
-		
-		
+		client.sendData((ipAddress+":x:"+player.getX()).getBytes());
+		client.sendData((ipAddress+":y:"+player.getY()).getBytes());
 	}
 	
 	/**
@@ -222,12 +228,12 @@ public class Game extends Canvas implements Runnable{
 	 * controls for player on key down(key pressed)
 	 */
 	public void keyPressed(KeyEvent e){
-		String ipAddress="ipError";
-		try {
+		//String ipAddress="ipError";
+		/*try {
 			ipAddress = InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e1) {
 			e1.printStackTrace();
-		}
+		}*/
 		int key = e.getExtendedKeyCode();
 		//================= Controls login ======================
 		if (login){
@@ -271,16 +277,16 @@ public class Game extends Canvas implements Runnable{
 			
 		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
 			player.moveX(5);
-			client.sendData((ipAddress+":x:"+player.getX()).getBytes());
+			//client.sendData((ipAddress+":x:"+player.getX()).getBytes());
 		}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
 			player.moveX(-5);
-			client.sendData((ipAddress+":x:"+player.getX()).getBytes());
+			//client.sendData((ipAddress+":x:"+player.getX()).getBytes());
 		}else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
 			player.moveY(5);
-			client.sendData((ipAddress+":y:"+player.getY()).getBytes());
+			//client.sendData((ipAddress+":y:"+player.getY()).getBytes());
 		}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
 			player.moveY(-5);
-			client.sendData((ipAddress+":y:"+player.getY()).getBytes());
+			//client.sendData((ipAddress+":y:"+player.getY()).getBytes());
 		}
 		// Special actions
 		else if(key == KeyEvent.VK_3){
@@ -314,26 +320,21 @@ public class Game extends Canvas implements Runnable{
 	 * * controls for player on key released
 	 */
 	public void keyReleased(KeyEvent e){
-		String ipAddress="ipError";
-		try {
-			ipAddress = InetAddress.getLocalHost().getHostAddress();
-		} catch (UnknownHostException e1) {
-			e1.printStackTrace();
-		}
+		
 		int key = e.getExtendedKeyCode();
 		
 		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
 			player.moveX(0);
-			client.sendData((ipAddress+":x:"+player.getX()).getBytes());
+			//client.sendData((ipAddress+":x:"+player.getX()).getBytes());
 		}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
 			player.moveX(0);
-			client.sendData((ipAddress+":x:"+player.getX()).getBytes());
+			//client.sendData((ipAddress+":x:"+player.getX()).getBytes());
 		}else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
 			player.moveY(0);
-			client.sendData((ipAddress+":x:"+player.getX()).getBytes());
+			//client.sendData((ipAddress+":x:"+player.getX()).getBytes());
 		}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
 			player.moveY(0);
-			client.sendData((ipAddress+":x:"+player.getX()).getBytes());
+			//client.sendData((ipAddress+":x:"+player.getX()).getBytes());
 		}
 	}
 	
