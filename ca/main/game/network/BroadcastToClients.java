@@ -17,7 +17,7 @@ public class BroadcastToClients extends Thread {
 	public BroadcastToClients(ServerMain server) {
 		serverSocket = server.getServerSocket();
 		this.server = server;
-		cl=server.getList();
+		cl=server.getConnectionList();
 	}
 
 	public void run() {

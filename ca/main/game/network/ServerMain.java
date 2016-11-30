@@ -23,7 +23,7 @@ public class ServerMain extends Thread {
 	private InetAddress ipAddress;
 	private int port;
 	private boolean newData;
-	private ConnectionList cl = new ConnectionList();
+	private ConnectionList connections = new ConnectionList();
 
 	/**
 	 * No-arg constructor initializing the datagram socket for sending and
@@ -65,29 +65,41 @@ public class ServerMain extends Thread {
 
 		}
 	}
-
+	
+	/**
+	 * The server will receive data from a client. This data needs to be send to all clients connected.
+	 * @return sendData the data that needs to be send to all clients
+	 */
 	public byte[] getData() {
 		return sendData;
 	}
-
-	public int getPort() {
-		return port;
-	}
-
+	
+	/**
+	 * @return serverSocket the datagram socket of the server
+	 */
 	public DatagramSocket getServerSocket() {
 		return serverSocket;
 	}
-
-	public ConnectionList getList() {
-		return cl;
+	
+	/**
+	 * @return connections the list of connection objects
+	 */
+	public ConnectionList getConnectionList() {
+		return connections;
 	}
-
+	
+	/**
+	 * Create a new connection if the ipAddress is not already in the list
+	 * @param sendData the data the client is sending to the server
+	 * @param ipAddress the ipAddress of the client communicating with the server
+	 * @param port
+	 */
 	private void createConn(byte[] sendData, InetAddress ipAddress, int port) {
 
 		boolean found = false;
 
-		for (int i = 0; i < cl.size(); i++) {
-			if (ipAddress.equals(cl.getIP(i))) {
+		for (int i = 0; i < connections.size(); i++) {
+			if (ipAddress.equals(connections.getIP(i))) {
 				found = true;
 				break;
 			}
@@ -95,7 +107,7 @@ public class ServerMain extends Thread {
 
 		if (!found) {
 			Connection newCon = new Connection(sendData, ipAddress, port);
-			cl.addConnection(newCon);
+			connections.addConnection(newCon);
 
 		}
 
