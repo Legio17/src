@@ -1,4 +1,4 @@
-package database.network;
+package ca.main.game.network.TCPClient;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
