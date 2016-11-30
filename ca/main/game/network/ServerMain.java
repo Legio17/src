@@ -11,7 +11,7 @@ import java.net.SocketException;
  * A class representing a server that receives data packets from a client or
  * send data packets to it
  * 
- * @author Filip Hudec, Signe Rasmussen, Peter Miodrag Veranic, Adam Szekely,
+ * @author Filip Hudec, Signe Rasmussen, Peter Miodrag Varanic, Adam Szekely,
  *         Ana Iulia Chifor
  *
  */
