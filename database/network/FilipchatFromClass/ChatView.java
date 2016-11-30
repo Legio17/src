@@ -52,7 +52,7 @@ public class ChatView extends JFrame implements ActionListener, KeyListener {
 			String existing = textAreaOutput.getText();
 			textAreaOutput.setText(existing + "Client> connected to server"+ "\n");
 
-			ClientReceiver r = new ClientReceiver(inFromServer, this);
+			ClientReceiver r = new ClientReceiver(inFromServer, this, "name");
 			new Thread(r, "Receiver").start();
 		} catch (IOException e) {
 			System.out.println("error!");

@@ -7,12 +7,14 @@ public class ClientReceiver implements Runnable{
 	
 	private ObjectInputStream inFromServer;
 	private ChatView view;
+	private String name;
 	
-	public ClientReceiver(ObjectInputStream inFromServer,ChatView view)
+	public ClientReceiver(ObjectInputStream inFromServer,ChatView view, String name)
 	{
 		System.out.println("Created client receiver");
 		this.inFromServer=inFromServer;
 		this.view=view;
+		this.name = name;
 	}
 
 	@Override

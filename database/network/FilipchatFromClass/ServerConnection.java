@@ -14,28 +14,20 @@ public class ServerConnection implements Runnable {
 	private MessageBroadcast mb;
 
 	public ServerConnection(Socket connectionSocket) {
-		try {
-			clientSocket = connectionSocket;
-			outToClient = new ObjectOutputStream(
-					connectionSocket.getOutputStream());
-			inFromClient = new ObjectInputStream(
-					connectionSocket.getInputStream());
-		} catch (IOException e) {
-		}
+		try{
+		clientSocket = connectionSocket;
+		outToClient = new ObjectOutputStream(connectionSocket.getOutputStream());
+		inFromClient = new ObjectInputStream(connectionSocket.getInputStream());}
+		catch(IOException e){}
 	}
 
 	public ServerConnection(Socket connectionSocket, MessageBroadcast mb) {
-		try {
-			
-			clientSocket = connectionSocket;
-			mb.setName(name);
-			this.mb = mb;
-			outToClient = new ObjectOutputStream(
-					connectionSocket.getOutputStream());
-			inFromClient = new ObjectInputStream(
-					connectionSocket.getInputStream());
-		} catch (IOException e) {
-		}
+		try{
+		clientSocket = connectionSocket;
+		this.mb=mb;
+		outToClient = new ObjectOutputStream(connectionSocket.getOutputStream());
+		inFromClient = new ObjectInputStream(connectionSocket.getInputStream());}
+		catch(IOException e){}
 	}
 
 	@Override
@@ -50,19 +42,14 @@ public class ServerConnection implements Runnable {
 				// Send reply to client.
 				Message replyMessage = new Message(message.getId(), message
 						.getBody().toUpperCase());
-
-				mb.getByName(name).outToClient.writeObject(replyMessage);
-
-				// System.out.println("Server reply: " + replyMessage);
-				// outToClient.writeObject(replyMessage);
+				for(int i=0; i<mb.getsize();i++){
+					mb.getConn(i).outToClient.writeObject(replyMessage);;
+				}
+				//System.out.println("Server reply: " + replyMessage);
+				//outToClient.writeObject(replyMessage);
 			} catch (IOException | ClassNotFoundException e) {
 			}
 		}
-
-	}
-
-	public String getName() {
-		return name;
 	}
 
 }
