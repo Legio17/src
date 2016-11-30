@@ -36,7 +36,7 @@ public class Client extends Thread {
 	public void run(){
 		
 		while(true){
-			byte[] data = new byte[4];
+			byte[] data = new byte[25];
 			DatagramPacket packet = new DatagramPacket(data, data.length);
 			
 			try {
@@ -48,7 +48,7 @@ public class Client extends Thread {
 			String message = new String(packet.getData());
 			System.out.println(message);
 			String[] array = message.split(":");
-			double coordinate = Double.parseDouble(array[1]);
+			double coordinate = Double.parseDouble(array[2]);
 
 			boolean found=false;
 			int index=0;
