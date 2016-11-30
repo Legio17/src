@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-
 import java.net.SocketException;
 
 
@@ -36,7 +35,6 @@ public class ServerMain extends Thread{
 			receiveData = new byte[25];
 			
 			receivePacket = new DatagramPacket(receiveData, receiveData.length);
-			
 			try {
 				serverSocket.receive(receivePacket);
 				newData = true;
@@ -45,6 +43,7 @@ public class ServerMain extends Thread{
 				e.printStackTrace();
 			}
 			sendData = receivePacket.getData();
+			
 			ipAddress = receivePacket.getAddress();
 			port = receivePacket.getPort();
 

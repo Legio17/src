@@ -46,12 +46,14 @@ public class Client extends Thread {
 				e.printStackTrace();
 			}
 			String message = new String(packet.getData());
-			//System.out.println(message);
+			
+			//System.out.println(message.substring(0, 2));
+			System.out.println(message);
 			String[] array = message.split(":");
 			double coordinate = Double.parseDouble(array[2]);
 
 			boolean found=false;
-			int index=0;
+			int index = 0;
 			for(int i=0; i<game.getOtherPlayers().size();i++)
 			{
 				if(array[0].equalsIgnoreCase(game.getOtherPlayers().get(i).getIpAddress()))
@@ -78,8 +80,9 @@ public class Client extends Thread {
 		}
 	}
 	
-	public void sendData(byte[] data){
-		DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, port);
+	public void sendData(String data){
+		//String markedData = "03:" + data;
+		DatagramPacket packet = new DatagramPacket(data.getBytes(), data.getBytes().length, ipAddress, port);
 		
 		try {
 			socket.send(packet);
