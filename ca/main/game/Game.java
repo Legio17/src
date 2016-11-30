@@ -201,9 +201,12 @@ public class Game extends Canvas implements Runnable{
 		
 			map1.render(g, 94, 1); //94 - borders are already ignored in grab image
 			player.render(g);
+			if(otherPlayers.size()>0)
+			{
 			for(int i=0;i<otherPlayers.size();i++)
 			{
 				otherPlayers.get(i).render(g);
+			}
 			}
 			if (displayScore)scoreBoard.render(g);
 		}
