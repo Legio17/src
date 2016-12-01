@@ -37,6 +37,9 @@ public class TicTacToe15x15 {
 	
 	private String[][] array;
 	
+	private String latestCol;
+	private String latestRow;
+	
 	private String player1;
 	private String player2;
 
@@ -148,8 +151,18 @@ public class TicTacToe15x15 {
 	public void mark(int col, int row){
 		if (array[col][row] == null){
 			array[col][row] = currentMark;
+			latestCol = "" + col;
+			latestRow = "" + row;
 			switchMark();
 		}
+	}
+
+	public String getLatestCol() {
+		return latestCol;
+	}
+
+	public String getLatestRow() {
+		return latestRow;
 	}
 
 	private void switchMark() {

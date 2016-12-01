@@ -61,6 +61,9 @@ public class Client extends Thread {
 			if (array[0].equals("05")) {
 				matchPlayers(array);
 			}
+			if(array[0].equals("06")){
+				ticTacToeMark(array);
+			}
 		}
 	}
 
@@ -90,6 +93,18 @@ public class Client extends Thread {
 
 	public void sendMatchPlayers(String data) {
 		data = "05:" + data + ":";
+		DatagramPacket packet = new DatagramPacket(data.getBytes(),
+				data.getBytes().length, ipAddress, port);
+
+		try {
+			socket.send(packet);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendTicToeToeMark(String data) {
+		data = "06:" + data + ":";
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
 				data.getBytes().length, ipAddress, port);
 
@@ -153,5 +168,11 @@ public class Client extends Thread {
 		if(game.getTicTacToeGameList().get(0).getPlayer1().equals(game.getPlayer().getName()) || game.getTicTacToeGameList().get(0).getPlayer2().equals(game.getPlayer().getName())){
 			game.setDisplayTicTacToe(true);
 		}
+	}
+	
+	private void ticTacToeMark(String[] array){
+		int col  = Integer.parseInt(array[1]);
+		int row  = Integer.parseInt(array[2]);
+		game.getTicTacToeGameList().get(0).mark(col, row);
 	}
 }
