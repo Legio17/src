@@ -89,7 +89,7 @@ public class Client extends Thread {
 	}
 	
 	public void sendMatchPlayers(String data){
-		data = "05:" + data;
+		data = "05:" + data + ":";
 		DatagramPacket packet = new DatagramPacket(data.getBytes(), data.getBytes().length, ipAddress, port);
 	
 		
@@ -150,6 +150,8 @@ public class Client extends Thread {
 	private void matchPlayers(String[] array){
 		String player2 = array[1];
 		game.getTicTacToeGameList().get(0).setPlayer2(player2);
+		System.out.println("Matching players....." + game.getTicTacToeGameList().get(0).getPlayer1() + " " + game.getTicTacToeGameList().get(0).getPlayer2());
+
 	}
 	
 }
