@@ -56,11 +56,11 @@ public class ServerMain extends Thread {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			String idetifier = UDPMethods.IndentifyDatagram(receivePacket);
+			String identifier = UDPMethods.IndentifyDatagram(receivePacket);
 
-			if (idetifier.equals("03")) {
+			if (identifier.equals("03")) {
 				sendData = receivePacket.getData();
-			} else if (idetifier.equals("00")) {
+			} else if (identifier.equals("00")) {
 				ipAddress = receivePacket.getAddress();
 				port = receivePacket.getPort();
 				createConnection(ipAddress, port);
