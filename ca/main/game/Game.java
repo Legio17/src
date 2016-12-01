@@ -313,7 +313,6 @@ public class Game extends Canvas implements Runnable{
 		else if(key == KeyEvent.VK_6){
 			playerPose = "05";
 			client.sendMatchPlayers((player.getName()));
-			System.out.println("Matching players....." + ticTacToeGameList.get(0).getPlayer1() + " " + ticTacToeGameList.get(0).getPlayer2());
 		}
 		else if(key == KeyEvent.VK_E){
 			if (!displayScore && !sthDisplayed){ 
