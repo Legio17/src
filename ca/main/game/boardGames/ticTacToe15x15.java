@@ -36,9 +36,12 @@ public class TicTacToe15x15 {
 	private String currentMark; 
 	
 	private String[][] array;
+	
+	private String player1;
+	private String player2;
 
 	public TicTacToe15x15(Game game, String player1) {
-
+		this.player1 = player1;
 		loader = new BufferImageLoader();
 		bm = game.getBoardManager();
 
@@ -139,10 +142,29 @@ public class TicTacToe15x15 {
 			//System.out.println(Count.isThereFive(5, array));
 		}
 	}
+	
+	public void mark(int col, int row){
+		if (array[col][row] == null){
+			array[col][row] = currentMark;
+			switchMark();
+		}
+	}
 
 	private void switchMark() {
 		if (currentMark.equals("X"))currentMark = "O";
 		else currentMark = "X";
+	}
+
+	public void setPlayer2(String player2) {
+		this.player2 = player2;
+	}
+
+	public String getPlayer1() {
+		return player1;
+	}
+	
+	public String getPlayer2() {
+		return player2;
 	}
 	
 	
