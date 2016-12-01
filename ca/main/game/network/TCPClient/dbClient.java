@@ -40,13 +40,17 @@ public class dbClient extends Thread {
 	}
 
 	public void run() {
+		
 		try {
 
 			// create input stream attached to the socket.
 			inFromServer = new ObjectInputStream(clientSocket.getInputStream());
-
+			System.out.println((String) inFromServer.readObject());
 		} catch (IOException e) {
 			System.out.println("error!");
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

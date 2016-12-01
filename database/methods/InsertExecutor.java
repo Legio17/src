@@ -52,8 +52,12 @@ public class InsertExecutor {
 	        		int wins=Integer.parseInt(rsRetrive.getString("wins"))+1;
 	        		int losses= Integer.parseInt(rsRetrive.getString("losses"));
 	        		double ratio;
-	        		if(wins==0 || losses==0){
-	        			ratio=1;
+	        		if(wins==0){
+	        			ratio=0;
+	        		}
+	        		else if(losses==0)
+	        		{
+	        			ratio = wins;
 	        		}
 	        		else {ratio= (double) wins/losses;}
 	        		sqlUpdate="UPDATE Score_info SET wins="+wins+" WHERE  login='"+player1+"'";
@@ -65,8 +69,12 @@ public class InsertExecutor {
 	        		int wins=Integer.parseInt(rsRetrive.getString("wins"));
 	        		int losses= Integer.parseInt(rsRetrive.getString("losses"))+1;
 	        		double ratio;
-	        		if(wins==0 || losses==0){
-	        			ratio=1;
+	        		if(wins==0){
+	        			ratio=0;
+	        		}
+	        		else if(losses==0)
+	        		{
+	        			ratio = wins;
 	        		}
 	        		else {ratio= (double) wins/losses;}
 	        		sqlUpdate="UPDATE Score_info SET wins="+losses+" WHERE  login='"+player2+"'";
@@ -89,8 +97,12 @@ public class InsertExecutor {
 	        		int wins=Integer.parseInt(rsRetrive.getString("wins"));
 	        		int losses= Integer.parseInt(rsRetrive.getString("losses"))+1;
 	        		double ratio;
-	        		if(wins==0 || losses==0){
-	        			ratio=1;
+	        		if(wins==0){
+	        			ratio=0;
+	        		}
+	        		else if(losses==0)
+	        		{
+	        			ratio = wins;
 	        		}
 	        		else {ratio= (double) wins/losses;}
 	        		sqlUpdate="UPDATE Score_info SET losses="+losses+" WHERE  login='"+player1+"'";
@@ -102,8 +114,12 @@ public class InsertExecutor {
 	        		int wins=Integer.parseInt(rsRetrive.getString("wins"))+1;
 	        		int losses= Integer.parseInt(rsRetrive.getString("losses"));
 	        		double ratio;
-	        		if(wins==0 || losses==0){
-	        			ratio=1;
+	        		if(wins==0){
+	        			ratio=0;
+	        		}
+	        		else if(losses==0)
+	        		{
+	        			ratio = wins;
 	        		}
 	        		else {ratio= (double) wins/losses;}
 	        		sqlUpdate="UPDATE Score_info SET wins="+wins+" WHERE  login='"+player2+"'";
@@ -160,8 +176,6 @@ public class InsertExecutor {
 			sqlUpdatePlayerRank="UPDATE Score_info SET rank="+rank+" WHERE login='"+rsRetrive.getString("login")+"'";;
 			rank++;
     		sqlMet.executeStatement(st, sqlUpdatePlayerRank);
-        	
-        }
-		
+        }		
 	}
 }

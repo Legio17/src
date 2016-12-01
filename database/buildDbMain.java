@@ -53,13 +53,13 @@ public class buildDbMain
 	  insertEx.insertPlayer("Signe");
 	  insertEx.insertPlayer("Filip");
 	  insertEx.insertToGameHistory("Mio", "Signe", "3X3", "2016-11-26", "lost");
+	  insertEx.insertToGameHistory("Adam", "Mio", "3X3", "2016-11-26", "lost");
 	  insertEx.updateRanks();
 
    }
    
    public static void createDomains(CreateDomainEx exD ) throws SQLException
    {
-
 	   exD.addNewDomain("TYPE","VARCHAR(3)","3X3",new String[]{"3X3","5X5"});
 	   exD.addNewDomain("RESULT", "VARCHAR","null", new String[]{"won","lost","tie"});	   
    }

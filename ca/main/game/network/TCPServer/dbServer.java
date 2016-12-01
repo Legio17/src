@@ -35,10 +35,10 @@ public class dbServer extends Thread {
 				System.out.println("Waiting for a client");
 				connectionSocket = welcomeSocket.accept();
 							
-				ServerConnection c = new ServerConnection(connectionSocket,
-						dbClientList);
+				ServerConnection c = new ServerConnection(connectionSocket,dbClientList);
 				dbClientList.addConnection(c);
-				new Thread(c, "Thread").start();
+				//new Thread(c, "Thread").start();
+				c.send();
 				
 			} catch (IOException e) {
 				e.printStackTrace();

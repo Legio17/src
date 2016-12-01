@@ -6,19 +6,22 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 import database.connection.connect;
 import database.methods.database_methods;
 import database.network.chatFromClass.Message;
 
 
-public class ServerConnection implements Runnable {
+public class ServerConnection {
 
 	private Socket clientSocket;
 	private ObjectOutputStream outToClient;
 	private ObjectInputStream inFromClient;
 	private dbClientList dbClientList;
 	private Connection con = null;
+	private String name;
+	
 
 	public ServerConnection(Socket connectionSocket) {
 		try{
@@ -45,45 +48,37 @@ public class ServerConnection implements Runnable {
 	
 	public String getPlayerName()
 	{
-		String temp="a";
-		try {
-			temp = (String) inFromClient.readObject();
-		} 
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-		catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
-		
-			return temp;
-		
+	return name;
 	}
 	
-	
+	public void setPlayerName(String name)
+	{
+		
+			this.name = name;	
+	}
 
-	@Override
-	public void run() {
-		while (true) {
+	public void send() {
+		//while (true) {
 			String name=null;
 			String info=null;
 			try {
 				
 				name = (String) inFromClient.readObject();
+				setPlayerName(name);
 			
 				info = database_methods.getInfoByName(con, name);
 				
-				System.out.println(info);
+				//System.out.println(info);
 				
 				// Send reply to client.
 			
 				for(int i=0; i<dbClientList.size();i++){
-					System.out.println(dbClientList.getConn(i).getPlayerName());----------------------------------
-					//if(dbClientList.getConn(i).getPlayerName().equalsIgnoreCase(name))
-					//{
+					
+					if(dbClientList.getPlayerName(i).equalsIgnoreCase(name))
+					{
 					dbClientList.getConn(i).outToClient.writeObject(info);
-					//}
+					break;
+					}
 				}
 				//System.out.println("Server reply: " + replyMessage);
 				//outToClient.writeObject(replyMessage);
@@ -91,6 +86,6 @@ public class ServerConnection implements Runnable {
 				e.printStackTrace();
 			}
 		}
-	}
+//	}
 
 }

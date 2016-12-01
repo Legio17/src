@@ -23,4 +23,9 @@ public class dbClientList {
 	public ServerConnection getConn(int index){
 		return conns.get(index);
 	}
+	
+	public String getPlayerName(int index)
+	{
+		return conns.get(index).getPlayerName();
+	}
 }

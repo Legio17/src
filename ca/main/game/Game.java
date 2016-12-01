@@ -123,7 +123,7 @@ public class Game extends Canvas implements Runnable{
 		thread.start();
 		
 		
-		client = new Client(this, "10.52.236.220", 1099);
+		client = new Client(this, "10.52.236.31", 1099);
 		client.start();
 	
 	}
@@ -326,6 +326,7 @@ public class Game extends Canvas implements Runnable{
 			else if (displayScore){
 				displayScore = false;
 				sthDisplayed = false;
+				dbClient.stop();
 			}
 			
 		}else if(key == KeyEvent.VK_Q){
