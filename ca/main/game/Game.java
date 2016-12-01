@@ -8,11 +8,12 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import ca.main.game.boardGames.ticTacToe15x15;
+import ca.main.game.boardGames.TicTacToe15x15;
 import ca.main.game.control.KeyInput;
 import ca.main.game.gfx.FontLoader;
 import ca.main.game.gfx.Player;
@@ -46,6 +47,8 @@ public class Game extends Canvas implements Runnable{
 	private Player player;
 	private String playerPose;
 	private OtherPlayersList otherPlayers;
+	private ArrayList<TicTacToe15x15> ticTacToeGameList;
+
 	private SpriteSheetLoader sprite_sheet_loader;
 	
 	private Map map1;
@@ -62,7 +65,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private boolean login;
 	
-	private ticTacToe15x15 T;
+//	private ticTacToe15x15 T;
 	
 	private Client client;
 	private dbClient dbClient;
@@ -90,6 +93,7 @@ public class Game extends Canvas implements Runnable{
 		player = new Player(100,100,this,"applejack");
 		playerPose = "02";
 		otherPlayers = new OtherPlayersList();
+		ticTacToeGameList = new ArrayList<>();
 		
 		login = true;
 		updateOnFifth = 0;
@@ -99,7 +103,7 @@ public class Game extends Canvas implements Runnable{
 		displayGame = false;
 		sthDisplayed = false;
 		
-		T = new ticTacToe15x15(this);
+		//T = new TicTacToe15x15(this);
 		
 		try {
 			ipAddress = InetAddress.getLocalHost().getHostAddress();
@@ -215,7 +219,7 @@ public class Game extends Canvas implements Runnable{
 			fancyBoard.render(g);	
 			fontLog.renderNick(g, 0, 170, 190, 45);
 		}else if(displayGame){
-			T.render(g);
+			ticTacToeGameList.get(0).render(g); //TODO new
 		}else{
 		
 			map1.render(g, 94, 1); //94 - borders are already ignored in grab image
@@ -263,15 +267,15 @@ public class Game extends Canvas implements Runnable{
 		//================= Controls Tic-Tac-Toe ================
 		}else if(displayGame){
 			if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
-				T.incPosX();
+				ticTacToeGameList.get(0).incPosX(); //TODO new
 			}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
-				T.decPosX();
+				ticTacToeGameList.get(0).decPosX();
 			}else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
-				T.incPosY();
+				ticTacToeGameList.get(0).incPosY();
 			}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
-				T.decPosY();
+				ticTacToeGameList.get(0).decPosY();
 			}else if(key == KeyEvent.VK_ENTER){
-				T.mark();
+				ticTacToeGameList.get(0).mark();
 			}else if(key == KeyEvent.VK_Q || key == KeyEvent.VK_ESCAPE){
 				if (!displayGame && !sthDisplayed){
 					displayGame = true;
@@ -305,8 +309,9 @@ public class Game extends Canvas implements Runnable{
 		else if(key == KeyEvent.VK_5){
 			player.ticTac15x15();
 			playerPose = "05";
-			
-		}else if(key == KeyEvent.VK_E){
+			client.sendSearchingForPlayer(player.getName());	
+		}
+		else if(key == KeyEvent.VK_E){
 			if (!displayScore && !sthDisplayed){ 
 				displayScore = true;
 				sthDisplayed = true;
@@ -390,6 +395,10 @@ public class Game extends Canvas implements Runnable{
 	public OtherPlayersList getOtherPlayers()
 	{
 		return otherPlayers;
+	}
+	
+	public ArrayList<TicTacToe15x15> getTicTacToeGameList() {
+		return ticTacToeGameList;
 	}
 	
 	public Player getPlayer()

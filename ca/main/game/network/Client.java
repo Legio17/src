@@ -9,6 +9,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import ca.main.game.Game;
+import ca.main.game.boardGames.TicTacToe15x15;
 
 public class Client extends Thread {
 
@@ -54,11 +55,29 @@ public class Client extends Thread {
 			if (array[0].equals("03")){
 				movePlayer(array);
 			}
+			if(array[0].equals("04")){
+				searchForPlayer(array);
+			}
+			if(array[0].equals("05")){
+				matchPlayers(array);
+			}
 		}
 	}
 	
 	public void sendPlayerPos(String data){
 		data = "03:" + data;
+		DatagramPacket packet = new DatagramPacket(data.getBytes(), data.getBytes().length, ipAddress, port);
+	
+		
+		try {
+			socket.send(packet);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendSearchingForPlayer(String data){
+		data = "04:" + data;
 		DatagramPacket packet = new DatagramPacket(data.getBytes(), data.getBytes().length, ipAddress, port);
 	
 		
@@ -86,7 +105,7 @@ public class Client extends Thread {
 		return name;
 	}
 	
-	public void movePlayer(String[] array){
+	private void movePlayer(String[] array){
 		
 		double coordinateX = Double.parseDouble(array[2]);
 		double coordinateY = Double.parseDouble(array[3]);
@@ -106,10 +125,17 @@ public class Client extends Thread {
 			game.getOtherPlayers().addOtherPlayer(new PlayerMP(game, array[1]));
 		}
 		
-		if (array[0].equals("03"))
-		{
-			game.getOtherPlayers().get(index).setCoord(coordinateX, coordinateY, array[4].substring(00, 02));
-		}
+		game.getOtherPlayers().get(index).setCoord(coordinateX, coordinateY, array[4].substring(00, 02));
+		
+	}
+	
+	private void searchForPlayer(String[] array){
+		String searchingPlayerName = array[1];
+		game.getTicTacToeGameList().add(new TicTacToe15x15(game, searchingPlayerName));
+		System.out.println("TicTacToe" + game.getTicTacToeGameList().get(0) !=null);
+	}
+
+	private void matchPlayers(String[] array){
 		
 	}
 	

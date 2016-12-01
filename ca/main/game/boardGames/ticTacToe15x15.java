@@ -9,7 +9,7 @@ import ca.main.game.gfx.BufferImageLoader;
 import ca.main.game.gfx.panels.Board;
 import ca.main.game.gfx.panels.BoardManager;
 
-public class ticTacToe15x15 {
+public class TicTacToe15x15 {
 
 	private BufferImageLoader loader;
 
@@ -37,7 +37,7 @@ public class ticTacToe15x15 {
 	
 	private String[][] array;
 
-	public ticTacToe15x15(Game game) {
+	public TicTacToe15x15(Game game, String player1) {
 
 		loader = new BufferImageLoader();
 		bm = game.getBoardManager();

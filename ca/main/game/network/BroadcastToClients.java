@@ -26,8 +26,7 @@ public class BroadcastToClients extends Thread {
 				for (int i = 0; i < cl.size(); i++) {
 					
 					if (server.getData() != null){
-						sendPacket = new DatagramPacket(server.getData(), server.getData().length, cl.getIP(i), cl.getPort(i));
-						
+						sendPacket = new DatagramPacket(server.getData(), server.getData().length, cl.getIP(i), cl.getPort(i));						
 						try {
 							serverSocket.send(sendPacket);
 						} catch (IOException e) {

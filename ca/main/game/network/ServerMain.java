@@ -58,9 +58,10 @@ public class ServerMain extends Thread {
 			}
 			String identifier = UDPMethods.IndentifyDatagram(receivePacket);
 
-			if (identifier.equals("03")) {
+			if (identifier.equals("03")|| identifier.equals("04")) {
 				sendData = receivePacket.getData();
-			} else if (identifier.equals("00")) {
+			} 
+			else if (identifier.equals("00")) {
 				ipAddress = receivePacket.getAddress();
 				port = receivePacket.getPort();
 				createConnection(ipAddress, port);
@@ -103,25 +104,6 @@ public class ServerMain extends Thread {
 	 * @param port
 	 *            the --------------------------------------
 	 */
-	private void createConn(byte[] sendData, InetAddress ipAddress, int port) {
-
-		boolean found = false;
-		for (int i = 0; i < connections.size(); i++) {
-
-			if (ipAddress.equals(connections.getIP(i))) {
-				found = true;
-				break;
-			}
-		}
-
-		if (!found) {
-			Connection newCon = new Connection(sendData, ipAddress, port);
-			connections.addConnection(newCon);
-
-		}
-
-	}
-
 	public void createConnection(InetAddress ipAddress, int port) {
 		boolean found = false;
 
