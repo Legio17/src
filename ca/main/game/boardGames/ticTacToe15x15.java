@@ -148,7 +148,7 @@ public class TicTacToe15x15 {
 		}
 	}
 	
-	public void sendtMark(int col, int row){
+	public void sendMark(int col, int row){
 		if (array[col][row] == null){
 			latestCol = "" + col;
 			latestRow = "" + row;
