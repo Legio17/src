@@ -20,6 +20,7 @@ public class dbServer extends Thread {
 		port = 1098;
 		try {
 			welcomeSocket = new ServerSocket(port);
+			dbClientList = new dbClientList();
 			System.out.println("Server started");
 		} catch (IOException e) {
 			e.printStackTrace();

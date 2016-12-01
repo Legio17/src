@@ -69,21 +69,24 @@ public class ServerConnection implements Runnable {
 			String name=null;
 			String info=null;
 			try {
+				
 				name = (String) inFromClient.readObject();
+			
 				info = database_methods.getInfoByName(con, name);
+				
 				System.out.println(info);
-				/*// read message from client.
-				Message message = (Message) inFromClient.readObject();
-				System.out.println("Message from Client: " + message);
 				
 				// Send reply to client.
-				Message replyMessage = new Message(message.getId(), message
-						.getBody().toUpperCase());
+			
 				for(int i=0; i<dbClientList.size();i++){
-					dbClientList.getConn(i).outToClient.writeObject(replyMessage);;
+					System.out.println(dbClientList.getConn(i).getPlayerName());----------------------------------
+					//if(dbClientList.getConn(i).getPlayerName().equalsIgnoreCase(name))
+					//{
+					dbClientList.getConn(i).outToClient.writeObject(info);
+					//}
 				}
 				//System.out.println("Server reply: " + replyMessage);
-				//outToClient.writeObject(replyMessage);*/
+				//outToClient.writeObject(replyMessage);
 			} catch (IOException | ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}

@@ -167,7 +167,7 @@ public class database_methods {
 		ResultSet rsScoreInfo = stScoreInfo.executeQuery(sqlScoreInfo);
 
 		while (rsScoreInfo.next()) {
-			if (name.equals(rsScoreInfo.getString("player1"))) {
+			if (name.equalsIgnoreCase(rsScoreInfo.getString("player1"))) {
 				info = rsScoreInfo.getString("player1") + ", "
 						+ rsScoreInfo.getString("player2") + ", "
 						+ rsScoreInfo.getString("date") + ", "
