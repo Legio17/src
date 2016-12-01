@@ -77,7 +77,7 @@ public class Client extends Thread {
 	}
 	
 	public void sendSearchingForPlayer(String data){
-		data = "04:" + data;
+		data = "04:" + data + ":";
 		DatagramPacket packet = new DatagramPacket(data.getBytes(), data.getBytes().length, ipAddress, port);
 	
 		
