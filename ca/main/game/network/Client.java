@@ -174,6 +174,7 @@ public class Client extends Thread {
 	private void ticTacToeMark(String[] array){
 		int col  = Integer.parseInt(array[1]);
 		int row  = Integer.parseInt(array[2]);
+		System.out.println(col + " " +row);
 		game.getTicTacToeGameList().get(0).mark(col, row);
 	}
 }

@@ -57,8 +57,8 @@ public class ServerMain extends Thread {
 				e.printStackTrace();
 			}
 			String identifier = UDPMethods.IndentifyDatagram(receivePacket);
-
-			if (identifier.equals("03")|| identifier.equals("04") || identifier.equals("05")) {
+			
+			if (identifier.equals("03")|| identifier.equals("04") || identifier.equals("05") || identifier.equals("06")) {
 				sendData = receivePacket.getData();
 			} 
 			else if (identifier.equals("00")) {
