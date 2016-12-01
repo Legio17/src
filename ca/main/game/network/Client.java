@@ -172,6 +172,7 @@ public class Client extends Thread {
 	}
 	
 	private void ticTacToeMark(String[] array){
+		System.out.println(array[0] + " " + array[1] + " " + array[2]);
 		int col  = Integer.parseInt(array[1]);
 		int row  = Integer.parseInt(array[2]);
 		System.out.println(col + " " +row);
