@@ -125,12 +125,7 @@ public class Game extends Canvas implements Runnable{
 		
 		client = new Client(this, "localhost", 1099);
 		client.start();
-		
-<<<<<<< HEAD
-		
-=======
-		//dbClient.start();
->>>>>>> origin/master
+	
 	}
 	
 	
