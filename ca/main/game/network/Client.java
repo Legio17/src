@@ -88,6 +88,18 @@ public class Client extends Thread {
 		}
 	}
 	
+	public void sendMatchPlayers(String data){
+		data = "05:" + data;
+		DatagramPacket packet = new DatagramPacket(data.getBytes(), data.getBytes().length, ipAddress, port);
+	
+		
+		try {
+			socket.send(packet);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void sendLoginRequest(String data){
 		data = "00:" + data;
 		DatagramPacket packet = new DatagramPacket(data.getBytes(), data.getBytes().length, ipAddress, port);
@@ -130,13 +142,14 @@ public class Client extends Thread {
 	}
 	
 	private void searchForPlayer(String[] array){
-		String searchingPlayerName = array[1];
-		game.getTicTacToeGameList().add(new TicTacToe15x15(game, searchingPlayerName));
+		String player1 = array[1];
+		game.getTicTacToeGameList().add(new TicTacToe15x15(game, player1));
 		System.out.println("TicTacToe" + game.getTicTacToeGameList().get(0) !=null);
 	}
 
 	private void matchPlayers(String[] array){
-		
+		String player2 = array[1];
+		game.getTicTacToeGameList().get(0).setPlayer2(player2);
 	}
 	
 }

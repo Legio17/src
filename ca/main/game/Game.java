@@ -255,7 +255,7 @@ public class Game extends Canvas implements Runnable{
 			if(key == KeyEvent.VK_ENTER){
 				login = false;
 				player.setPlayerName(fontLog.getNickName());
-				dbClient.sendName(player.getName());
+				//dbClient.sendName(player.getName());
 				client.sendLoginRequest(ipAddress);
 				System.out.println(player.getName());
 			} else{
@@ -310,6 +310,11 @@ public class Game extends Canvas implements Runnable{
 			player.ticTac15x15();
 			playerPose = "05";
 			client.sendSearchingForPlayer(player.getName());	
+		}
+		else if(key == KeyEvent.VK_6){
+			playerPose = "05";
+			client.sendMatchPlayers((player.getName()));
+			System.out.println("Matching players....." + ticTacToeGameList.get(0).getPlayer1() + " " + ticTacToeGameList.get(0).getPlayer2());
 		}
 		else if(key == KeyEvent.VK_E){
 			if (!displayScore && !sthDisplayed){ 
