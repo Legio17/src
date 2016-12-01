@@ -148,13 +148,15 @@ public class TicTacToe15x15 {
 		}
 	}
 	
-	public void mark(int col, int row){
+	public void sendtMark(int col, int row){
 		if (array[col][row] == null){
-			array[col][row] = currentMark;
 			latestCol = "" + col;
 			latestRow = "" + row;
-			switchMark();
 		}
+	}
+	
+	public void mark(int col, int row){
+			array[col][row] = currentMark;
 	}
 
 	public String getLatestCol() {
