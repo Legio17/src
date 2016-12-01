@@ -37,7 +37,7 @@ public class dbServer extends Thread {
 				ServerConnection c = new ServerConnection(connectionSocket,
 						dbClientList);
 				dbClientList.addConnection(c);
-				new Thread(c, ).start();
+				new Thread(c, "Thread").start();
 				
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -47,6 +47,7 @@ public class dbServer extends Thread {
 
 	public static void main(String[] args) throws AlreadyBoundException,
 			NotBoundException, IOException {
-
+		dbServer dbServer = new dbServer();
+		dbServer.start();
 	}
 }

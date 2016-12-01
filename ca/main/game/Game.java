@@ -255,7 +255,7 @@ public class Game extends Canvas implements Runnable{
 			if(key == KeyEvent.VK_ENTER){
 				login = false;
 				player.setPlayerName(fontLog.getNickName());
-				dbClient.sendName(player.getName());
+				
 				client.sendLoginRequest(ipAddress);
 				System.out.println(player.getName());
 			} else{
@@ -313,6 +313,7 @@ public class Game extends Canvas implements Runnable{
 		}
 		else if(key == KeyEvent.VK_E){
 			if (!displayScore && !sthDisplayed){ 
+				dbClient.sendName(player.getName());
 				displayScore = true;
 				sthDisplayed = true;
 			}

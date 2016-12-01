@@ -11,26 +11,24 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 
 import ca.main.game.Game;
+import ca.main.game.network.TCPServer.dbServer;
 
-public class dbClient extends Thread{
-	
+public class dbClient extends Thread {
 
 	final int PORT = 1098;
-	final String HOST = "localhost";
+	final String HOST = "10.52.236.31";
 	Socket clientSocket;
 	ObjectOutputStream outToServer;
 	ObjectInputStream inFromServer;
 	String name;
 	private Game game;
-	
-	public dbClient(String name, Game game)
-	{
+
+	public dbClient(String name, Game game) {
 		this.name = name;
-		this.game=game;
+		this.game = game;
 	}
-	
-	public void run()
-	{
+
+	public void run() {
 		try {
 			// create client socket, connect to server.
 			clientSocket = new Socket(HOST, PORT);
@@ -40,17 +38,13 @@ public class dbClient extends Thread{
 			// create input stream attached to the socket.
 			inFromServer = new ObjectInputStream(clientSocket.getInputStream());
 
-			ClientReceiver r = new ClientReceiver(inFromServer, this);
-			new Thread(r, "Receiver").start();
-			
 		} catch (IOException e) {
 			System.out.println("error!");
 			e.printStackTrace();
 		}
 	}
-	
-	public void sendName(String name)
-	{
+
+	public void sendName(String name) {
 		try {
 			outToServer.writeBytes(name);
 		} catch (IOException e) {
