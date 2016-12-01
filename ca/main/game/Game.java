@@ -123,7 +123,7 @@ public class Game extends Canvas implements Runnable{
 		thread.start();
 		
 		
-		client = new Client(this, "localhost", 1099);
+		client = new Client(this, "10.52.236.220", 1099);
 		client.start();
 	
 	}
@@ -433,5 +433,10 @@ public class Game extends Canvas implements Runnable{
 		frame.setVisible(true);
 		
 		game.start();//call on game to start
+	}
+
+	public void setDisplayTicTacToe(boolean b) {
+		displayGame = true;
+		
 	}
 }

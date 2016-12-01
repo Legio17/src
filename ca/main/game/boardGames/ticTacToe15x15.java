@@ -41,6 +41,8 @@ public class TicTacToe15x15 {
 	private String player2;
 
 	public TicTacToe15x15(Game game, String player1) {
+		game.getPlayer().getName();
+		
 		this.player1 = player1;
 		loader = new BufferImageLoader();
 		bm = game.getBoardManager();

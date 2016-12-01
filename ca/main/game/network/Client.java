@@ -151,6 +151,7 @@ public class Client extends Thread {
 		String player2 = array[1];
 		game.getTicTacToeGameList().get(0).setPlayer2(player2);
 		System.out.println("Matching players....." + game.getTicTacToeGameList().get(0).getPlayer1() + " " + game.getTicTacToeGameList().get(0).getPlayer2());
+		game.setDisplayTicTacToe(true);
 
 	}
 	
