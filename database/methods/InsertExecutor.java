@@ -148,8 +148,8 @@ public class InsertExecutor {
 		
         while(rsRetrive.next()){
 
-        	if (rsRetrive.getString("login").equals(login)){
-        		
+        	if (rsRetrive.getString("login").equalsIgnoreCase(login)){
+        		System.out.println("already exists");
         		return;
         	}
         }

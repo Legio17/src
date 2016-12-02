@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import database.connection.connect;
+import database.methods.InsertExecutor;
 import database.methods.database_methods;
 import database.network.chatFromClass.Message;
 
@@ -22,6 +23,7 @@ public class ServerConnection {
 	private Connection con = null;
 	private String name;
 	private String data;
+	private InsertExecutor ie;
 	String[] array;
 
 	public ServerConnection(Socket connectionSocket,
@@ -30,6 +32,7 @@ public class ServerConnection {
 			con = connect.PostgreSQLJDBC("SEP2_data", "peter28mio07");
 			clientSocket = connectionSocket;
 			this.dbClientList = dbClientList;
+			this.ie = new InsertExecutor(con);
 			outToClient = new ObjectOutputStream(
 					connectionSocket.getOutputStream());
 			inFromClient = new ObjectInputStream(
@@ -54,6 +57,7 @@ public class ServerConnection {
 	public void check() {
 		try {
 			data = (String) inFromClient.readObject();
+			System.out.println("data: "+data);
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
@@ -61,13 +65,20 @@ public class ServerConnection {
 			array = data.split(":");
 			if (array[0].equals("00")) {
 				updateDB();
-			} else {
-				send();
-			}
+			} 
+		}
+		else {
+			send();
 		}
 	}
 
 	public void updateDB() {
+		
+		try {
+			ie.insertPlayer(array[1]);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		System.out.println(array[1]);
 	}
 

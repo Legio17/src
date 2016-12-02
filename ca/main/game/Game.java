@@ -123,7 +123,7 @@ public class Game extends Canvas implements Runnable{
 		thread.start();
 		
 		//"10.52.236.247"
-		client = new Client(this, "10.52.236.247", 1099);
+		client = new Client(this, "10.52.236.200", 1099);
 		client.start();
 	
 	}
@@ -254,7 +254,7 @@ public class Game extends Canvas implements Runnable{
 			if(key == KeyEvent.VK_ENTER){
 				login = false;
 				player.setPlayerName(fontLog.getNickName());
-				//dbClient.sendName(player.getName());
+				dbClient = new dbClient("client", this, "10.52.236.200", 1098);
 				client.sendLoginRequest(ipAddress);
 				dbClient.sendName("00"+player.getName());
 				System.out.println(player.getName());
@@ -318,7 +318,7 @@ public class Game extends Canvas implements Runnable{
 		}
 		else if(key == KeyEvent.VK_E){
 			if (!displayScore && !sthDisplayed){ 
-				dbClient = new dbClient("client", this, "10.52.236.31", 1098);
+				dbClient = new dbClient("client", this, "10.52.236.200", 1098);
 				dbClient.start();
 				dbClient.sendName(player.getName());
 				displayScore = true;
