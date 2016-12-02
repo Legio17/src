@@ -105,7 +105,7 @@ public class Client extends Thread {
 	
 	public void sendTicToeToeMark(String data) {
 		data = "06:" + data + ":";
-		System.out.println(data);
+		System.out.println("Client sending mark position: "+data);
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
 				data.getBytes().length, ipAddress, port);
 
@@ -173,7 +173,7 @@ public class Client extends Thread {
 	}
 	
 	private void ticTacToeMark(String[] array){
-		System.out.println(array[0] + " " + array[1] + " " + array[2]);
+		System.out.println("Client recieving mark info: "+ array[0] + " " + array[1] + " " + array[2]);
 		int col  = Integer.parseInt(array[1]);
 		int row  = Integer.parseInt(array[2]);
 		System.out.println(col + " " +row);
