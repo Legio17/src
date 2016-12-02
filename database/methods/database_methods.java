@@ -126,7 +126,7 @@ public class database_methods {
 	 */
 	public static String getInfoByName(Connection connection, String name)
 			throws SQLException {
-		String sqlGameHistory;
+		/*String sqlGameHistory;
 		Statement stGameHistory = null;
 		String info = "";
 
@@ -134,7 +134,7 @@ public class database_methods {
 
 		stGameHistory = connection.createStatement(
 				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-		ResultSet rsGameHistory = stGameHistory.executeQuery(sqlGameHistory);
+		ResultSet rsGameHistory = stGameHistory.executeQuery(sqlGameHistory);*/
 		
 		String sqlScoreInfo;
 		Statement stScoreInfo = null;
@@ -146,7 +146,7 @@ public class database_methods {
 				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rsScoreInfo = stScoreInfo.executeQuery(sqlScoreInfo);
 
-		while (rsGameHistory.next()) {
+		/*while (rsGameHistory.next()) {
 			if (name.equalsIgnoreCase(rsGameHistory.getString("player1"))) {
 				info = rsGameHistory.getString("player1") + ", "
 						+ rsGameHistory.getString("player2") + ", "
@@ -155,7 +155,7 @@ public class database_methods {
 						+ rsGameHistory.getString("result_player1");
 				break;
 			}
-		}
+		}*/
 		
 		while (rsScoreInfo.next()) {
 			if (name.equalsIgnoreCase(rsScoreInfo.getString("login"))) {
@@ -166,7 +166,7 @@ public class database_methods {
 				break;
 			}
 		}
-		return info+", "+info2;
+		return info2;
 	}
 	/*
 	 * public static double getPriceByHouseName(Connection con, String
