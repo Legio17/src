@@ -14,13 +14,14 @@ public class dbServer extends Thread {
 
 	private ServerSocket welcomeSocket;
 	private int port;
-	private dbClientList dbClientList;
+	private dbClientList<ServerConnection> dbClientList;
+	private static ServerConnection c;
 
 	public dbServer() {
 		port = 1098;
 		try {
 			welcomeSocket = new ServerSocket(port);
-			dbClientList = new dbClientList();
+			dbClientList = new dbClientList<ServerConnection>();
 			System.out.println("Server started");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -35,8 +36,10 @@ public class dbServer extends Thread {
 				System.out.println("Waiting for a client");
 				connectionSocket = welcomeSocket.accept();
 							
-				ServerConnection c = new ServerConnection(connectionSocket,dbClientList);
-				dbClientList.addConnection(c);
+				c = new ServerConnection(connectionSocket, dbClientList);
+				System.out.println("Result1: "+c);
+				dbClientList.add(c);
+				System.out.println(dbClientList.size());
 				//new Thread(c, "Thread").start();
 				c.send();
 				
@@ -45,7 +48,10 @@ public class dbServer extends Thread {
 			}
 		}
 	}
-
+public static ServerConnection getC()
+{
+	return c;
+}
 	public static void main(String[] args) throws AlreadyBoundException,
 			NotBoundException, IOException {
 		dbServer dbServer = new dbServer();

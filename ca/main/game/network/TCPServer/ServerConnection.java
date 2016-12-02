@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Iterator;
 
 import database.connection.connect;
 import database.methods.database_methods;
@@ -18,24 +19,17 @@ public class ServerConnection {
 	private Socket clientSocket;
 	private ObjectOutputStream outToClient;
 	private ObjectInputStream inFromClient;
-	private dbClientList dbClientList;
+	private dbClientList<ServerConnection> dbClientList;
 	private Connection con = null;
 	private String name;
-	
 
-	public ServerConnection(Socket connectionSocket) {
-		try{
-		clientSocket = connectionSocket;
-		outToClient = new ObjectOutputStream(connectionSocket.getOutputStream());
-		inFromClient = new ObjectInputStream(connectionSocket.getInputStream());}
-		catch(IOException e){}
-	}
 
-	public ServerConnection(Socket connectionSocket, dbClientList dbClientList) {
+
+	public ServerConnection(Socket connectionSocket, dbClientList<ServerConnection> dbClientList) {
 		try{
 		con = connect.PostgreSQLJDBC("SEP2_data", "peter28mio07");
 		clientSocket = connectionSocket;
-		this.dbClientList= dbClientList;
+		this.dbClientList = dbClientList;
 		outToClient = new ObjectOutputStream(connectionSocket.getOutputStream());
 		inFromClient = new ObjectInputStream(connectionSocket.getInputStream());}
 		catch(IOException e){} 
@@ -44,6 +38,7 @@ public class ServerConnection {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public String getPlayerName()
@@ -71,15 +66,21 @@ public class ServerConnection {
 				//System.out.println(info);
 				
 				// Send reply to client.
-			
-				for(int i=0; i<dbClientList.size();i++){
-					
-					if(dbClientList.getPlayerName(i).equalsIgnoreCase(name))
+				
+				Iterator<ServerConnection> iterator = dbClientList.iterator();
+				//System.out.println(""+iterator.next());
+				while(iterator.hasNext())
+				{
+					System.out.println(dbServer.getC());
+					if(dbClientList.contains(dbServer.getC()))
 					{
-					dbClientList.getConn(i).outToClient.writeObject(info);
+						System.out.println("here");
+						//System.out.println("Result: "+dbClientList.getCon(dbServer.getC()));
+						dbClientList.getCon(dbServer.getC()).outToClient.writeObject(info);
 					break;
 					}
 				}
+				con.close();
 				//System.out.println("Server reply: " + replyMessage);
 				//outToClient.writeObject(replyMessage);
 			} catch (IOException | ClassNotFoundException | SQLException e) {
