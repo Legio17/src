@@ -36,6 +36,8 @@ public class TicTacToe15x15 {
 	
 	private String mark;
 	private String localMark;
+	private String markX;
+	private String markY;
 	
 	private String[][] array;
 	
@@ -66,6 +68,9 @@ public class TicTacToe15x15 {
 			posX = posXCor;
 			posY = posYCor;
 			
+			markX = "X";
+			markY = "O";
+			
 			selectorPosX = 0;
 			selectorPosY = 0;
 			
@@ -94,9 +99,9 @@ public class TicTacToe15x15 {
 		
 		for (int col = 0; col < array.length; col ++){
 			for (int row = 0; row < array[0].length; row ++){
-				if (array[col][row].equals("X")){
+				if (array[col][row] == markX){
 					g.drawImage(cross, posXCor+(size*col), posYCor+(size*row), null);
-				} else if(array[col][row].equals("O")){
+				} else if(array[col][row] == markY){
 					g.drawImage(circle, posXCor+(size*col), posYCor+(size*row), null);
 				}
 			}
