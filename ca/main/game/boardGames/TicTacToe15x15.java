@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import ca.main.game.Game;
 import ca.main.game.gfx.BufferImageLoader;
 import ca.main.game.gfx.panels.Board;
@@ -97,7 +99,7 @@ public class TicTacToe15x15 {
 				} else if (array[col][row].equals("X")) {
 					g.drawImage(cross, posXCor + (size * col), posYCor
 							+ (size * row), null);
-				} else if (array[col][row].equals("Y")) {
+				} else if (array[col][row].equals("O")) {
 					g.drawImage(circle, posXCor + (size * col), posYCor
 							+ (size * row), null);
 				}
@@ -152,6 +154,8 @@ public class TicTacToe15x15 {
 		// " or is equal O " + mark.equals("O"));
 		array[col][row] = mark;
 		System.out.println(array[col][row]);
+		if (Count2.isThereFive(5,array)) {
+			System.out.println("someone won");;}
 	}
 
 	public String getLatestCol() {
