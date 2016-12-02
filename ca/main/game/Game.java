@@ -256,6 +256,7 @@ public class Game extends Canvas implements Runnable{
 				player.setPlayerName(fontLog.getNickName());
 				//dbClient.sendName(player.getName());
 				client.sendLoginRequest(ipAddress);
+				dbClient.sendName("00"+player.getName());
 				System.out.println(player.getName());
 			} else{
 				String c = Character.toString((char)key);
