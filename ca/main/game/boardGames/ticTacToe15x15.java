@@ -94,9 +94,9 @@ public class TicTacToe15x15 {
 		
 		for (int col = 0; col < array.length; col ++){
 			for (int row = 0; row < array[0].length; row ++){
-				if (array[col][row] == "X"){
+				if (array[col][row].equals("X")){
 					g.drawImage(cross, posXCor+(size*col), posYCor+(size*row), null);
-				} else if(array[col][row] == "O"){
+				} else if(array[col][row].equals("O")){
 					g.drawImage(circle, posXCor+(size*col), posYCor+(size*row), null);
 				}
 			}
@@ -146,7 +146,9 @@ public class TicTacToe15x15 {
 	}
 	
 	public void mark(int col, int row, String mark){
+			//System.out.println("is equal X" + mark.equals("X") + " or is equal O " + mark.equals("O"));
 			array[col][row] = mark;
+			System.out.println(array[col][row]);
 	}
 
 	public String getLatestCol() {
@@ -157,18 +159,6 @@ public class TicTacToe15x15 {
 		return latestRow;
 	}
 	
-	public void setMarkSymbol1(String mark){
-		if (mark.equals("0")){
-			currentMark = "O";
-		} else {
-			currentMark = "X";
-		}
-	}
-	
-	public void switchMark(){
-		if (currentMark.equals("X")) currentMark = "O";
-		else currentMark = "X";
-	}
 
 	public void setPlayer2(String player2) {
 		this.player2 = player2;
