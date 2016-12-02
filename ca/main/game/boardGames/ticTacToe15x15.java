@@ -95,7 +95,7 @@ public class TicTacToe15x15 {
 	public void render(Graphics g) {
 		gameBoard.render(g);
 		g.drawImage(select, posX, posY, null);
-		int total = 0;
+		int total = 1;
 		
 		for (int col = 0; col < array.length; col ++){
 			for (int row = 0; row < array[0].length; row ++){
@@ -108,7 +108,7 @@ public class TicTacToe15x15 {
 				}
 			}
 		}
-		setMarkSymbol(total%playerNr);
+		setMarkSymbol(total%2);
 		
 	}
 	
