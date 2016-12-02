@@ -34,7 +34,7 @@ public class TicTacToe15x15 {
 	private int max;
 	private int min;
 	
-	private String currentMark; 
+	private String mark;
 	private String localMark;
 	
 	private String[][] array;
@@ -57,7 +57,6 @@ public class TicTacToe15x15 {
 		posXCor = 204;
 		posYCor = 17;
 		size = 36;
-		
 		init();
 	}
 
@@ -73,7 +72,7 @@ public class TicTacToe15x15 {
 			min = 0;
 			max = 14;
 			
-			currentMark = "X";
+			mark = "H";
 
 			initializeArray();
 			
