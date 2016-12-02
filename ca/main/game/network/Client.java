@@ -105,6 +105,7 @@ public class Client extends Thread {
 	
 	public void sendTicToeToeMark(String data) {
 		data = "06:" + data + ":";
+		System.out.println(data);
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
 				data.getBytes().length, ipAddress, port);
 

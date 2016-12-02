@@ -123,7 +123,7 @@ public class Game extends Canvas implements Runnable{
 		thread.start();
 		
 		
-		client = new Client(this, "10.52.236.31", 1099);
+		client = new Client(this, "localhost", 1099);
 		client.start();
 	
 	}
@@ -273,8 +273,11 @@ public class Game extends Canvas implements Runnable{
 				ticTacToeGameList.get(0).incPosY();
 			}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
 				ticTacToeGameList.get(0).decPosY();
+				//System.out.println(ticTacToeGameList.get(0).getLatestCol());
+				//System.out.println(ticTacToeGameList.get(0).getSelectorXpos());
 			}else if(key == KeyEvent.VK_ENTER){
 				ticTacToeGameList.get(0).mark();
+				//System.out.println(ticTacToeGameList.get(0).getSelectorXpos());
 				client.sendTicToeToeMark(ticTacToeGameList.get(0).getLatestCol() + ":" + ticTacToeGameList.get(0).getLatestRow());
 			}else if(key == KeyEvent.VK_Q || key == KeyEvent.VK_ESCAPE){
 				if (!displayGame && !sthDisplayed){

@@ -142,16 +142,14 @@ public class TicTacToe15x15 {
 	
 	public void mark(){
 		if (array[selectorPosX][selectorPosY] == null){
-			array[selectorPosX][selectorPosY] = currentMark;
+			latestCol = "" + selectorPosX;
+			latestRow = "" + selectorPosY;
 			switchMark();
-			//System.out.println(Count.isThereFive(5, array));
 		}
 	}
 	
 	public void mark(int col, int row){
 			array[col][row] = currentMark;
-			latestCol = "" + col;
-			latestRow = "" + row;
 	}
 
 	public String getLatestCol() {
@@ -179,6 +177,13 @@ public class TicTacToe15x15 {
 		return player2;
 	}
 	
+	public int getSelectorXpos(){
+		return selectorPosX;
+	}
+	
+	public int getSelectorYpos(){
+		return selectorPosY;
+	}
 	
 	
 
