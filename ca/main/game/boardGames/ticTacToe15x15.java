@@ -156,6 +156,11 @@ public class TicTacToe15x15 {
 		if (player.equals(player1)) currentMark = "X";
 		else currentMark = "O";
 	}
+	
+	public void switchMark(){
+		if (currentMark.equals("X")) currentMark = "O";
+		else currentMark = "X";
+	}
 
 	public void setPlayer2(String player2) {
 		this.player2 = player2;
