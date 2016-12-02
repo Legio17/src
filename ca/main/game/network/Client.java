@@ -158,7 +158,7 @@ public class Client extends Thread {
 	private void searchForPlayer(String[] array) {
 		String player1 = array[1];
 		game.getTicTacToeGameList().add(new TicTacToe15x15(game, player1));
-		System.out.println("TicTacToe" + game.getTicTacToeGameList().get(0) != null);
+		System.out.println("TicTacToe game CREATED" + game.getTicTacToeGameList().get(0) != null);
 	}
 
 	private void matchPlayers(String[] array){
@@ -168,8 +168,11 @@ public class Client extends Thread {
 		//if(game.getTicTacToeGameList().get(0).getPlayer1().equals(game.getPlayer().getName()) || player2.equals(game.getPlayer().getName())){
 		game.getTicTacToeGameList().get(0).setPlayer2(player2);
 		System.out.println("Matching players....." + game.getTicTacToeGameList().get(0).getPlayer1() + " " + game.getTicTacToeGameList().get(0).getPlayer2());
+		game.getTicTacToeGameList().get(0).setMarkSymbol(game.getPlayer().getName());
 		game.setDisplayTicTacToe(true);
 		//}
+		
+		
 	}
 	
 	private void ticTacToeMark(String[] array){

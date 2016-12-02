@@ -140,14 +140,6 @@ public class TicTacToe15x15 {
 		}
 	}
 	
-	public void mark(){
-		if (array[selectorPosX][selectorPosY] == null){
-			latestCol = "" + selectorPosX;
-			latestRow = "" + selectorPosY;
-			switchMark();
-		}
-	}
-	
 	public void mark(int col, int row){
 			array[col][row] = currentMark;
 	}
@@ -160,9 +152,9 @@ public class TicTacToe15x15 {
 		return latestRow;
 	}
 
-	private void switchMark() {
-		if (currentMark.equals("X"))currentMark = "O";
-		else currentMark = "X";
+	public void setMarkSymbol(String player) {
+		if (player.equals(player1)) currentMark = "X";
+		else currentMark = "O";
 	}
 
 	public void setPlayer2(String player2) {
