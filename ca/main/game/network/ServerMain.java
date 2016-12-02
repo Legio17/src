@@ -40,7 +40,9 @@ public class ServerMain extends Thread {
 	 * This is a method needed to start the thread. When the method start is
 	 * called on an object of this class it will execute the code in the run
 	 * method. The server socket receives new data continuously. When receiving
-	 * from a new client it adds the client to the servers connection list. When receiving data concerning game actions it readies the data to be broadcasted.
+	 * from a new client it adds the client to the servers connection list. When
+	 * receiving data concerning game actions it readies the data to be
+	 * broadcasted.
 	 */
 	public void run() {
 		while (true) {
@@ -51,7 +53,7 @@ public class ServerMain extends Thread {
 
 			try {
 				serverSocket.receive(receivePacket);
-				newData = true;
+
 				// System.out.println("receiving data"+new
 				// String(receivePacket.getData()));
 			} catch (IOException e) {
@@ -59,10 +61,20 @@ public class ServerMain extends Thread {
 			}
 			String identifier = UDPMethods.IndentifyDatagram(receivePacket);
 
-			if (identifier.equals("03") || identifier.equals("04")
-					|| identifier.equals("05") || identifier.equals("06")) {
+			if (identifier.equals("03")) {
 				sendData = receivePacket.getData();
-				
+				newData = true;
+
+			} else if (identifier.equals("04") || identifier.equals("05")
+					|| identifier.equals("06")) {
+				sendData = receivePacket.getData();
+				newData = true;
+				try {
+					Thread.sleep(5);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
 			} else if (identifier.equals("00")) {
 				ipAddress = receivePacket.getAddress();
 				port = receivePacket.getPort();
