@@ -42,6 +42,7 @@ public class TicTacToe15x15 {
 	
 	private String player1;
 	private String player2;
+	private int playerNr;
 
 	public TicTacToe15x15(Game game, String player1) {
 		game.getPlayer().getName();
@@ -53,6 +54,12 @@ public class TicTacToe15x15 {
 		posXCor = 204;
 		posYCor = 17;
 		size = 36;
+		
+		playerNr = 0;
+		
+		if(game.getPlayer().getName().equals(player2)){
+			playerNr = 1;
+		}
 		
 		init();
 	}
@@ -88,16 +95,21 @@ public class TicTacToe15x15 {
 	public void render(Graphics g) {
 		gameBoard.render(g);
 		g.drawImage(select, posX, posY, null);
+		int total = 0;
 		
 		for (int col = 0; col < array.length; col ++){
 			for (int row = 0; row < array[0].length; row ++){
 				if (array[col][row] == "X"){
+					total ++;
 					g.drawImage(cross, posXCor+(size*col), posYCor+(size*row), null);
 				} else if(array[col][row] == "O"){
+					total ++;
 					g.drawImage(circle, posXCor+(size*col), posYCor+(size*row), null);
 				}
 			}
 		}
+		setMarkSymbol(total%playerNr);
+		
 	}
 	
 	public void incPosX(){
@@ -138,6 +150,7 @@ public class TicTacToe15x15 {
 				
 			}
 		}
+
 	}
 	
 	public void mark(int col, int row){
@@ -155,6 +168,14 @@ public class TicTacToe15x15 {
 	public void setMarkSymbol(String player) {
 		if (player.equals(player1)) currentMark = "X";
 		else currentMark = "O";
+	}
+	
+	public void setMarkSymbol(int nr){
+		if (nr == 0){
+			currentMark = "O";
+		} else {
+			currentMark = "X";
+		}
 	}
 	
 	public void switchMark(){
