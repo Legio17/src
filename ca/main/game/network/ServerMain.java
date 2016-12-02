@@ -70,7 +70,7 @@ public class ServerMain extends Thread {
 				sendData = receivePacket.getData();
 				newData = true;
 				try {
-					Thread.sleep(5);
+					Thread.sleep(2);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
