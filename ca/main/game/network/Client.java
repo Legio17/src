@@ -168,7 +168,6 @@ public class Client extends Thread {
 		//if(game.getTicTacToeGameList().get(0).getPlayer1().equals(game.getPlayer().getName()) || player2.equals(game.getPlayer().getName())){
 		game.getTicTacToeGameList().get(0).setPlayer2(player2);
 		System.out.println("Matching players....." + game.getTicTacToeGameList().get(0).getPlayer1() + " " + game.getTicTacToeGameList().get(0).getPlayer2());
-		game.getTicTacToeGameList().get(0).setMarkSymbol(game.getPlayer().getName());
 		game.setDisplayTicTacToe(true);
 		//}
 		
@@ -176,10 +175,12 @@ public class Client extends Thread {
 	}
 	
 	private void ticTacToeMark(String[] array){
-		System.out.println("Client recieving mark info: "+ array[0] + " " + array[1] + " " + array[2]);
+		System.out.println("Client recieving mark info: "+ array[0] + " " + array[1] + " " + array[2] + " "+ array[3] );
 		int col  = Integer.parseInt(array[1]);
 		int row  = Integer.parseInt(array[2]);
+		
 		System.out.println(col + " " +row);
-		game.getTicTacToeGameList().get(0).mark(col, row);
+		game.getTicTacToeGameList().get(0).mark(col, row, array[3]);
+
 	}
 }

@@ -34,6 +34,7 @@ public class TicTacToe15x15 {
 	private int min;
 	
 	private String currentMark; 
+	private String localMark;
 	
 	private String[][] array;
 	
@@ -42,10 +43,11 @@ public class TicTacToe15x15 {
 	
 	private String player1;
 	private String player2;
-	private int playerNr;
+	private String localPlayer;
 
 	public TicTacToe15x15(Game game, String player1) {
-		game.getPlayer().getName();
+		localPlayer = game.getPlayer().getName();
+		
 		
 		this.player1 = player1;
 		loader = new BufferImageLoader();
@@ -54,12 +56,6 @@ public class TicTacToe15x15 {
 		posXCor = 204;
 		posYCor = 17;
 		size = 36;
-		
-		playerNr = 0;
-		
-		if(game.getPlayer().getName().equals(player2)){
-			playerNr = 1;
-		}
 		
 		init();
 	}
@@ -95,20 +91,16 @@ public class TicTacToe15x15 {
 	public void render(Graphics g) {
 		gameBoard.render(g);
 		g.drawImage(select, posX, posY, null);
-		int total = 1;
 		
 		for (int col = 0; col < array.length; col ++){
 			for (int row = 0; row < array[0].length; row ++){
 				if (array[col][row] == "X"){
-					total ++;
 					g.drawImage(cross, posXCor+(size*col), posYCor+(size*row), null);
 				} else if(array[col][row] == "O"){
-					total ++;
 					g.drawImage(circle, posXCor+(size*col), posYCor+(size*row), null);
 				}
 			}
 		}
-		setMarkSymbol(total%2);
 		
 	}
 	
@@ -153,8 +145,8 @@ public class TicTacToe15x15 {
 
 	}
 	
-	public void mark(int col, int row){
-			array[col][row] = currentMark;
+	public void mark(int col, int row, String mark){
+			array[col][row] = mark;
 	}
 
 	public String getLatestCol() {
@@ -164,14 +156,9 @@ public class TicTacToe15x15 {
 	public String getLatestRow() {
 		return latestRow;
 	}
-
-	public void setMarkSymbol(String player) {
-		if (player.equals(player1)) currentMark = "X";
-		else currentMark = "O";
-	}
 	
-	public void setMarkSymbol(int nr){
-		if (nr == 0){
+	public void setMarkSymbol1(String mark){
+		if (mark.equals("0")){
 			currentMark = "O";
 		} else {
 			currentMark = "X";
@@ -185,6 +172,12 @@ public class TicTacToe15x15 {
 
 	public void setPlayer2(String player2) {
 		this.player2 = player2;
+		if (localPlayer.equals(player1)) localMark = "X";
+		else localMark = "O";
+	}
+	
+	public String getLocalMark(){
+		return localMark;
 	}
 
 	public String getPlayer1() {
