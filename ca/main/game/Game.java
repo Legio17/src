@@ -29,7 +29,7 @@ import ca.main.game.network.TCPClient.dbClient;
 
 public class Game extends Canvas implements Runnable{
 	
-	private final String SERVER_IP = "10.52.237.83";
+	private final String SERVER_IP = "10.52.236.63";
 	
 	public static final int WIDTH = 94*4; // 94 size of one tile without borders
 	public static final int HEIGHT = WIDTH / 12 *9; 
@@ -407,6 +407,11 @@ public class Game extends Canvas implements Runnable{
 	
 	public ArrayList<TicTacToe15x15> getTicTacToeGameList() {
 		return ticTacToeGameList;
+	}
+	
+	public dbClient getdbClient()
+	{
+		return dbClient;
 	}
 	
 	public Player getPlayer()
