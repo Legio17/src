@@ -41,7 +41,7 @@ public class dbServer extends Thread {
 				dbClientList.add(c);
 				System.out.println(dbClientList.size());
 				//new Thread(c, "Thread").start();
-				c.send();
+				c.check();
 				
 			} catch (IOException e) {
 				e.printStackTrace();
