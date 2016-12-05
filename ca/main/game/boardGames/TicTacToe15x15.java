@@ -152,8 +152,8 @@ public class TicTacToe15x15 {
 	}
 
 	public void mark(int col, int row, String mark) {
-		// System.out.println("is equal X" + mark.equals("X") +
-		// " or is equal O " + mark.equals("O"));
+		if (array[col][row] != null)return;
+		
 		array[col][row] = mark;
 		lastMark = mark;
 		StringBuffer buf = new StringBuffer ();
