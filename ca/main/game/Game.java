@@ -324,7 +324,6 @@ public class Game extends Canvas implements Runnable{
 				try {
 					Thread.sleep(500);
 				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				System.out.println(dbClient.getAllInfo()[5]);
@@ -420,6 +419,11 @@ public class Game extends Canvas implements Runnable{
 	public Player getPlayer()
 	{
 		return player;
+	}
+	
+	public dbClient getdbClient()
+	{
+		return dbClient;
 	}
 	
 	/**

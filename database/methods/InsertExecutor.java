@@ -29,7 +29,7 @@ public class InsertExecutor {
 	 * @throws SQLException
 	 */
 	
-	public void insertToGameHistory(String player1, String player2, String type,String date, String result) throws SQLException{
+	public void insertToGameHistory(String player1, String player2, String type, String date, String result) throws SQLException{
 		String sql;
 		String sqlUpdate="";
 		String sqlRetrivePlayers;

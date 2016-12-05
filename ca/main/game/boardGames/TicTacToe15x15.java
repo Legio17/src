@@ -4,14 +4,15 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import javax.swing.JOptionPane;
-
 import ca.main.game.Game;
 import ca.main.game.gfx.BufferImageLoader;
 import ca.main.game.gfx.panels.Board;
 import ca.main.game.gfx.panels.BoardManager;
+import ca.main.game.network.TCPClient.dbClient;
 
 public class TicTacToe15x15 {
+
+	private Game game;
 
 	private BufferImageLoader loader;
 
@@ -47,11 +48,14 @@ public class TicTacToe15x15 {
 	private String player1;
 	private String player2;
 	private String localPlayer;
+	private dbClient dbClient;
 
 	public TicTacToe15x15(Game game, String player1) {
 		localPlayer = game.getPlayer().getName();
+		dbClient = game.getdbClient();
 
 		this.player1 = player1;
+		this.game = game;
 		loader = new BufferImageLoader();
 		bm = game.getBoardManager();
 
@@ -151,29 +155,38 @@ public class TicTacToe15x15 {
 
 	}
 
+	public String getResult() {
+		if (getPlayer1().equals(localPlayer)) {
+			if (lastMark.equals("X")) {
+				return "won";
+			} else
+				return "lost";
+		}
+		return null;
+	}
+
 	public void mark(int col, int row, String mark) {
-		if (array[col][row] != null)return;
-		
+		if (array[col][row] != null)
+			return;
+
 		array[col][row] = mark;
 		lastMark = mark;
-		StringBuffer buf = new StringBuffer ();
+		StringBuffer buf = new StringBuffer();
 
-	   /* for (int i = 0; i < array.length; i++)
-	    {
-	      for (int j = 0; j < array.length; j++)
-	      {
-	        buf.append(array[j][i]);
-	        buf.append('\t');
-	      }
-	      buf.append('\n');
-	    }
-		System.out.println(buf.toString());
-		*/
-		if (Count.isThereFive(5,array)) {
-			System.out.println("someone won");
-			}
-		
-	
+		/*
+		 * for (int i = 0; i < array.length; i++) { for (int j = 0; j <
+		 * array.length; j++) { buf.append(array[j][i]); buf.append('\t'); }
+		 * buf.append('\n'); } System.out.println(buf.toString());
+		 */
+		if (Count.isThereFive(5, array)) {
+			if(getPlayer1().equals(localPlayer))
+			{
+			String info = "01:" + getPlayer1() + ":" + getPlayer2() + ":"
+					+ "15x15" + ":" + "12/05/2016" + ":" + getResult();
+			System.out.println(info);
+			// dbClient.sendName(info);
+		}}
+
 	}
 
 	public String getLatestCol() {
@@ -211,9 +224,10 @@ public class TicTacToe15x15 {
 	public int getSelectorYpos() {
 		return selectorPosY;
 	}
-	
-	public boolean yourTurn(){
-		if (lastMark.equals(localMark)) return false;
+
+	public boolean yourTurn() {
+		if (lastMark.equals(localMark))
+			return false;
 		return true;
 	}
 
