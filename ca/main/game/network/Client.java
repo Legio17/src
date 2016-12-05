@@ -224,7 +224,7 @@ public class Client extends Thread {
 		if(amIPlayer1() || amIPlayer2(player2)){
 			game.setDisplayTicTacToe(true);
 		}
-		game.getTicTacToeGameList().remove(0);
+
 	}
 	
 	private boolean amIPlayer1(){
