@@ -66,6 +66,10 @@ public class ServerConnection {
 			if (array[0].equals("00")) {
 				updateDB();
 			} 
+			if(array[0].equals("01"))
+			{
+				updateInfoDB();
+			}
 		}
 		else {
 			send();
@@ -80,6 +84,16 @@ public class ServerConnection {
 			e.printStackTrace();
 		}
 		System.out.println(array[1]);
+	}
+	
+	public void updateInfoDB() {
+		
+		try {
+			ie.insertToGameHistory(array[1], array[2], array[3], array[4], array[5]);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Info sent to database");
 	}
 
 	public void send() {

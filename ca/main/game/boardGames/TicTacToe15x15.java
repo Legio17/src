@@ -184,7 +184,7 @@ public class TicTacToe15x15 {
 			String info = "01:" + getPlayer1() + ":" + getPlayer2() + ":"
 					+ "15x15" + ":" + "12/05/2016" + ":" + getResult();
 			System.out.println(info);
-			// dbClient.sendName(info);
+		    dbClient.sendName(info);
 		}}
 
 	}
