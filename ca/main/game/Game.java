@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -49,7 +50,7 @@ public class Game extends Canvas implements Runnable{
 	private Player player;
 	private String playerPose;
 	private OtherPlayersList otherPlayers;
-	private ArrayList<TicTacToe15x15> ticTacToeGameList;
+	private LinkedList<TicTacToe15x15> ticTacToeGameList;
 
 	private SpriteSheetLoader sprite_sheet_loader;
 	
@@ -93,7 +94,7 @@ public class Game extends Canvas implements Runnable{
 		player = new Player(100,100,this,"applejack");
 		playerPose = "02";
 		otherPlayers = new OtherPlayersList();
-		ticTacToeGameList = new ArrayList<>();
+		ticTacToeGameList = new LinkedList<>();
 		
 		login = true;
 		updateOnFifth = 0;
@@ -405,7 +406,7 @@ public class Game extends Canvas implements Runnable{
 		return otherPlayers;
 	}
 	
-	public ArrayList<TicTacToe15x15> getTicTacToeGameList() {
+	public LinkedList<TicTacToe15x15> getTicTacToeGameList() {
 		return ticTacToeGameList;
 	}
 	
