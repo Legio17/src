@@ -221,9 +221,20 @@ public class Client extends Thread {
 		System.out.println("Matching players....."
 				+ game.getTicTacToeGameList().get(0).getPlayer1() + " "
 				+ game.getTicTacToeGameList().get(0).getPlayer2());
-		game.setDisplayTicTacToe(true);
+		if(amIPlayer1() || amIPlayer2(player2)){
+			game.setDisplayTicTacToe(true);
+		}
+		game.getTicTacToeGameList().remove(0);
 	}
-
+	
+	private boolean amIPlayer1(){
+		return game.getTicTacToeGameList().get(0).getPlayer1()
+				.equals(game.getPlayer().getName());
+	}
+	
+	private boolean amIPlayer2(String player2){
+		return player2.equals(game.getPlayer().getName());
+	}
 	private void ticTacToeMark(String[] array) {
 		System.out.println("Client recieving mark info: " + array[0] + " "
 				+ array[1] + " " + array[2] + " " + array[3]);
