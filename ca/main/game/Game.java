@@ -9,7 +9,6 @@ import java.awt.image.BufferedImage;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -27,11 +26,10 @@ import ca.main.game.network.OtherPlayersList;
 import ca.main.game.network.PlayerMP;
 import ca.main.game.network.ServerMain;
 import ca.main.game.network.TCPClient.dbClient;
-import ca.main.game.utilities.ListADT;
 
 public class Game extends Canvas implements Runnable{
 	
-	private final String SERVER_IP = "10.52.236.63";
+	private final String SERVER_IP = "10.52.237.83";
 	
 	public static final int WIDTH = 94*4; // 94 size of one tile without borders
 	public static final int HEIGHT = WIDTH / 12 *9; 
@@ -72,7 +70,7 @@ public class Game extends Canvas implements Runnable{
 	private Client client;
 	private dbClient dbClient;
 	
-	private String ipAddress;
+	private String ipAddress = "ipError";
 	
 	private int updateOnFifth;
 
@@ -95,7 +93,7 @@ public class Game extends Canvas implements Runnable{
 		player = new Player(100,100,this,"applejack");
 		playerPose = "02";
 		otherPlayers = new OtherPlayersList();
-		ticTacToeGameList = new ArrayList<TicTacToe15x15>();
+		ticTacToeGameList = new ArrayList<>();
 		
 		login = true;
 		updateOnFifth = 0;
@@ -105,7 +103,7 @@ public class Game extends Canvas implements Runnable{
 		displayGame = false;
 		sthDisplayed = false;
 		
-		ipAddress = "ipError";
+		//T = new TicTacToe15x15(this);
 		
 		try {
 			ipAddress = InetAddress.getLocalHost().getHostAddress();
@@ -276,9 +274,8 @@ public class Game extends Canvas implements Runnable{
 			}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
 				ticTacToeGameList.get(0).decPosY();
 			}else if(key == KeyEvent.VK_ENTER){
-				if (ticTacToeGameList.get(0).yourTurn()){
-					client.sendTicToeToeMark(ticTacToeGameList.get(0).getSelectorXpos() + ":" + ticTacToeGameList.get(0).getSelectorYpos()+
-										 ":"+ ticTacToeGameList.get(0).getLocalMark());}
+				client.sendTicToeToeMark(ticTacToeGameList.get(0).getSelectorXpos() + ":" + ticTacToeGameList.get(0).getSelectorYpos()+
+										 ":"+ ticTacToeGameList.get(0).getLocalMark());
 			}else if(key == KeyEvent.VK_Q || key == KeyEvent.VK_ESCAPE){
 				if (!displayGame && !sthDisplayed){
 					displayGame = true;
@@ -323,12 +320,6 @@ public class Game extends Canvas implements Runnable{
 				dbClient = new dbClient("client", this, SERVER_IP, 1098);
 				dbClient.start();
 				dbClient.sendName(player.getName());
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
-				System.out.println(dbClient.getAllInfo()[5]);
 				displayScore = true;
 				sthDisplayed = true;
 			}
@@ -418,13 +409,9 @@ public class Game extends Canvas implements Runnable{
 		return ticTacToeGameList;
 	}
 	
-	public Player getPlayer() {
-		return player;
-	}
-	
-	public dbClient getdbClient()
+	public Player getPlayer()
 	{
-		return dbClient;
+		return player;
 	}
 	
 	/**

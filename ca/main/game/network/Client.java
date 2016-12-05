@@ -211,10 +211,10 @@ public class Client extends Thread {
 
 	private void matchPlayers(String[] array) {
 		String player2 = array[1];
-		System.out.println("PLAYER1 "
+		System.out.println("AM I PLAYER1 "
 				+ game.getTicTacToeGameList().get(0).getPlayer1()
 						.equals(game.getPlayer().getName()));
-		System.out.println("PLAYER2 "
+		System.out.println("AM I PLAYER2 "
 				+ player2.equals(game.getPlayer().getName()));
 		
 		game.getTicTacToeGameList().get(0).setPlayer2(player2);
@@ -222,7 +222,6 @@ public class Client extends Thread {
 				+ game.getTicTacToeGameList().get(0).getPlayer1() + " "
 				+ game.getTicTacToeGameList().get(0).getPlayer2());
 		game.setDisplayTicTacToe(true);
-		
 	}
 
 	private void ticTacToeMark(String[] array) {
