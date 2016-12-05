@@ -99,7 +99,7 @@ public class LinkedList<T> implements ListADT<T> {
 	}
 
 	public T get(int index) {
-		if(count==0) throw new IllegalStateException();
+		if(count == 0) throw new IllegalStateException();
 
 		if (index < 0 || index >= count) {
 			throw new IndexOutOfBoundsException("index does not exist");

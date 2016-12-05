@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -26,12 +27,11 @@ import ca.main.game.network.OtherPlayersList;
 import ca.main.game.network.PlayerMP;
 import ca.main.game.network.ServerMain;
 import ca.main.game.network.TCPClient.dbClient;
-import ca.main.game.utilities.LinkedList;
 import ca.main.game.utilities.ListADT;
 
 public class Game extends Canvas implements Runnable{
 	
-	private final String SERVER_IP = "10.52.236.49";
+	private final String SERVER_IP = "10.52.236.63";
 	
 	public static final int WIDTH = 94*4; // 94 size of one tile without borders
 	public static final int HEIGHT = WIDTH / 12 *9; 
@@ -51,7 +51,7 @@ public class Game extends Canvas implements Runnable{
 	private Player player;
 	private String playerPose;
 	private OtherPlayersList otherPlayers;
-	private ListADT<TicTacToe15x15> ticTacToeGameList;
+	private LinkedList<TicTacToe15x15> ticTacToeGameList;
 
 	private SpriteSheetLoader sprite_sheet_loader;
 	
@@ -95,7 +95,7 @@ public class Game extends Canvas implements Runnable{
 		player = new Player(100,100,this,"applejack");
 		playerPose = "02";
 		otherPlayers = new OtherPlayersList();
-		ticTacToeGameList = new LinkedList<>();
+		ticTacToeGameList = new LinkedList<TicTacToe15x15>();
 		
 		login = true;
 		updateOnFifth = 0;
@@ -414,12 +414,11 @@ public class Game extends Canvas implements Runnable{
 		return otherPlayers;
 	}
 	
-	public ListADT<TicTacToe15x15> getTicTacToeGameList() {
+	public LinkedList<TicTacToe15x15> getTicTacToeGameList() {
 		return ticTacToeGameList;
 	}
 	
-	public Player getPlayer()
-	{
+	public Player getPlayer() {
 		return player;
 	}
 	

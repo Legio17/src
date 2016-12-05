@@ -221,8 +221,8 @@ public class Client extends Thread {
 		System.out.println("Matching players....."
 				+ game.getTicTacToeGameList().get(0).getPlayer1() + " "
 				+ game.getTicTacToeGameList().get(0).getPlayer2());
-		game.getTicTacToeGameList().remove(0);
 		game.setDisplayTicTacToe(true);
+		
 	}
 
 	private void ticTacToeMark(String[] array) {
