@@ -28,7 +28,9 @@ import ca.main.game.network.ServerMain;
 import ca.main.game.network.TCPClient.dbClient;
 
 public class Game extends Canvas implements Runnable{
-
+	
+	private final String SERVER_IP = "10.52.237.83";
+	
 	public static final int WIDTH = 94*4; // 94 size of one tile without borders
 	public static final int HEIGHT = WIDTH / 12 *9; 
 	public static final int SCALE = 2;
@@ -122,8 +124,7 @@ public class Game extends Canvas implements Runnable{
 		thread = new Thread(this);
 		thread.start();
 		
-		//"10.52.236.247"
-		client = new Client(this, "10.52.236.200", 1099);
+		client = new Client(this, SERVER_IP, 1099);
 		client.start();
 	
 	}
@@ -254,9 +255,9 @@ public class Game extends Canvas implements Runnable{
 			if(key == KeyEvent.VK_ENTER){
 				login = false;
 				player.setPlayerName(fontLog.getNickName());
-				dbClient = new dbClient("client", this, "10.52.236.200", 1098);
+				dbClient = new dbClient("client", this, SERVER_IP, 1098);
 				client.sendLoginRequest(ipAddress);
-				dbClient.sendName("00"+player.getName());
+				dbClient.sendName("00:" + player.getName());
 				System.out.println(player.getName());
 			} else{
 				String c = Character.toString((char)key);
@@ -318,7 +319,7 @@ public class Game extends Canvas implements Runnable{
 		}
 		else if(key == KeyEvent.VK_E){
 			if (!displayScore && !sthDisplayed){ 
-				dbClient = new dbClient("client", this, "10.52.236.200", 1098);
+				dbClient = new dbClient("client", this, SERVER_IP, 1098);
 				dbClient.start();
 				dbClient.sendName(player.getName());
 				displayScore = true;
