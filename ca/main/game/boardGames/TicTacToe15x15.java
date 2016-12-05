@@ -158,7 +158,7 @@ public class TicTacToe15x15 {
 		lastMark = mark;
 		StringBuffer buf = new StringBuffer ();
 
-	    for (int i = 0; i < array.length; i++)
+	   /* for (int i = 0; i < array.length; i++)
 	    {
 	      for (int j = 0; j < array.length; j++)
 	      {
@@ -168,9 +168,10 @@ public class TicTacToe15x15 {
 	      buf.append('\n');
 	    }
 		System.out.println(buf.toString());
-		
+		*/
 		if (Count.isThereFive(5,array)) {
-			System.out.println("someone won");}
+			System.out.println("someone won");
+			}
 		
 	
 	}
