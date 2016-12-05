@@ -156,10 +156,23 @@ public class TicTacToe15x15 {
 		// " or is equal O " + mark.equals("O"));
 		array[col][row] = mark;
 		lastMark = mark;
-		System.out.println(array[col][row]);
+		StringBuffer buf = new StringBuffer ();
+
+	    for (int i = 0; i < array.length; i++)
+	    {
+	      for (int j = 0; j < array.length; j++)
+	      {
+	        buf.append(array[j][i]);
+	        buf.append('\t');
+	      }
+	      buf.append('\n');
+	    }
+		System.out.println(buf.toString());
+		
 		if (Count.isThereFive(5,array)) {
-			System.out.println("someone won");
-			}
+			System.out.println("someone won");}
+		
+	
 	}
 
 	public String getLatestCol() {
