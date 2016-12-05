@@ -51,7 +51,7 @@ public class Game extends Canvas implements Runnable{
 	private Player player;
 	private String playerPose;
 	private OtherPlayersList otherPlayers;
-	private LinkedList<TicTacToe15x15> ticTacToeGameList;
+	private ArrayList<TicTacToe15x15> ticTacToeGameList;
 
 	private SpriteSheetLoader sprite_sheet_loader;
 	
@@ -95,7 +95,7 @@ public class Game extends Canvas implements Runnable{
 		player = new Player(100,100,this,"applejack");
 		playerPose = "02";
 		otherPlayers = new OtherPlayersList();
-		ticTacToeGameList = new LinkedList<TicTacToe15x15>();
+		ticTacToeGameList = new ArrayList<TicTacToe15x15>();
 		
 		login = true;
 		updateOnFifth = 0;
@@ -414,7 +414,7 @@ public class Game extends Canvas implements Runnable{
 		return otherPlayers;
 	}
 	
-	public LinkedList<TicTacToe15x15> getTicTacToeGameList() {
+	public ArrayList<TicTacToe15x15> getTicTacToeGameList() {
 		return ticTacToeGameList;
 	}
 	
