@@ -66,13 +66,11 @@ public class Game extends Canvas implements Runnable{
 	private FontLoader fontLog;
 	
 	private boolean login;
-	
-//	private ticTacToe15x15 T;
-	
+		
 	private Client client;
 	private dbClient dbClient;
 	
-	private String ipAddress="ipError";
+	private String ipAddress;
 	
 	private int updateOnFifth;
 
@@ -105,7 +103,7 @@ public class Game extends Canvas implements Runnable{
 		displayGame = false;
 		sthDisplayed = false;
 		
-		//T = new TicTacToe15x15(this);
+		ipAddress = "ipError";
 		
 		try {
 			ipAddress = InetAddress.getLocalHost().getHostAddress();
