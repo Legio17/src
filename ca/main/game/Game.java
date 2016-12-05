@@ -323,6 +323,13 @@ public class Game extends Canvas implements Runnable{
 				dbClient = new dbClient("client", this, SERVER_IP, 1098);
 				dbClient.start();
 				dbClient.sendName(player.getName());
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				System.out.println(dbClient.getAllInfo()[5]);
 				displayScore = true;
 				sthDisplayed = true;
 			}

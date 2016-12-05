@@ -23,6 +23,7 @@ public class dbClient extends Thread {
 	ObjectInputStream inFromServer;
 	String name;
 	private Game game;
+	private String[] allInfo;
 
 	public dbClient(String name, Game game, String ipAddress, int port) {
 		this.name = name;
@@ -45,7 +46,9 @@ public class dbClient extends Thread {
 
 			// create input stream attached to the socket.
 			inFromServer = new ObjectInputStream(clientSocket.getInputStream());
-			System.out.println((String) inFromServer.readObject());
+			String temp = (String) inFromServer.readObject();
+			allInfo = temp.split(",");
+			//System.out.println((String) inFromServer.readObject());
 		} catch (IOException e) {
 			System.out.println("error!");
 			e.printStackTrace();
@@ -55,6 +58,11 @@ public class dbClient extends Thread {
 		}
 	}
 
+	public String[] getAllInfo()
+	{
+		return allInfo;
+	}
+	
 	public void sendName(String name) {
 		
 		try {
