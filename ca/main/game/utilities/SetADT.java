@@ -1,4 +1,4 @@
-package ca.main.game.network.TCPServer;
+package ca.main.game.utilities;
 
 public interface SetADT<T> extends Iterable<T>{
 

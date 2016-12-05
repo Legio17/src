@@ -6,6 +6,8 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 
+import ca.main.game.utilities.UDPMethods;
+
 /**
  * A class representing a server that receives data packets from a client or
  * send data packets to it

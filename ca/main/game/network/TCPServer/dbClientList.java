@@ -7,6 +7,8 @@ import java.util.NoSuchElementException;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter.DEFAULT;
 
+import ca.main.game.utilities.SetADT;
+
 public class dbClientList<T> implements SetADT<T> {
 
 	private T[] sets;

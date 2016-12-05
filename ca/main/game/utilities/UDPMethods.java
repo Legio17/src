@@ -1,4 +1,4 @@
-package ca.main.game.network;
+package ca.main.game.utilities;
 
 import java.net.DatagramPacket;
 
