@@ -126,46 +126,50 @@ public class database_methods {
 	 */
 	public static String getInfoByName(Connection connection, String name)
 			throws SQLException {
-		/*String sqlGameHistory;
-		Statement stGameHistory = null;
-		String info = "";
-
-		sqlGameHistory = "SELECT player1, player2, date, type, result_player1 FROM GAME_HISTORY";
-
-		stGameHistory = connection.createStatement(
-				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-		ResultSet rsGameHistory = stGameHistory.executeQuery(sqlGameHistory);*/
 		
 		String sqlScoreInfo;
 		Statement stScoreInfo = null;
-		String info2 = "";
+		String info = "";
 
 		sqlScoreInfo = "SELECT login, rank, winloss_ratio, wins, losses FROM SCORE_INFO";
 
 		stScoreInfo = connection.createStatement(
 				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rsScoreInfo = stScoreInfo.executeQuery(sqlScoreInfo);
-
-		/*while (rsGameHistory.next()) {
-			if (name.equalsIgnoreCase(rsGameHistory.getString("player1"))) {
-				info = rsGameHistory.getString("player1") + ", "
-						+ rsGameHistory.getString("player2") + ", "
-						+ rsGameHistory.getString("date") + ", "
-						+ rsGameHistory.getString("type") + ", "
-						+ rsGameHistory.getString("result_player1");
-				break;
-			}
-		}*/
 		
 		while (rsScoreInfo.next()) {
 			if (name.equalsIgnoreCase(rsScoreInfo.getString("login"))) {
-				info2 = rsScoreInfo.getString("rank") + ", "
+				info = rsScoreInfo.getString("rank") + ", "
 						+ rsScoreInfo.getString("winloss_ratio") + ", "
 						+ rsScoreInfo.getString("wins") + ", "
 						+ rsScoreInfo.getString("losses");
 				break;
 			}
 		}
+		return info;
+	}
+	
+	public static String getTop5(Connection connection)
+			throws SQLException {		
+		String sqlScoreInfo;
+		Statement stScoreInfo = null;
+		String info2 = "";
+		int i=0;
+		
+		sqlScoreInfo = "SELECT login FROM SCORE_INFO";
+
+		stScoreInfo = connection.createStatement(
+				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rsScoreInfo = stScoreInfo.executeQuery(sqlScoreInfo);
+
+			while (rsScoreInfo.next())
+			{
+				info2 += rsScoreInfo.getString("login") + ", ";
+				i++;
+				if(i==5)
+				break;
+			}
+		
 		return info2;
 	}
 	/*
