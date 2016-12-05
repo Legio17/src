@@ -11,6 +11,14 @@ import java.util.ArrayList;
 import ca.main.game.Game;
 import ca.main.game.boardGames.TicTacToe15x15;
 
+/**
+ * A class representing a client that receives data packets from a server or
+ * send data packets to it
+ * 
+ * @author Filip Hudec, Signe Rasmussen, Peter Miodrag Varanic, Adam Szekely,
+ *         Ana Iulia Chifor
+ *
+ */
 public class Client extends Thread {
 
 	private InetAddress ipAddress;
@@ -19,7 +27,13 @@ public class Client extends Thread {
 	private int port;
 	private String name;
 	private ArrayList<String> ipList;
-
+	
+	/**
+	 * 
+	 * @param game the game/GUI that based on your actions sends data to the server through the client. The also utilizes the data the client receives.
+	 * @param ipAddress the IP address of the server that the client should connect to
+	 * @param port the port of the server that the client should connect through
+	 */
 	public Client(Game game, String ipAddress, int port) {
 		this.game = game;
 		this.port = port;
@@ -66,7 +80,12 @@ public class Client extends Thread {
 			}
 		}
 	}
-
+	
+	/**
+	 * Sends data with this information: (ipAddress+":"+player.getX()+":"+player.getY()+":"+playerPose)
+	 * The local IP address send together with the coordinates as well as which pose the player avatar is having.
+	 * @param data the position of the player as a string
+	 */
 	public void sendPlayerPos(String data) {
 		data = "03:" + data;
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
@@ -78,7 +97,11 @@ public class Client extends Thread {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * Sends data with 
+	 * @param data
+	 */
 	public void sendSearchingForPlayer(String data) {
 		data = "04:" + data + ":";
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
