@@ -65,7 +65,8 @@ public class Game extends Canvas implements Runnable{
 	
 	private boolean login;
 	
-//	private ticTacToe15x15 T;
+	private String gameServerIp = "10.52.237.83";
+	private String dbServerIp = "10.52.237.83"; 
 	
 	private Client client;
 	private dbClient dbClient;
@@ -123,7 +124,7 @@ public class Game extends Canvas implements Runnable{
 		thread.start();
 		
 		//"10.52.236.247"
-		client = new Client(this, "10.52.236.200", 1099);
+		client = new Client(this, gameServerIp, 1099);
 		client.start();
 	
 	}
@@ -254,7 +255,7 @@ public class Game extends Canvas implements Runnable{
 			if(key == KeyEvent.VK_ENTER){
 				login = false;
 				player.setPlayerName(fontLog.getNickName());
-				dbClient = new dbClient("client", this, "10.52.236.200", 1098);
+				dbClient = new dbClient("client", this, dbServerIp, 1098);
 				client.sendLoginRequest(ipAddress);
 				dbClient.sendName("00"+player.getName());
 				System.out.println(player.getName());
@@ -318,7 +319,7 @@ public class Game extends Canvas implements Runnable{
 		}
 		else if(key == KeyEvent.VK_E){
 			if (!displayScore && !sthDisplayed){ 
-				dbClient = new dbClient("client", this, "10.52.236.200", 1098);
+				dbClient = new dbClient("client", this, dbServerIp, 1098);
 				dbClient.start();
 				dbClient.sendName(player.getName());
 				displayScore = true;
