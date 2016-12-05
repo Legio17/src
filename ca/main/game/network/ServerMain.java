@@ -69,11 +69,11 @@ public class ServerMain extends Thread {
 					|| identifier.equals("06")) {
 				sendData = receivePacket.getData();
 				newData = true;
-				try {
+				/*try {
 					Thread.sleep(2);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
-				}
+				}*/
 
 			} else if (identifier.equals("00")) {
 				ipAddress = receivePacket.getAddress();

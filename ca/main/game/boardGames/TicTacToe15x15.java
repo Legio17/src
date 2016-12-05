@@ -37,6 +37,7 @@ public class TicTacToe15x15 {
 
 	private String mark;
 	private String localMark;
+	private String lastMark;
 
 	private String[][] array;
 
@@ -73,6 +74,7 @@ public class TicTacToe15x15 {
 			max = 14;
 
 			mark = "H";
+			lastMark = "O";
 
 			initializeArray();
 
@@ -153,9 +155,11 @@ public class TicTacToe15x15 {
 		// System.out.println("is equal X" + mark.equals("X") +
 		// " or is equal O " + mark.equals("O"));
 		array[col][row] = mark;
+		lastMark = mark;
 		System.out.println(array[col][row]);
-		if (Count2.isThereFive(5,array)) {
-			System.out.println("someone won");;}
+		if (Count.isThereFive(5,array)) {
+			System.out.println("someone won");
+			}
 	}
 
 	public String getLatestCol() {
@@ -192,6 +196,11 @@ public class TicTacToe15x15 {
 
 	public int getSelectorYpos() {
 		return selectorPosY;
+	}
+	
+	public boolean yourTurn(){
+		if (lastMark.equals(localMark)) return false;
+		return true;
 	}
 
 }
