@@ -276,8 +276,11 @@ public class Game extends Canvas implements Runnable{
 			}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
 				ticTacToeGameList.get(client.getTicTacToeNr()).decPosY();
 			}else if(key == KeyEvent.VK_ENTER){
-				client.sendTicToeToeMark(ticTacToeGameList.get(client.getTicTacToeNr()).getSelectorXpos() + ":" + ticTacToeGameList.get(client.getTicTacToeNr()).getSelectorYpos()+
-										 ":"+ ticTacToeGameList.get(client.getTicTacToeNr()).getLocalMark());
+				if (ticTacToeGameList.get(client.getTicTacToeNr()).yourTurn()){
+					client.sendTicToeToeMark(ticTacToeGameList.get(client.getTicTacToeNr()).getSelectorXpos() + ":" + ticTacToeGameList.get(client.getTicTacToeNr()).getSelectorYpos()+
+							 ":"+ ticTacToeGameList.get(client.getTicTacToeNr()).getLocalMark());
+				}
+				
 			}else if(key == KeyEvent.VK_Q || key == KeyEvent.VK_ESCAPE){
 				if (!displayGame && !sthDisplayed){
 					displayGame = true;
