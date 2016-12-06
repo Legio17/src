@@ -27,6 +27,7 @@ public class Client extends Thread {
 	private int port;
 	private String name;
 	private ArrayList<String> ipList;
+	private int j;
 
 	/**
 	 * 
@@ -214,16 +215,28 @@ public class Client extends Thread {
 				+ (game.getTicTacToeGameList().get(0) != null));
 	}
 	
+	public void setJ(int j)
+	{
+		this.j=j;
+	}
+	
+	public int getJ()
+	{
+		return j;
+	}
 	/**
 	 * Matching....
 	 * @param array
 	 */
 	private void matchPlayers(String[] array) {
+
 		String player2 = array[1];
 		
-		for(int i = 0; i < game.getTicTacToeGameList().size(); i++){
+		for(int i = j; i < game.getTicTacToeGameList().size(); i++){
 			if(game.getTicTacToeGameList().get(i).getPlayer2() == null){
 				game.getTicTacToeGameList().get(i).setPlayer2(player2);
+				j++;
+				setJ(j);
 			}
 			System.out.println("PLAYER1 " + amIPlayer1(i));
 			System.out.println("PLAYER2 " + amIPlayer2(i));
@@ -232,7 +245,7 @@ public class Client extends Thread {
 					+ game.getTicTacToeGameList().get(i).getPlayer2());
 			if (amIPlayer1(i) || amIPlayer2(i)) {
 				game.setDisplayTicTacToe(true);
-				game.getTicTacToeGameList().get(i).render(game.getG());
+				//game.getTicTacToeGameList().get(i).render(game.getG());
 			}
 		}
 	}
