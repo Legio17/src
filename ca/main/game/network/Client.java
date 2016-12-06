@@ -28,7 +28,6 @@ public class Client extends Thread {
 	private String name;
 	private ArrayList<String> ipList;
 	private int j;
-	private int ticTacToeNr;
 
 	/**
 	 * 
@@ -233,10 +232,11 @@ public class Client extends Thread {
 
 		String player2 = array[1];
 		
-		for(int i = 0; i < game.getTicTacToeGameList().size(); i++){
+		for(int i = j; i < game.getTicTacToeGameList().size(); i++){
 			if(game.getTicTacToeGameList().get(i).getPlayer2() == null){
 				game.getTicTacToeGameList().get(i).setPlayer2(player2);
-				ticTacToeNr = i;
+				j++;
+				setJ(j);
 			}
 			System.out.println("PLAYER1 " + amIPlayer1(i));
 			System.out.println("PLAYER2 " + amIPlayer2(i));
@@ -267,10 +267,7 @@ public class Client extends Thread {
 		int row = Integer.parseInt(array[2]);
 
 		System.out.println(col + " " + row);
-		game.getTicTacToeGameList().get(ticTacToeNr).mark(col, row, array[3]);
+		game.getTicTacToeGameList().get(0).mark(col, row, array[3]);
 
-	}
-	public int getTicTacToeNr(){
-		return ticTacToeNr;
 	}
 }
