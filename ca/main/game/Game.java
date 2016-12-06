@@ -6,16 +6,16 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import ca.main.game.boardGames.TicTacToe15x15;
 import ca.main.game.control.KeyInput;
+import ca.main.game.gfx.BufferImageLoader;
 import ca.main.game.gfx.FontLoader;
 import ca.main.game.gfx.Player;
 import ca.main.game.gfx.SpriteSheetLoader;
@@ -24,13 +24,11 @@ import ca.main.game.gfx.panels.Board;
 import ca.main.game.gfx.panels.BoardManager;
 import ca.main.game.network.Client;
 import ca.main.game.network.OtherPlayersList;
-import ca.main.game.network.PlayerMP;
-import ca.main.game.network.ServerMain;
 import ca.main.game.network.TCPClient.dbClient;
 
 public class Game extends Canvas implements Runnable{
 	
-	private final String SERVER_IP = "10.52.236.210";
+	private final String SERVER_IP = "localhost";
 	
 	public static final int WIDTH = 94*4; // 94 size of one tile without borders
 	public static final int HEIGHT = WIDTH / 12 *9; 
@@ -53,16 +51,23 @@ public class Game extends Canvas implements Runnable{
 	private LinkedList<TicTacToe15x15> ticTacToeGameList;
 
 	private SpriteSheetLoader sprite_sheet_loader;
+	private BufferImageLoader imageLoader;
 	
 	private Map map1;
 	
 	private BoardManager boardManager;
 	private boolean sthDisplayed;
+	
 	private Board scoreBoard;
 	private boolean displayScore;
-	private Board gameBoard;
+	private String[] scoreInfo;
+	
 	private boolean displayGame;
 	private Board fancyBoard;
+	private boolean ticTacFinished;
+	private String ticTacResult;
+	private BufferedImage player1Victory;
+	private BufferedImage player2Victory;
 	
 	private FontLoader fontLog;
 	private FontLoader fontScore;
@@ -83,6 +88,7 @@ public class Game extends Canvas implements Runnable{
 	public void init(){
 		requestFocus();
 		sprite_sheet_loader = new SpriteSheetLoader();
+		imageLoader = new BufferImageLoader();
 		boardManager = new BoardManager(this);
 		loadBoards();
 		
@@ -99,11 +105,20 @@ public class Game extends Canvas implements Runnable{
 		
 		login = true;
 		updateOnFifth = 0;
+		ticTacResult = "";
+		
+		try {
+			player1Victory = imageLoader.loadImage("/img/boards/tic-tac-toe/playerboard_player1Win.png");
+			player2Victory = imageLoader.loadImage("/img/boards/tic-tac-toe/playerboard_player1Win.png");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		ranOnce = false;
 		displayScore = false;
 		displayGame = false;
 		sthDisplayed = false;
+		ticTacFinished = false;
 		
 		//T = new TicTacToe15x15(this);
 		
@@ -220,6 +235,10 @@ public class Game extends Canvas implements Runnable{
 			fontLog.renderNick(g, 0, 170, 190, 45);
 		}else if(displayGame){
 			ticTacToeGameList.get(client.getTicTacToeNr()).render(g); //TODO new
+			if(ticTacFinished){
+				if(ticTacResult.equals("X"))g.drawImage(player1Victory, 0, 0, null);
+				else if(ticTacResult.equals("O")) g.drawImage(player2Victory, 0, 0, null);	
+			}
 		}else{
 		
 			map1.render(g, 94, 1); //94 - borders are already ignored in grab image
@@ -230,7 +249,11 @@ public class Game extends Canvas implements Runnable{
 				otherPlayers.get(i).render(g);
 			}
 			
-			if (displayScore)scoreBoard.render(g);
+			if (displayScore){
+				scoreBoard.render(g);
+				fontScore.renderScore(g, 1, 280, 63, 13, 55, scoreInfo);
+			}
+			
 		}
 		/////////// end of drawing here! /////////////////////////////
 		g.dispose();
@@ -256,7 +279,7 @@ public class Game extends Canvas implements Runnable{
 				login = false;
 				player.setPlayerName(fontLog.getNickName());
 				dbClient = new dbClient("client", this, SERVER_IP, 1098);
-				client.sendLoginRequest(ipAddress);
+				client.sendLoginRequest(ipAddress+":"+player.getName());
 				dbClient.sendName("00:" + player.getName());
 				System.out.println(player.getName());
 			} else{
@@ -266,6 +289,15 @@ public class Game extends Canvas implements Runnable{
 			}
 			
 		//================= Controls Tic-Tac-Toe ================
+		}else if(displayGame && ticTacFinished){
+			if (key == KeyEvent.VK_ENTER){
+				setDisplayGame(false);
+				ticTacFinished = false;
+				ticTacResult = "";
+				ticTacToeGameList.remove(client.getTicTacToeNr());//instead of this, there should be 
+																  //command that goes to server and removes 
+																  //game from all client in lobby 
+			}
 		}else if(displayGame){
 			if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
 				ticTacToeGameList.get(client.getTicTacToeNr()).incPosX(); //TODO new
@@ -330,7 +362,7 @@ public class Game extends Canvas implements Runnable{
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
-				System.out.println(dbClient.getAllInfo());
+				scoreInfo = dbClient.getAllInfo();
 				displayScore = true;
 				sthDisplayed = true;
 			}
@@ -378,7 +410,6 @@ public class Game extends Canvas implements Runnable{
 	
 	private void loadBoards() {
 		scoreBoard = boardManager.retriveByName("scoreBoard");
-		gameBoard = boardManager.retriveByName("gameBoard");
 		fancyBoard = boardManager.retriveByName("fancyBoard");
 	}
 	
@@ -393,8 +424,25 @@ public class Game extends Canvas implements Runnable{
 		return sprite_sheet_loader;
 	}
 	
+	public void setDisplayGame(boolean displayGame)
+	{
+		this.displayGame = displayGame;
+		
+		if(displayGame)sthDisplayed = true;
+		else sthDisplayed = false;
+	}
+	
+	public void setTicTacFinished(boolean ticTacFinished, String lastMark){
+		this.ticTacFinished = ticTacFinished;
+		this.ticTacResult = lastMark;
+	}
+	
 	public BoardManager getBoardManager(){
 		return boardManager;
+	}
+	
+	public String getServerIp(){
+		return SERVER_IP;
 	}
 	
 	/**
