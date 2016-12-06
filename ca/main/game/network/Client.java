@@ -234,9 +234,7 @@ public class Client extends Thread {
 		
 		for(int i = j; i < game.getTicTacToeGameList().size(); i++){
 			if(game.getTicTacToeGameList().get(i).getPlayer2() == null){
-				game.getTicTacToeGameList().get(i).setPlayer2(player2);
-				
-				setJ(j);
+				game.getTicTacToeGameList().get(i).setPlayer2(player2);	
 			}
 			System.out.println("PLAYER1 " + amIPlayer1(i));
 			System.out.println("PLAYER2 " + amIPlayer2(i));
@@ -244,8 +242,9 @@ public class Client extends Thread {
 					+ game.getTicTacToeGameList().get(i).getPlayer1() + " "
 					+ game.getTicTacToeGameList().get(i).getPlayer2());
 			if (amIPlayer1(i) || amIPlayer2(i)) {
-				j++;
+				setJ(j);
 				game.setDisplayTicTacToe(true);
+				j++;
 				//game.getTicTacToeGameList().get(i).render(game.getG());
 			}
 		}
