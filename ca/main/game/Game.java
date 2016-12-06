@@ -218,7 +218,7 @@ public class Game extends Canvas implements Runnable{
 			fancyBoard.render(g);	
 			fontLog.renderNick(g, 0, 170, 190, 45);
 		}else if(displayGame){
-			ticTacToeGameList.get(0).render(g); //TODO new
+			//ticTacToeGameList.get(0).render(g); //TODO new
 		}else{
 		
 			map1.render(g, 94, 1); //94 - borders are already ignored in grab image
@@ -418,6 +418,11 @@ public class Game extends Canvas implements Runnable{
 	public Player getPlayer()
 	{
 		return player;
+	}
+	
+	public Graphics getG()
+	{
+		return g;
 	}
 	
 	/**

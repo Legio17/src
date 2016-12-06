@@ -232,6 +232,7 @@ public class Client extends Thread {
 					+ game.getTicTacToeGameList().get(i).getPlayer2());
 			if (amIPlayer1(i) || amIPlayer2(i)) {
 				game.setDisplayTicTacToe(true);
+				game.getTicTacToeGameList().get(i).render(game.getG());
 			}
 		}
 	}
