@@ -95,7 +95,7 @@ public class Count {
 						}
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					System.out.println("No problem!");
+					 
 				}
 				try {
 					if (arr[i][j] == (null) || arr[i + 1][j] == (null)
@@ -111,7 +111,7 @@ public class Count {
 						}
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					System.out.println("No problem!");
+					 
 				}
 				try {
 					if (arr[i][j] == (null) || arr[i + 1][j + 1] == (null)
@@ -129,7 +129,7 @@ public class Count {
 						}
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					System.out.println("No problem!");
+					 
 				}
 				try {
 					if (arr[i][j] == (null) || arr[i - 1][j + 1] == (null)
@@ -147,7 +147,7 @@ public class Count {
 						}
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					System.out.println("No problem!");
+					 
 				}
 
 				try {
@@ -163,7 +163,7 @@ public class Count {
 						}
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					System.out.println("No problem!");
+					 
 				}
 				try {
 					if (arr[i][j] == (null) || arr[i + 1][j] == (null)
@@ -179,7 +179,7 @@ public class Count {
 						}
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					System.out.println("No problem!");
+					 
 				}
 				try {
 					if (arr[i][j] == (null) || arr[i + 1][j + 1] == (null)
@@ -197,7 +197,7 @@ public class Count {
 						}
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					System.out.println("No problem!");
+					 
 				}
 				try {
 					if (arr[i][j] == (null) || arr[i - 1][j + 1] == (null)
@@ -215,7 +215,7 @@ public class Count {
 						}
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					System.out.println("No problem!");
+					 
 				}
 			}
 			// else

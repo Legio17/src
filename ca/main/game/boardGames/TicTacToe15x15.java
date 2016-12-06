@@ -52,7 +52,7 @@ public class TicTacToe15x15 {
 
 	public TicTacToe15x15(Game game, String player1) {
 		localPlayer = game.getPlayer().getName();
-		dbClient = game.getdbClient();
+		//dbClient = game.getdbClient();
 
 		this.player1 = player1;
 		this.game = game;
@@ -181,8 +181,9 @@ public class TicTacToe15x15 {
 		if (Count.isThereFive(5, array)) {
 			if(getPlayer1().equals(localPlayer))
 			{
+				dbClient = new dbClient("client", game, "10.52.236.210", 1098);	
 			String info = "01:" + getPlayer1() + ":" + getPlayer2() + ":"
-					+ "15x15" + ":" + "12/05/2016" + ":" + getResult();
+					+ "15X15" + ":" + "12/05/2016" + ":" + getResult();
 			System.out.println(info);
 		    dbClient.sendName(info);
 		}}

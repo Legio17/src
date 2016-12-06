@@ -29,7 +29,7 @@ public class ServerConnection {
 	public ServerConnection(Socket connectionSocket,
 			dbClientList<ServerConnection> dbClientList) {
 		try {
-			con = connect.PostgreSQLJDBC("SEP2_data", "Postgres");
+			con = connect.PostgreSQLJDBC("SEP2_data", "peter28mio07");
 			clientSocket = connectionSocket;
 			this.dbClientList = dbClientList;
 			this.ie = new InsertExecutor(con);
@@ -55,6 +55,7 @@ public class ServerConnection {
 	 
 
 	public void check() {
+		
 		try {
 			data = (String) inFromClient.readObject();
 			System.out.println("data: "+data);
@@ -66,7 +67,7 @@ public class ServerConnection {
 			if (array[0].equals("00")) {
 				updateDB();
 			} 
-			if(array[0].equals("01"))
+			else if(array[0].equals("01"))
 			{
 				updateInfoDB();
 			}
@@ -77,7 +78,6 @@ public class ServerConnection {
 	}
 
 	public void updateDB() {
-		
 		try {
 			ie.insertPlayer(array[1]);
 		} catch (SQLException e) {
@@ -87,13 +87,14 @@ public class ServerConnection {
 	}
 	
 	public void updateInfoDB() {
-		
+		System.out.println("Info sent to database");
 		try {
 			ie.insertToGameHistory(array[1], array[2], array[3], array[4], array[5]);
+			ie.updateRanks();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Info sent to database");
+	//	System.out.println("Info sent to database");
 	}
 
 	public void send() {
@@ -123,7 +124,6 @@ public class ServerConnection {
 					// System.out.println("Result: "+dbClientList.getCon(dbServer.getC()));
 					dbClientList.getCon(dbServer.getC()).outToClient
 							.writeObject(info+", "+info2);
-			
 					break;
 				}
 			}

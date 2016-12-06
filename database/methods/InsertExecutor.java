@@ -77,7 +77,7 @@ public class InsertExecutor {
 	        			ratio = wins;
 	        		}
 	        		else {ratio= (double) wins/losses;}
-	        		sqlUpdate="UPDATE Score_info SET wins="+losses+" WHERE  login='"+player2+"'";
+	        		sqlUpdate="UPDATE Score_info SET losses="+losses+" WHERE  login='"+player2+"'";
 	        		sqlMet.executeStatement(st, sqlUpdate);
 	        		sqlUpdate="UPDATE Score_info SET winloss_ratio="+ratio+" WHERE  login='"+player2+"'";
 	        		sqlMet.executeStatement(st, sqlUpdate);
