@@ -209,7 +209,7 @@ public class Client extends Thread {
 	}
 
 	private void searchForPlayer(String[] array) {
-		String player1 = array[1];
+		String player1 = array[0];
 		game.getTicTacToeGameList().add(new TicTacToe15x15(game, player1));
 		System.out.println("TicTacToe game CREATED"
 				+ (game.getTicTacToeGameList().get(0) != null));
@@ -235,7 +235,7 @@ public class Client extends Thread {
 		for(int i = j; i < game.getTicTacToeGameList().size(); i++){
 			if(game.getTicTacToeGameList().get(i).getPlayer2() == null){
 				game.getTicTacToeGameList().get(i).setPlayer2(player2);
-				j++;
+				
 				setJ(j);
 			}
 			System.out.println("PLAYER1 " + amIPlayer1(i));
@@ -244,6 +244,7 @@ public class Client extends Thread {
 					+ game.getTicTacToeGameList().get(i).getPlayer1() + " "
 					+ game.getTicTacToeGameList().get(i).getPlayer2());
 			if (amIPlayer1(i) || amIPlayer2(i)) {
+				j++;
 				game.setDisplayTicTacToe(true);
 				//game.getTicTacToeGameList().get(i).render(game.getG());
 			}
