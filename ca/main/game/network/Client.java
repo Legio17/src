@@ -211,20 +211,12 @@ public class Client extends Thread {
 
 	private void searchForPlayer(String[] array) {
 		String player1 = array[1];
-		game.getTicTacToeGameList().add(new TicTacToe15x15(game, player1));
-		System.out.println("TicTacToe game CREATED"
-				+ (game.getTicTacToeGameList().get(0) != null));
+		int gameCreatedNum = Integer.parseInt(array[2]);
+		if(game.getTicTacToeGameList().size() == gameCreatedNum){
+			game.getTicTacToeGameList().add(new TicTacToe15x15(game, player1));
+		}
 	}
 	
-	public void setJ(int j)
-	{
-		this.j=j;
-	}
-	
-	public int getJ()
-	{
-		return j;
-	}
 	/**
 	 * Matching....
 	 * @param array
@@ -242,7 +234,7 @@ public class Client extends Thread {
 			System.out.println("PLAYER2 " + amIPlayer2(i));
 			System.out.println("Matching players....."
 					+ game.getTicTacToeGameList().get(i).getPlayer1() + " "
-					+ game.getTicTacToeGameList().get(i).getPlayer2());
+					+ game.getTicTacToeGameList().get(i).getPlayer2() + " " + i);
 			if (amIPlayer1(i) || amIPlayer2(i)) {
 				game.setDisplayTicTacToe(true);
 				//game.getTicTacToeGameList().get(i).render(game.getG());
