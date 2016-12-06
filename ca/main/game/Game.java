@@ -65,6 +65,7 @@ public class Game extends Canvas implements Runnable{
 	private Board fancyBoard;
 	
 	private FontLoader fontLog;
+	private FontLoader fontScore;
 	
 	private boolean login;
 		
@@ -86,7 +87,7 @@ public class Game extends Canvas implements Runnable{
 		loadBoards();
 		
 		fontLog = new FontLoader(this);
-		
+		fontScore= new FontLoader(this);
 		map1 = new Map(this,"res/maps/map01.txt");//load map
 		
 		addKeyListener(new KeyInput(this));//add keyLister to main game
@@ -324,7 +325,6 @@ public class Game extends Canvas implements Runnable{
 				try {
 					thread.sleep(500);
 				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				System.out.println(dbClient.getAllInfo());
