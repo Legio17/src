@@ -149,17 +149,5 @@ public class ServerMain extends Thread {
 		return newData;
 	}
 
-	/**
-	 * Main method runs the thread for receiving data and the thread for
-	 * broadcasting the received data.
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		ServerMain server = new ServerMain();
-		System.out.println("Server socket created.");
-		BroadcastToClients btc = new BroadcastToClients(server);
-		btc.start();
-		server.start();
-	}
+	
 }

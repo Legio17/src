@@ -22,7 +22,7 @@ public class dbServer extends Thread {
 		try {
 			welcomeSocket = new ServerSocket(port);
 			dbClientList = new dbClientList<ServerConnection>();
-			System.out.println("Server started");
+			System.out.println("TCP server started");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -52,9 +52,5 @@ public static ServerConnection getC()
 {
 	return c;
 }
-	public static void main(String[] args) throws AlreadyBoundException,
-			NotBoundException, IOException {
-		dbServer dbServer = new dbServer();
-		dbServer.start();
-	}
+	
 }
