@@ -220,29 +220,30 @@ public class Client extends Thread {
 	 */
 	private void matchPlayers(String[] array) {
 		String player2 = array[1];
-		System.out.println("PLAYER1 " + amIPlayer1());
-		System.out.println("PLAYER2 " + amIPlayer2(player2));
 		
 		for(int i = 0; i < game.getTicTacToeGameList().size(); i++){
 			if(game.getTicTacToeGameList().get(i).getPlayer2() == null){
 				game.getTicTacToeGameList().get(i).setPlayer2(player2);
 			}
-		}
-		System.out.println("Matching players....."
-				+ game.getTicTacToeGameList().get(0).getPlayer1() + " "
-				+ game.getTicTacToeGameList().get(0).getPlayer2());
-		if (amIPlayer1() || amIPlayer2(player2)) {
-			game.setDisplayTicTacToe(true);
+			System.out.println("PLAYER1 " + amIPlayer1(i));
+			System.out.println("PLAYER2 " + amIPlayer2(i));
+			System.out.println("Matching players....."
+					+ game.getTicTacToeGameList().get(i).getPlayer1() + " "
+					+ game.getTicTacToeGameList().get(i).getPlayer2());
+			if (amIPlayer1(i) || amIPlayer2(i)) {
+				game.setDisplayTicTacToe(true);
+			}
 		}
 	}
 
-	private boolean amIPlayer1() {
-		return game.getTicTacToeGameList().get(0).getPlayer1()
+	private boolean amIPlayer1(int i) {
+		return game.getTicTacToeGameList().get(i).getPlayer1()
 				.equals(game.getPlayer().getName());
 	}
 
-	private boolean amIPlayer2(String player2) {
-		return player2.equals(game.getPlayer().getName());
+	private boolean amIPlayer2(int i) {
+		return game.getTicTacToeGameList().get(i).getPlayer2()
+				.equals(game.getPlayer().getName());
 	}
 
 	private void ticTacToeMark(String[] array) {
