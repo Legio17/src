@@ -89,6 +89,12 @@ public class FontLoader {
 		}
 	}
 	
+	public void renderScore(Graphics g, int fromFontNr, int x, int y, int diff, String[] array){
+		for (int i = 0; i < array.length-1; i++){
+			System.out.println(array[i]);
+		}
+	}
+	
 	public void addToNickName(String letter){
 		if (letter != null)nickName += letter;
 
