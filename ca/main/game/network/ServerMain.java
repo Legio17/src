@@ -73,7 +73,7 @@ public class ServerMain extends Thread {
 				newData = true;
 				
 				try {
-					Thread.sleep(2);
+					Thread.sleep(1);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

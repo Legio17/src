@@ -254,7 +254,7 @@ public class Client extends Thread {
 
 	private void ticTacToeMark(String[] array) {
 		System.out.println("Client recieving mark info: " + array[0] + " "
-				+ array[1] + " " + array[2] + " " + array[3]);
+				+ array[1] + " " + array[2] + " " + array[3] + " gameNo " + array[4]);
 		int receivedTicTacToeNr = Integer.parseInt(array[4]);
 		if(ticTacToeNr == receivedTicTacToeNr){
 			int col = Integer.parseInt(array[1]);
