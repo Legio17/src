@@ -18,7 +18,7 @@ public class buildDbMain
    public static void main(String args[]) throws ClassNotFoundException, SQLException
    {
 	  Connection con = null;
-	  con = connect.PostgreSQLJDBC("SEP2_data", "peter28mio07");
+	  con = connect.PostgreSQLJDBC("SEP2_data", "jens");
 	  
 	  CreateDomainEx exD = new CreateDomainEx(con); 
 	  CreateTableEx exT = new CreateTableEx(con); 
@@ -47,13 +47,13 @@ public class buildDbMain
 	  
 	
 	  
-	  insertEx.insertPlayer("Adam");
+	  insertEx.insertPlayer("LEGIO");
 	  insertEx.insertPlayer("Mio");
 	  insertEx.insertPlayer("Iulia");
 	  insertEx.insertPlayer("Signe");
 	  insertEx.insertPlayer("Filip");
-	  insertEx.insertToGameHistory("Mio", "Signe", "3X3", "2016-11-26", "lost");
-	  insertEx.insertToGameHistory("Adam", "Mio", "3X3", "2016-11-26", "lost");
+	  insertEx.insertToGameHistory("Mio", "LEGIO", "5X5", "2016-11-26", "lost");
+	  insertEx.insertToGameHistory("Adam", "Mio", "5X5", "2016-11-26", "lost");
 	  insertEx.updateRanks();
 
    }

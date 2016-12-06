@@ -30,7 +30,7 @@ import ca.main.game.network.TCPClient.dbClient;
 
 public class Game extends Canvas implements Runnable{
 	
-	private final String SERVER_IP = "10.52.236.210";
+	private final String SERVER_IP = "localhost";
 	
 	public static final int WIDTH = 94*4; // 94 size of one tile without borders
 	public static final int HEIGHT = WIDTH / 12 *9; 
@@ -58,8 +58,11 @@ public class Game extends Canvas implements Runnable{
 	
 	private BoardManager boardManager;
 	private boolean sthDisplayed;
+	
 	private Board scoreBoard;
 	private boolean displayScore;
+	private String[] scoreInfo;
+	
 	private Board gameBoard;
 	private boolean displayGame;
 	private Board fancyBoard;
@@ -230,7 +233,11 @@ public class Game extends Canvas implements Runnable{
 				otherPlayers.get(i).render(g);
 			}
 			
-			if (displayScore)scoreBoard.render(g);
+			if (displayScore){
+				scoreBoard.render(g);
+				fontScore.renderScore(g, 1, 280, 63, 13, 55, scoreInfo);
+			}
+			
 		}
 		/////////// end of drawing here! /////////////////////////////
 		g.dispose();
@@ -330,7 +337,7 @@ public class Game extends Canvas implements Runnable{
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
-				System.out.println(dbClient.getAllInfo());
+				scoreInfo = dbClient.getAllInfo();
 				displayScore = true;
 				sthDisplayed = true;
 			}
