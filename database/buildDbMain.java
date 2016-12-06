@@ -60,7 +60,7 @@ public class buildDbMain
    
    public static void createDomains(CreateDomainEx exD ) throws SQLException
    {
-	   exD.addNewDomain("TYPE","VARCHAR(3)","3X3",new String[]{"3X3","5X5"});
+	   exD.addNewDomain("TYPE","VARCHAR(5)","3X3",new String[]{"3X3","15X15"});
 	   exD.addNewDomain("RESULT", "VARCHAR","null", new String[]{"won","lost","tie"});	   
    }
    
