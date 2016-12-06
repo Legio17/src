@@ -39,6 +39,7 @@ public class SpriteSheetLoader{
 		
 		//===================== load fonts =====================
 		loadFont("/sheets/fonts/", "fontLog");
+		loadFont("/sheets/fonts/", "fontStats");
 	}
 	
 	

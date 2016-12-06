@@ -14,8 +14,11 @@ public class FontLoader {
 	private ArrayList<String[]> charFonts; 
 	private ArrayList<BufferedImage[]> imgFonts; 
 	
-	private String[] fontLog; // font for login
+	private String[] fontLogChar; // font for login
 	private String nickName;
+	
+	private String[] fontInfoDisChar;
+	private String displayInfo;
 	
 	public FontLoader(Game game){
 		charFonts = new ArrayList<String[]>();
@@ -29,22 +32,38 @@ public class FontLoader {
 	}
 	
 	public void init(){
-		fillFontChar(); //fill String navigation for font login
-		loadCharToFont(fontLog, 8, 8); //load letter images for login
+		initializeFontCharArrays();
+		loadCharToFont(fontLogChar,"fontLog", 8, 8, 87, 101, 1); //load letter images for login
+		loadCharToFont(fontInfoDisChar,"fontStats", 26, 1, 13, 30, 0);
 	}
 	
-	public void loadCharToFont(String[] fontLog2, int nrOfCol, int nrOfRow){
+	private void initializeFontCharArrays() {
+		fontLogChar = new String[]{"!","0","1","2","3","4","5","6"
+				,"7","8","9","A","B","C","D","E"
+				,"F","G","H","I","J","K","L","M"
+				,"N","O","P","Q","R","S","T","U"
+				,"V","W","X","Y","Z","a","b","c"
+				,"d","e","f","g","h","i","j","k"
+				,"l","m","n","o","p","q","r","s"
+				,"t","u","v","w","x","y","z"," "};
+		
+		fontInfoDisChar = new String[]{"a","b","c"
+				,"d","e","f","g","h","i","j","k"
+				,"l","m","n","o","p","q","r","s"
+				,"t","u","v","w","x","y","z"};
+		
+	}
+
+	public void loadCharToFont(String[] fontLog2, String pngFontName, int nrOfCol, int nrOfRow, int width, int height, int border){
 		charFonts.add(fontLog2);
 		BufferedImage[] tempArr = new BufferedImage[(fontLog2.length)];
 		SpriteSheet fontSheet;
-		fontSheet = sprite_sheet_loader.retriveFont("fontLog");
-		
+		fontSheet = sprite_sheet_loader.retriveFont(pngFontName);
+		System.out.println(fontSheet == null);
 		int row = 1;
 		for (int col = 1; col <= nrOfRow; col++ ){
 			BufferedImage img;
-			//System.out.println(col +" "+row);
-			img = fontSheet.grabImage(col, row, 87, 101, 1);
-			//System.out.println(((row-1)*nrOfCol)+col-1);
+			img = fontSheet.grabImage(col, row, width, height, border);
 			tempArr[((row-1)*nrOfCol)+col-1] = img;
 			if (col == nrOfCol){
 				col = 0;
@@ -54,17 +73,6 @@ public class FontLoader {
 			
 		}
 		imgFonts.add(tempArr);
-	}
-	
-	public void fillFontChar(){
-		fontLog = new String[]{"!","0","1","2","3","4","5","6"
-				,"7","8","9","A","B","C","D","E"
-				,"F","G","H","I","J","K","L","M"
-				,"N","O","P","Q","R","S","T","U"
-				,"V","W","X","Y","Z","a","b","c"
-				,"d","e","f","g","h","i","j","k"
-				,"l","m","n","o","p","q","r","s"
-				,"t","u","v","w","x","y","z"," "};
 	}
 	
 	public BufferedImage retriveByName(String charName, int fontNr){
