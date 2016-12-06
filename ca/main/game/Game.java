@@ -310,7 +310,7 @@ public class Game extends Canvas implements Runnable{
 		else if(key == KeyEvent.VK_5){
 			player.ticTac15x15();
 			playerPose = "05";
-			client.sendSearchingForPlayer(player.getName());	
+			client.sendSearchingForPlayer(player.getName() + ":" + ticTacToeGameList.size());	
 		}
 		else if(key == KeyEvent.VK_6){
 			playerPose = "05";
