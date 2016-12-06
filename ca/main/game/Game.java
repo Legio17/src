@@ -267,16 +267,16 @@ public class Game extends Canvas implements Runnable{
 		//================= Controls Tic-Tac-Toe ================
 		}else if(displayGame){
 			if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
-				ticTacToeGameList.get(0).incPosX(); //TODO new
+				ticTacToeGameList.get(client.getTicTacToeNr()).incPosX(); //TODO new
 			}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
-				ticTacToeGameList.get(0).decPosX();
+				ticTacToeGameList.get(client.getTicTacToeNr()).decPosX();
 			}else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
-				ticTacToeGameList.get(0).incPosY();
+				ticTacToeGameList.get(client.getTicTacToeNr()).incPosY();
 			}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
-				ticTacToeGameList.get(0).decPosY();
+				ticTacToeGameList.get(client.getTicTacToeNr()).decPosY();
 			}else if(key == KeyEvent.VK_ENTER){
-				client.sendTicToeToeMark(ticTacToeGameList.get(0).getSelectorXpos() + ":" + ticTacToeGameList.get(0).getSelectorYpos()+
-										 ":"+ ticTacToeGameList.get(0).getLocalMark());
+				client.sendTicToeToeMark(ticTacToeGameList.get(client.getTicTacToeNr()).getSelectorXpos() + ":" + ticTacToeGameList.get(client.getTicTacToeNr()).getSelectorYpos()+
+										 ":"+ ticTacToeGameList.get(client.getTicTacToeNr()).getLocalMark());
 			}else if(key == KeyEvent.VK_Q || key == KeyEvent.VK_ESCAPE){
 				if (!displayGame && !sthDisplayed){
 					displayGame = true;

@@ -154,7 +154,7 @@ public class Client extends Thread {
 	 * @param data
 	 */
 	public void sendTicToeToeMark(String data) {
-		data = "06:" + data + ":";
+		data = "06:" + data + ":" + ticTacToeNr +":";
 		System.out.println("Client sending mark position: " + data);
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
 				data.getBytes().length, ipAddress, port);
@@ -263,13 +263,16 @@ public class Client extends Thread {
 	private void ticTacToeMark(String[] array) {
 		System.out.println("Client recieving mark info: " + array[0] + " "
 				+ array[1] + " " + array[2] + " " + array[3]);
-		int col = Integer.parseInt(array[1]);
-		int row = Integer.parseInt(array[2]);
-
-		System.out.println(col + " " + row);
-		game.getTicTacToeGameList().get(ticTacToeNr).mark(col, row, array[3]);
-
+		int receivedTicTacToeNr = Integer.parseInt(array[4]);
+		if(ticTacToeNr == receivedTicTacToeNr){
+			int col = Integer.parseInt(array[1]);
+			int row = Integer.parseInt(array[2]);
+	
+			System.out.println(col + " " + row);
+			game.getTicTacToeGameList().get(ticTacToeNr).mark(col, row, array[3]);
+		}
 	}
+	
 	public int getTicTacToeNr(){
 		return ticTacToeNr;
 	}
