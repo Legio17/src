@@ -108,13 +108,11 @@ public class Client extends Thread {
 	}
 
 	/**
-	 * Sends data with the identifier 04 and it takes for example the local
-	 * player's name as a parameter. This method is used for signaling that the
-	 * local player is searching for someone else to play tic-tac-toe with.
+	 * Sends data with the identifier 04 and it takes for example the local player's name as
+	 * a parameter. This method is used for signaling that the local player is
+	 * searching for someone else to play tic-tac-toe with.
 	 * 
-	 * @param data
-	 *            the data that needs to be broadcast to the other players so it
-	 *            is known that the sender wants to start a game
+	 * @param data the data that needs to be broadcast to the other players so it is known that the sender wants to start a game
 	 */
 	public void sendSearchingForPlayer(String data) {
 		data = "04:" + data + ":";
@@ -127,11 +125,9 @@ public class Client extends Thread {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
-	 * Send that you are trying to enter a tic-tac-toe game with a searching
-	 * player
-	 * 
+	 * Send that you are trying to enter a tic-tac-toe game with a searching player
 	 * @param data
 	 */
 	public void sendMatchPlayers(String data) {
@@ -145,10 +141,9 @@ public class Client extends Thread {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
 	 * Send where the player want to put their tic-tac-toe mark
-	 * 
 	 * @param data
 	 */
 	public void sendTicToeToeMark(String data) {
@@ -163,7 +158,7 @@ public class Client extends Thread {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
 	 * 
 	 * @param data
@@ -211,40 +206,35 @@ public class Client extends Thread {
 		String player1 = array[1];
 		game.getTicTacToeGameList().add(new TicTacToe15x15(game, player1));
 		System.out.println("TicTacToe game CREATED"
-				+ (game.getTicTacToeGameList().get(0) != null));
+				+ game.getTicTacToeGameList().get(0) != null);
 	}
-	
-	/**
-	 * Matching....
-	 * @param array
-	 */
+
 	private void matchPlayers(String[] array) {
 		String player2 = array[1];
-		System.out.println("PLAYER1 " + amIPlayer1());
-		System.out.println("PLAYER2 " + amIPlayer2(player2));
+		System.out.println("AM I PLAYER1 "
+				+ game.getTicTacToeGameList().get(0).getPlayer1()
+						.equals(game.getPlayer().getName()));
+		System.out.println("AM I PLAYER2 "
+				+ player2.equals(game.getPlayer().getName()));
 		
-		for(int i = 0; i < game.getTicTacToeGameList().size(); i++){
-			if(game.getTicTacToeGameList().get(i).getPlayer2() == null){
-				game.getTicTacToeGameList().get(i).setPlayer2(player2);
-			}
-		}
+		game.getTicTacToeGameList().get(0).setPlayer2(player2);
 		System.out.println("Matching players....."
 				+ game.getTicTacToeGameList().get(0).getPlayer1() + " "
 				+ game.getTicTacToeGameList().get(0).getPlayer2());
-		if (amIPlayer1() || amIPlayer2(player2)) {
+		if(amIPlayer1() || amIPlayer2(player2)){
 			game.setDisplayTicTacToe(true);
 		}
+		game.getTicTacToeGameList().remove(0);
 	}
-
-	private boolean amIPlayer1() {
+	
+	private boolean amIPlayer1(){
 		return game.getTicTacToeGameList().get(0).getPlayer1()
 				.equals(game.getPlayer().getName());
 	}
-
-	private boolean amIPlayer2(String player2) {
+	
+	private boolean amIPlayer2(String player2){
 		return player2.equals(game.getPlayer().getName());
 	}
-
 	private void ticTacToeMark(String[] array) {
 		System.out.println("Client recieving mark info: " + array[0] + " "
 				+ array[1] + " " + array[2] + " " + array[3]);
