@@ -230,7 +230,7 @@ public class Client extends Thread {
 			if(wasSet){
 				//Do nothing or break
 			}
-			else if(game.getTicTacToeGameList().get(i).getPlayer2() == null){
+			else if(game.getTicTacToeGameList().get(i).getPlayer2().equals("NotSet")){
 				game.getTicTacToeGameList().get(i).setPlayer2(player2);
 				wasSet = true;
 				if (amIPlayer1(i) || amIPlayer2(i)) {

@@ -58,6 +58,7 @@ public class TicTacToe15x15 {
 		//dbClient = game.getdbClient();
 
 		this.player1 = player1;
+		player2 = "NotSet";
 		this.game = game;
 		loader = new BufferImageLoader();
 		bm = game.getBoardManager();
