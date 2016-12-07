@@ -446,6 +446,10 @@ public class Game extends Canvas implements Runnable{
 		this.ticTacResult = lastMark;
 	}
 	
+	public void setTicTacFinished(boolean ticTacFinished){
+		this.ticTacFinished = ticTacFinished;
+	}
+	
 	public BoardManager getBoardManager(){
 		return boardManager;
 	}

@@ -297,6 +297,8 @@ public class Client extends Thread {
 		System.out.println("sizeb4 " + game.getTicTacToeGameList().size());
 		if(game.getTicTacToeGameList().size() != 0 && removeAtIndex < game.getTicTacToeGameList().size()){
 			if(game.getTicTacToeGameList().get(removeAtIndex).getPlayer1().equals(player1)){
+				game.setDisplayGame(false);
+				game.setTicTacFinished(false);
 				game.getTicTacToeGameList().remove(removeAtIndex);	
 				System.out.println("Removed " + array[1] + " with player " + player1);
 				System.out.println("sizeafter " + game.getTicTacToeGameList().size());
