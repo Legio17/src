@@ -26,8 +26,7 @@ public class Client extends Thread {
 	private Game game;
 	private int port;
 	private String name;
-	private ArrayList<String> ipList;
-	private int j;
+	private boolean player2Set;
 	private int ticTacToeNr;
 
 	/**
@@ -44,6 +43,7 @@ public class Client extends Thread {
 	public Client(Game game, String ipAddress, int port) {
 		this.game = game;
 		this.port = port;
+		player2Set = false;
 
 		try {
 			this.socket = new DatagramSocket();
@@ -154,7 +154,7 @@ public class Client extends Thread {
 	 * @param data
 	 */
 	public void sendTicToeToeMark(String data) {
-		data = "06:" + data + ":" + ticTacToeNr +":";
+		data = "06:" + data + ":" + ticTacToeNr + ":";
 		System.out.println("Client sending mark position: " + data);
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
 				data.getBytes().length, ipAddress, port);
@@ -212,38 +212,43 @@ public class Client extends Thread {
 	private void searchForPlayer(String[] array) {
 		String player1 = array[1];
 		int gameCreatedNum = Integer.parseInt(array[2]);
-		if(game.getTicTacToeGameList().size() == gameCreatedNum){
+		if (game.getTicTacToeGameList().size() == gameCreatedNum) {
 			game.getTicTacToeGameList().add(new TicTacToe15x15(game, player1));
 		}
 	}
-	
+
 	/**
 	 * Matching....
+	 * 
 	 * @param array
 	 */
 	private void matchPlayers(String[] array) {
 
 		String player2 = array[1];
-		boolean wasSet = false;
-		
-		for(int i = 0; i < game.getTicTacToeGameList().size(); i++){
-			if(wasSet){
-				//Do nothing or break
+
+		for (int i = 0; i < game.getTicTacToeGameList().size(); i++) {
+			if (game.getTicTacToeGameList().get(i).getPlayer2().equals(player2)) {
+				player2Set = true;
 			}
-			else if(game.getTicTacToeGameList().get(i).getPlayer2().equals("NotSet")){
-				game.getTicTacToeGameList().get(i).setPlayer2(player2);
-				wasSet = true;
-				if (amIPlayer1(i) || amIPlayer2(i)) {
-					game.setDisplayTicTacToe(true);
-					ticTacToeNr = i;
+		}
+
+		if (!player2Set) {
+			for (int j = 0; j < game.getTicTacToeGameList().size(); j++) {
+				if (game.getTicTacToeGameList().get(j).getPlayer2().equals("NotSet")) {
+					game.getTicTacToeGameList().get(j).setPlayer2(player2);
+					if (amIPlayer1(j) || amIPlayer2(j)) {
+						game.setDisplayTicTacToe(true);
+						ticTacToeNr = j;
+					}
+					break;
 				}
+				System.out.println("PLAYER1 " + amIPlayer1(j));
+				System.out.println("PLAYER2 " + amIPlayer2(j));
+				System.out.println("Matching players....."
+						+ game.getTicTacToeGameList().get(j).getPlayer1() + " "
+						+ game.getTicTacToeGameList().get(j).getPlayer2() + " "
+						+ j);
 			}
-			System.out.println("PLAYER1 " + amIPlayer1(i));
-			System.out.println("PLAYER2 " + amIPlayer2(i));
-			System.out.println("Matching players....."
-					+ game.getTicTacToeGameList().get(i).getPlayer1() + " "
-					+ game.getTicTacToeGameList().get(i).getPlayer2() + " " + i);
-			
 		}
 	}
 
@@ -259,18 +264,20 @@ public class Client extends Thread {
 
 	private void ticTacToeMark(String[] array) {
 		System.out.println("Client recieving mark info: " + array[0] + " "
-				+ array[1] + " " + array[2] + " " + array[3] + " gameNo " + array[4]);
+				+ array[1] + " " + array[2] + " " + array[3] + " gameNo "
+				+ array[4]);
 		int receivedTicTacToeNr = Integer.parseInt(array[4]);
-		if(ticTacToeNr == receivedTicTacToeNr){
+		if (ticTacToeNr == receivedTicTacToeNr) {
 			int col = Integer.parseInt(array[1]);
 			int row = Integer.parseInt(array[2]);
-	
+
 			System.out.println(col + " " + row);
-			game.getTicTacToeGameList().get(ticTacToeNr).mark(col, row, array[3]);
+			game.getTicTacToeGameList().get(ticTacToeNr)
+					.mark(col, row, array[3]);
 		}
 	}
-	
-	public int getTicTacToeNr(){
+
+	public int getTicTacToeNr() {
 		return ticTacToeNr;
 	}
 }
