@@ -225,10 +225,11 @@ public class Client extends Thread {
 	private void matchPlayers(String[] array) {
 
 		String player2 = array[1];
-
+		player2Set = false;
+		
 		for (int i = 0; i < game.getTicTacToeGameList().size(); i++) {
 			if (game.getTicTacToeGameList().get(i).getPlayer2().equals(player2)) {
-				player2Set = player2Set(player2, i);
+				player2Set = true;
 			}
 		}
 
@@ -252,9 +253,6 @@ public class Client extends Thread {
 		}
 	}
 	
-	private boolean player2Set(String player2, int i){
-		return game.getTicTacToeGameList().get(i).getPlayer2().equals(player2) && player2Set;
-	}
 	private boolean amIPlayer1(int i) {
 		return game.getTicTacToeGameList().get(i).getPlayer1()
 				.equals(game.getPlayer().getName());
