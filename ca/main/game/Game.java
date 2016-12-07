@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.JFrame;
@@ -81,7 +82,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private int updateOnFifth;
 
-	
+	private ArrayList<GameObjectTypeA> typeAObjects; 
 	/**
 	 * 	construction of necessary items before game can start
 	 */
@@ -106,6 +107,8 @@ public class Game extends Canvas implements Runnable{
 		login = true;
 		updateOnFifth = 0;
 		ticTacResult = "";
+		
+		typeAObjects = new ArrayList<GameObjectTypeA>();
 		
 		try {
 			player1Victory = imageLoader.loadImage("/img/boards/tic-tac-toe/playerboard_player1Win.png");
@@ -210,6 +213,10 @@ public class Game extends Canvas implements Runnable{
 		if (login == false && displayGame == false){
 			client.sendPlayerPos((ipAddress+":"+player.getX()+":"+player.getY()+":"+playerPose));;
 			player.tick();//updates player position
+		}
+		
+		for (int objectANr = 0; objectANr < typeAObject.size(); objectANr ++){
+			typeAObject.get(objectsANr).renderZone(g);
 		}
 
 	}
@@ -451,6 +458,10 @@ public class Game extends Canvas implements Runnable{
 	 */
 	public int getFrameWidth(){
 		return WIDTH;
+	}
+	
+	public BufferImageLoader getImageLoader(){
+		return imageLoader;
 	}
 	
 	/**
