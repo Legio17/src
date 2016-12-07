@@ -293,8 +293,11 @@ public class Client extends Thread {
 	
 	private void removeTicTacToe(String[] array) {
 		int removeAtIndex = Integer.parseInt(array[1]);	
-		game.getTicTacToeGameList().remove(removeAtIndex);	
-		System.out.println("Removed " + array[1]);
+		if(amIPlayer1(removeAtIndex)){
+			game.getTicTacToeGameList().remove(removeAtIndex);	
+			System.out.println("Removed " + array[1]);
+		}
+		
 	}
 
 	public int getTicTacToeNr() {
