@@ -10,7 +10,7 @@ import ca.main.game.Game;
  * loads up all attributes for the player including spawn position
  * this also includes graphics used for rendering player
  */
-public class Player {
+public class Player{
 	
 	private double x;
 	private double y;
