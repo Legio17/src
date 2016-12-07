@@ -228,7 +228,7 @@ public class Client extends Thread {
 
 		for (int i = 0; i < game.getTicTacToeGameList().size(); i++) {
 			if (game.getTicTacToeGameList().get(i).getPlayer2().equals(player2)) {
-				player2Set = true;
+				player2Set = player2Set(player2, i);
 			}
 		}
 
@@ -251,7 +251,10 @@ public class Client extends Thread {
 			}
 		}
 	}
-
+	
+	private boolean player2Set(String player2, int i){
+		return game.getTicTacToeGameList().get(i).getPlayer2().equals(player2) && player2Set;
+	}
 	private boolean amIPlayer1(int i) {
 		return game.getTicTacToeGameList().get(i).getPlayer1()
 				.equals(game.getPlayer().getName());
