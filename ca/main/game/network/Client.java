@@ -76,16 +76,26 @@ public class Client extends Thread {
 			if (array[0].equals("03")) {
 				movePlayer(array);
 			}
-			if (array[0].equals("04")) {
+			else if (array[0].equals("04")) {
 				searchForPlayer(array);
 			}
-			if (array[0].equals("05")) {
+			else if (array[0].equals("05")) {
 				matchPlayers(array);
 			}
-			if (array[0].equals("06")) {
+			else if (array[0].equals("06")) {
 				ticTacToeMark(array);
 			}
+			else if (array[0].equals("07")){
+				removeTicTacToe(array);
+			}
 		}
+	}
+
+	private void removeTicTacToe(String[] array) {
+		int removeAtIndex = Integer.parseInt(array[1]);
+		
+		game.getTicTacToeGameList().remove(removeAtIndex);
+		
 	}
 
 	/**
@@ -172,6 +182,18 @@ public class Client extends Thread {
 	 */
 	public void sendLoginRequest(String data) {
 		data = "00:" + data;
+		DatagramPacket packet = new DatagramPacket(data.getBytes(),
+				data.getBytes().length, ipAddress, port);
+
+		try {
+			socket.send(packet);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendEndTicTacToe(String data) {
+		data = "07:" + data +":";
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
 				data.getBytes().length, ipAddress, port);
 

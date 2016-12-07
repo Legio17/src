@@ -294,9 +294,8 @@ public class Game extends Canvas implements Runnable{
 				this.setDisplayGame(false);
 				ticTacFinished = false;
 				ticTacResult = "";
-				ticTacToeGameList.remove(client.getTicTacToeNr());//instead of this, there should be 
-																  //command that goes to server and removes 
-																  //game from all client in lobby 
+				client.sendEndTicTacToe(client.getTicTacToeNr() + "");
+				
 			}
 		}else if(displayGame){
 			if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
