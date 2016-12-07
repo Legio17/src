@@ -91,13 +91,6 @@ public class Client extends Thread {
 		}
 	}
 
-	private void removeTicTacToe(String[] array) {
-		int removeAtIndex = Integer.parseInt(array[1]);
-		
-		game.getTicTacToeGameList().remove(removeAtIndex);
-		
-	}
-
 	/**
 	 * Sends data with this information:
 	 * (ipAddress+":"+player.getX()+":"+player.getY()+":"+playerPose) The local
@@ -262,15 +255,12 @@ public class Client extends Thread {
 					if (amIPlayer1(j) || amIPlayer2(j)) {
 						game.setDisplayTicTacToe(true);
 						ticTacToeNr = j;
+						System.out.println("Matching players....."
+								+ game.getTicTacToeGameList().get(j).getPlayer1() + " "
+								+ game.getTicTacToeGameList().get(j).getPlayer2() + " "
+								+ ticTacToeNr);
 					}
-					break;
 				}
-				System.out.println("PLAYER1 " + amIPlayer1(j));
-				System.out.println("PLAYER2 " + amIPlayer2(j));
-				System.out.println("Matching players....."
-						+ game.getTicTacToeGameList().get(j).getPlayer1() + " "
-						+ game.getTicTacToeGameList().get(j).getPlayer2() + " "
-						+ j);
 			}
 		}
 	}
@@ -298,6 +288,12 @@ public class Client extends Thread {
 			game.getTicTacToeGameList().get(ticTacToeNr)
 					.mark(col, row, array[3]);
 		}
+	}
+	
+	private void removeTicTacToe(String[] array) {
+		int removeAtIndex = Integer.parseInt(array[1]);	
+		game.getTicTacToeGameList().remove(removeAtIndex);	
+		System.out.println("Removed " + array[1]);
 	}
 
 	public int getTicTacToeNr() {
