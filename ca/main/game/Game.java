@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import javax.swing.JFrame;
 
 import ca.main.game.boardGames.TicTacToe15x15;
+import ca.main.game.control.GameObjectTypeA;
 import ca.main.game.control.KeyInput;
 import ca.main.game.gfx.BufferImageLoader;
 import ca.main.game.gfx.FontLoader;
@@ -215,8 +216,8 @@ public class Game extends Canvas implements Runnable{
 			player.tick();//updates player position
 		}
 		
-		for (int objectANr = 0; objectANr < typeAObject.size(); objectANr ++){
-			typeAObject.get(objectsANr).renderZone(g);
+		for (int objectANr = 0; objectANr < typeAObjects.size(); objectANr ++){
+			typeAObjects.get(objectANr).renderZone(g);
 		}
 
 	}
