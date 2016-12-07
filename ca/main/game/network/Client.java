@@ -237,6 +237,8 @@ public class Client extends Thread {
 			if (amIPlayer1(i) || amIPlayer2(i)) {
 				game.setDisplayTicTacToe(true);
 				ticTacToeNr = i;
+			}
+			if(amIPlayer2(i)){
 				break;
 			}
 		}
