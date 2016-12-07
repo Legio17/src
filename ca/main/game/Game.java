@@ -291,7 +291,7 @@ public class Game extends Canvas implements Runnable{
 		//================= Controls Tic-Tac-Toe ================
 		}else if(displayGame && ticTacFinished){
 			if (key == KeyEvent.VK_ENTER){
-				setDisplayGame(false);
+				this.setDisplayGame(false);
 				ticTacFinished = false;
 				ticTacResult = "";
 				ticTacToeGameList.remove(client.getTicTacToeNr());//instead of this, there should be 

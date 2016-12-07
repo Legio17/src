@@ -179,6 +179,8 @@ public class TicTacToe15x15 {
 		 * buf.append('\n'); } System.out.println(buf.toString());
 		 */
 		if (Count.isThereFive(5, array)) {
+			game.setTicTacFinished(true, lastMark);
+			
 			if(getPlayer1().equals(localPlayer))
 			{
 				dbClient = new dbClient("client", game, game.getServerIp(), 1098);	
@@ -186,8 +188,7 @@ public class TicTacToe15x15 {
 					+ "15X15" + ":" + "12/05/2016" + ":" + getResult();
 			System.out.println(info);
 		    dbClient.sendName(info);
-		    
-		    game.setTicTacFinished(true, lastMark);
+
 		}}
 
 	}
