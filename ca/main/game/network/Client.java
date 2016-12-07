@@ -224,15 +224,19 @@ public class Client extends Thread {
 	private void matchPlayers(String[] array) {
 
 		String player2 = array[1];
+		boolean wasSet = false;
 		
 		for(int i = 0; i < game.getTicTacToeGameList().size(); i++){
-			if(game.getTicTacToeGameList().get(i).getPlayer2() == null){
+			if(wasSet){
+				//Do nothing or break
+			}
+			else if(game.getTicTacToeGameList().get(i).getPlayer2() == null){
 				game.getTicTacToeGameList().get(i).setPlayer2(player2);
+				wasSet = true;
 				if (amIPlayer1(i) || amIPlayer2(i)) {
 					game.setDisplayTicTacToe(true);
 					ticTacToeNr = i;
 				}
-				break;
 			}
 			System.out.println("PLAYER1 " + amIPlayer1(i));
 			System.out.println("PLAYER2 " + amIPlayer2(i));
