@@ -34,7 +34,7 @@ public class FontLoader {
 	public void init(){
 		initializeFontCharArrays();
 		loadCharToFont(fontLogChar,"fontLog", 8, 8, 87, 101, 1); //load letter images for login
-		loadCharToFont(fontInfoDisChar,"fontStats", 26, 1, 13, 30, 0);
+		loadCharToFont(fontInfoDisChar,"fontStats", 63, 1, 13, 30, 1);
 	}
 	
 	private void initializeFontCharArrays() {
@@ -50,7 +50,12 @@ public class FontLoader {
 		fontInfoDisChar = new String[]{"a","b","c"
 				,"d","e","f","g","h","i","j","k"
 				,"l","m","n","o","p","q","r","s"
-				,"t","u","v","w","x","y","z"};
+				,"t","u","v","w","x","y","z"," ",
+				"A","B","C","D","E"
+				,"F","G","H","I","J","K","L","M"
+				,"N","O","P","Q","R","S","T","U"
+				,"V","W","X","Y","Z","0","1","2","3","4","5","6"
+				,"7","8","9"};
 		
 	}
 
@@ -59,9 +64,8 @@ public class FontLoader {
 		BufferedImage[] tempArr = new BufferedImage[(fontLog2.length)];
 		SpriteSheet fontSheet;
 		fontSheet = sprite_sheet_loader.retriveFont(pngFontName);
-		System.out.println(fontSheet == null);
 		int row = 1;
-		for (int col = 1; col <= nrOfRow; col++ ){
+		for (int col = 1; col <= nrOfCol; col++ ){
 			BufferedImage img;
 			img = fontSheet.grabImage(col, row, width, height, border);
 			tempArr[((row-1)*nrOfCol)+col-1] = img;
@@ -89,9 +93,23 @@ public class FontLoader {
 		}
 	}
 	
-	public void renderScore(Graphics g, int fromFontNr, int x, int y, int diff, String[] array){
-		for (int i = 0; i < array.length-1; i++){
-			System.out.println(array[i]);
+	public void renderScore(Graphics g, int fromFontNr, int x, int y, int diffX, int diffY, String[] array){
+		int originalX = x;
+		int originalY = y;
+		for (int word = 0; word < array.length-1; word++){
+			array[word] = array[word].trim();
+			if (word <= 3)	y += diffY+21;
+			else if(word == 4) y += diffY+18;
+			else y += diffY+2;
+			x = originalX;
+			for (int letter = 0; letter < array[word].length(); letter++){
+				g.drawImage(retriveByName(Character.toString(array[word].charAt(letter)), fromFontNr), (int)x, (int)y, null);
+				x += diffX;
+				if(word == 3){
+					y = originalY;
+					originalX += 230; 
+				}
+			}
 		}
 	}
 	
