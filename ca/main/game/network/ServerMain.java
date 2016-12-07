@@ -68,7 +68,7 @@ public class ServerMain extends Thread {
 				newData = true;
 
 			} else if (identifier.equals("04") || identifier.equals("05")
-					|| identifier.equals("06")) {
+					|| identifier.equals("06") || identifier.equals("07")) {
 				sendData = receivePacket.getData();
 				newData = true;
 				

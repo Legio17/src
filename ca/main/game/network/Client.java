@@ -189,7 +189,7 @@ public class Client extends Thread {
 		data = "07:" + data +":";
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
 				data.getBytes().length, ipAddress, port);
-
+		System.out.println("Sending remove" + data);
 		try {
 			socket.send(packet);
 		} catch (IOException e) {
@@ -285,7 +285,7 @@ public class Client extends Thread {
 			int col = Integer.parseInt(array[1]);
 			int row = Integer.parseInt(array[2]);
 
-			System.out.println(col + " " + row);
+			//System.out.println(col + " " + row);
 			game.getTicTacToeGameList().get(ticTacToeNr)
 					.mark(col, row, array[3]);
 		}
