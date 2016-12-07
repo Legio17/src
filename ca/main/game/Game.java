@@ -241,7 +241,7 @@ public class Game extends Canvas implements Runnable{
 		if (login){
 			fancyBoard.render(g);	
 			fontLog.renderNick(g, 0, 170, 190, 45);
-		}else if(displayGame){
+		}else if(displayGame && client.getTicTacToeNr()<ticTacToeGameList.size()){
 			ticTacToeGameList.get(client.getTicTacToeNr()).render(g); //TODO new
 			if(ticTacFinished){
 				if(ticTacResult.equals("X"))g.drawImage(player1Victory, 0, 0, null);
