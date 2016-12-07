@@ -295,7 +295,7 @@ public class Game extends Canvas implements Runnable{
 				ticTacFinished = false;
 				ticTacResult = "";
 				client.sendEndTicTacToe(client.getTicTacToeNr() + "");
-				
+				System.out.println(client.getTicTacToeNr() + "");
 			}
 		}else if(displayGame){
 			if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){

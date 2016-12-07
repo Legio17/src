@@ -158,7 +158,7 @@ public class Client extends Thread {
 	 */
 	public void sendTicToeToeMark(String data) {
 		data = "06:" + data + ":" + ticTacToeNr + ":";
-		System.out.println("Client sending mark position: " + data);
+//		System.out.println("Client sending mark position: " + data);
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
 				data.getBytes().length, ipAddress, port);
 
@@ -245,6 +245,7 @@ public class Client extends Thread {
 		for (int i = 0; i < game.getTicTacToeGameList().size(); i++) {
 			if (game.getTicTacToeGameList().get(i).getPlayer2().equals(player2)) {
 				player2Set = true;
+				System.out.println("List size: " + game.getTicTacToeGameList().size());
 			}
 		}
 
@@ -276,9 +277,9 @@ public class Client extends Thread {
 	}
 
 	private void ticTacToeMark(String[] array) {
-		System.out.println("Client recieving mark info: " + array[0] + " "
+	/*	System.out.println("Client recieving mark info: " + array[0] + " "
 				+ array[1] + " " + array[2] + " " + array[3] + " gameNo "
-				+ array[4]);
+				+ array[4]);*/
 		int receivedTicTacToeNr = Integer.parseInt(array[4]);
 		if (ticTacToeNr == receivedTicTacToeNr) {
 			int col = Integer.parseInt(array[1]);
