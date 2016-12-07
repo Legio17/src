@@ -293,10 +293,10 @@ public class Client extends Thread {
 	
 	private void removeTicTacToe(String[] array) {
 		int removeAtIndex = Integer.parseInt(array[1]);	
-		String eitherPlayer = array[2];
-		if(game.getTicTacToeGameList().get(removeAtIndex).getPlayer1().equals(eitherPlayer)||game.getTicTacToeGameList().get(removeAtIndex).getPlayer2().equals(eitherPlayer)){
+		String player1 = array[2];
+		if(game.getTicTacToeGameList().get(removeAtIndex).getPlayer1().equals(player1)){
 			game.getTicTacToeGameList().remove(removeAtIndex);	
-			System.out.println("Removed " + array[1]);
+			System.out.println("Removed " + array[1] + " with player " + player1);
 		}
 		
 	}
