@@ -181,13 +181,11 @@ public class TicTacToe15x15 {
 		if (Count.isThereFive(5, array)) {
 			if(getPlayer1().equals(localPlayer))
 			{
-				dbClient = new dbClient("client", game, game.getServerIp(), 1098);	
+				dbClient = new dbClient("client", game, "10.52.236.210", 1098);	
 			String info = "01:" + getPlayer1() + ":" + getPlayer2() + ":"
 					+ "15X15" + ":" + "12/05/2016" + ":" + getResult();
 			System.out.println(info);
 		    dbClient.sendName(info);
-		    
-		    game.setTicTacFinished(true, lastMark);
 		}}
 
 	}

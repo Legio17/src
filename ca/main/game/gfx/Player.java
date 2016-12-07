@@ -193,7 +193,7 @@ public class Player {
          case "02":player = player_down; break;
          case "03":
          case "04":player = player_left; break;
-         case "05":player = player_sit; break;
+         case "05":ticTac15x15(); break;
          case "06":player = player_right; break;
          case "07":
          case "08":player = player_up; break;

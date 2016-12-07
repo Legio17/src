@@ -30,6 +30,8 @@ public class Map {
 		tileList = tr.getImageList();
 		tileListNames = tr.getImageListNames();
 		
+		System.out.println(map.length);
+		System.out.println(map[0].length);
 	}
 	
 	public void render(Graphics g, int tileSize, int tileBorder){
