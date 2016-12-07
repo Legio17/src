@@ -18,7 +18,9 @@ public class FontLoader {
 	private String nickName;
 	
 	private String[] fontInfoDisChar;
-	private String displayInfo;
+
+	private String[] fontInfoDisCharYellow;
+	
 	
 	public FontLoader(Game game){
 		charFonts = new ArrayList<String[]>();
@@ -35,6 +37,7 @@ public class FontLoader {
 		initializeFontCharArrays();
 		loadCharToFont(fontLogChar,"fontLog", 8, 8, 87, 101, 1); //load letter images for login
 		loadCharToFont(fontInfoDisChar,"fontStats", 63, 1, 13, 30, 1);
+		loadCharToFont(fontInfoDisCharYellow,"fontStatsYellow", 63, 1, 13, 30, 1);
 	}
 	
 	private void initializeFontCharArrays() {
@@ -48,6 +51,16 @@ public class FontLoader {
 				,"t","u","v","w","x","y","z"," "};
 		
 		fontInfoDisChar = new String[]{"a","b","c"
+				,"d","e","f","g","h","i","j","k"
+				,"l","m","n","o","p","q","r","s"
+				,"t","u","v","w","x","y","z"," ",
+				"A","B","C","D","E"
+				,"F","G","H","I","J","K","L","M"
+				,"N","O","P","Q","R","S","T","U"
+				,"V","W","X","Y","Z","0","1","2","3","4","5","6"
+				,"7","8","9"};
+		
+		fontInfoDisCharYellow = new String[]{"a","b","c"
 				,"d","e","f","g","h","i","j","k"
 				,"l","m","n","o","p","q","r","s"
 				,"t","u","v","w","x","y","z"," ",
@@ -110,6 +123,13 @@ public class FontLoader {
 					originalX += 230; 
 				}
 			}
+		}
+	}
+	
+	public void renderWordOnPosition(Graphics g, int fromFontNr, int x, int y, String word, int diffX){
+		for (char s : word.toCharArray()){
+			g.drawImage(retriveByName(Character.toString(s), fromFontNr), x, y, null);
+			x += diffX; 
 		}
 	}
 	

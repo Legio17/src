@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import ca.main.game.Game;
 import ca.main.game.gfx.BufferImageLoader;
+import ca.main.game.gfx.FontLoader;
 import ca.main.game.gfx.panels.Board;
 import ca.main.game.gfx.panels.BoardManager;
 import ca.main.game.network.TCPClient.dbClient;
@@ -36,9 +37,11 @@ public class TicTacToe15x15 {
 	private int max;
 	private int min;
 
-	private String mark;
 	private String localMark;
 	private String lastMark;
+	
+	private FontLoader player1Font;
+	private FontLoader player2Font;
 
 	private String[][] array;
 
@@ -59,6 +62,9 @@ public class TicTacToe15x15 {
 		loader = new BufferImageLoader();
 		bm = game.getBoardManager();
 
+		player1Font = new FontLoader(game);
+		player2Font = new FontLoader(game);
+		
 		posXCor = 204;
 		posYCor = 17;
 		size = 36;
@@ -67,7 +73,7 @@ public class TicTacToe15x15 {
 
 	public void init() {
 		try {
-
+			
 			posX = posXCor;
 			posY = posYCor;
 
@@ -76,8 +82,6 @@ public class TicTacToe15x15 {
 
 			min = 0;
 			max = 14;
-
-			mark = "H";
 			lastMark = "O";
 
 			initializeArray();
@@ -96,6 +100,8 @@ public class TicTacToe15x15 {
 
 	public void render(Graphics g) {
 		gameBoard.render(g);
+		player1Font.renderWordOnPosition(g, 2, 56, 65, player1, 13);
+		player2Font.renderWordOnPosition(g, 2, 56, 260, player2, 13);
 		g.drawImage(select, posX, posY, null);
 
 		for (int col = 0; col < array.length; col++) {
