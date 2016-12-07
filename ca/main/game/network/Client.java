@@ -228,19 +228,18 @@ public class Client extends Thread {
 		for(int i = 0; i < game.getTicTacToeGameList().size(); i++){
 			if(game.getTicTacToeGameList().get(i).getPlayer2() == null){
 				game.getTicTacToeGameList().get(i).setPlayer2(player2);
+				if (amIPlayer1(i) || amIPlayer2(i)) {
+					game.setDisplayTicTacToe(true);
+					ticTacToeNr = i;
+				}
+				break;
 			}
 			System.out.println("PLAYER1 " + amIPlayer1(i));
 			System.out.println("PLAYER2 " + amIPlayer2(i));
 			System.out.println("Matching players....."
 					+ game.getTicTacToeGameList().get(i).getPlayer1() + " "
 					+ game.getTicTacToeGameList().get(i).getPlayer2() + " " + i);
-			if (amIPlayer1(i) || amIPlayer2(i)) {
-				game.setDisplayTicTacToe(true);
-				ticTacToeNr = i;
-			}
-			if(amIPlayer2(i)){
-				break;
-			}
+			
 		}
 	}
 
