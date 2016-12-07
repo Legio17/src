@@ -301,7 +301,6 @@ public class Game extends Canvas implements Runnable{
 			if (key == KeyEvent.VK_ENTER){
 				this.setDisplayGame(false);
 				ticTacFinished = false;
-				ticTacResult = "";
 				if(ticTacToeGameList.get(client.getTicTacToeNr()).getPlayer1().equals((getPlayer().getName()))){
 					client.sendEndTicTacToe(client.getTicTacToeNr() + ":" + getPlayer().getName());
 				}
@@ -443,7 +442,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public void setTicTacFinished(boolean ticTacFinished, String lastMark){
 		this.ticTacFinished = ticTacFinished;
-		this.ticTacResult = lastMark;
+		ticTacResult = lastMark;
 	}
 	
 	public void setTicTacFinished(boolean ticTacFinished){
