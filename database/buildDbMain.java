@@ -18,17 +18,17 @@ public class buildDbMain
    public static void main(String args[]) throws ClassNotFoundException, SQLException
    {
 	  Connection con = null;
-	  con = connect.PostgreSQLJDBC("SEP2_data", "jens");
+	  con = connect.PostgreSQLJDBC("SEP2_data", "Postgres");
 	  
 	  CreateDomainEx exD = new CreateDomainEx(con); 
 	  CreateTableEx exT = new CreateTableEx(con); 
 	  InsertExecutor insertEx = new InsertExecutor(con);
 	  
 	  //JavaInputMethod.addEmployee(con); // create new employee by entering data from keyboard
-	  boolean ignore = true;
+	  boolean ignore = false;
 	  
 	  //create domains
-	  if (!ignore)createDomains(exD);
+	  if (ignore)createDomains(exD);
 	  
 	  //create tables
 	  if (!ignore)createTables(exT);
@@ -47,14 +47,14 @@ public class buildDbMain
 	  
 	
 	  
-	  insertEx.insertPlayer("LEGIO");
-	  insertEx.insertPlayer("Mio");
-	  insertEx.insertPlayer("Iulia");
-	  insertEx.insertPlayer("Signe");
-	  insertEx.insertPlayer("Filip");
-	  insertEx.insertToGameHistory("Mio", "LEGIO", "5X5", "2016-11-26", "lost");
-	  insertEx.insertToGameHistory("Adam", "Mio", "5X5", "2016-11-26", "lost");
-	  insertEx.updateRanks();
+//	  insertEx.insertPlayer("LEGIO");
+//	  insertEx.insertPlayer("Mio");
+//	  insertEx.insertPlayer("Iulia");
+//	  insertEx.insertPlayer("Signe");
+//	  insertEx.insertPlayer("Filip");
+//	  insertEx.insertToGameHistory("Mio", "LEGIO", "15X15", "2016-11-26", "lost");
+//	  insertEx.insertToGameHistory("Adam", "Mio", "15X15", "2016-11-26", "lost");
+//	  insertEx.updateRanks();
 
    }
    
