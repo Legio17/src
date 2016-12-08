@@ -162,6 +162,7 @@ public class Game extends Canvas implements Runnable {
 	public synchronized void stop() {
 
 		try {
+			client.sendQuit(InetAddress.getLocalHost().getHostAddress());
 		} catch (UnknownHostException e) {
 
 			e.printStackTrace();
