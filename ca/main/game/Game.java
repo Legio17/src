@@ -30,7 +30,7 @@ import ca.main.game.network.TCPClient.dbClient;
 
 public class Game extends Canvas implements Runnable{
 	
-	private final String SERVER_IP = "10.52.236.134";
+	private final String SERVER_IP = "10.52.238.56";
 	
 	public static final int WIDTH = 94*4; // 94 size of one tile without borders
 	public static final int HEIGHT = WIDTH / 12 *9; 
@@ -161,6 +161,12 @@ public class Game extends Canvas implements Runnable{
 			thread.join(); //groups up all running threads and kills them
 		}catch(InterruptedException e) {
 			e.printStackTrace();
+		}
+		for(int i=0; i<otherPlayers.size();i++){
+			if(otherPlayers.get(i).getName().equals(getPlayer().getName()))
+					{
+					client.sendQuit("08:"+otherPlayers.get(i).getName()+":");
+					}
 		}
 		System.exit(1);
 		
