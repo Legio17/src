@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import ca.main.game.boardGames.TicTacToe15x15;
 import ca.main.game.control.GameObjectTypeA;
@@ -154,6 +155,15 @@ public class Game extends Canvas implements Runnable{
 	 */
 	
 	public synchronized void stop(){
+		System.out.println("send quit to server!!");
+		for(int i=0; i<otherPlayers.size();i++){
+			if(otherPlayers.get(i).getName().equals(getPlayer().getName()))
+					{
+				
+					client.sendQuit("08:"+otherPlayers.get(i).getName()+":");
+					
+					}
+		}
 		if (!running) return; //if game is already dead ignore
 		
 		running = false;
@@ -162,12 +172,7 @@ public class Game extends Canvas implements Runnable{
 		}catch(InterruptedException e) {
 			e.printStackTrace();
 		}
-		for(int i=0; i<otherPlayers.size();i++){
-			if(otherPlayers.get(i).getName().equals(getPlayer().getName()))
-					{
-					client.sendQuit("08:"+otherPlayers.get(i).getName()+":");
-					}
-		}
+		
 		System.exit(1);
 		
 	}
@@ -273,6 +278,7 @@ public class Game extends Canvas implements Runnable{
 		g.dispose();
 		bs.show();
 	}
+	 
 	
 	
 	/**
@@ -464,6 +470,11 @@ public class Game extends Canvas implements Runnable{
 		return SERVER_IP;
 	}
 	
+	public void setRunning(boolean b) {
+		running=b;
+		
+	}
+	
 	/**
 	 * @return game frame width
 	 */
@@ -521,13 +532,19 @@ public class Game extends Canvas implements Runnable{
 		JFrame frame = new JFrame(game.TITLE);
 		frame.add(game);
 		frame.pack(); //basically pack everything together/extends window class
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
+		frame.addWindowListener(new java.awt.event.WindowAdapter() {
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		        game.setRunning(false);
+		        }
+		});
 		game.start();//call on game to start
 	}
+
+	
 
 	public void setDisplayTicTacToe(boolean b) {
 		displayGame = true;
