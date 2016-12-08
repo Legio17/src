@@ -3,7 +3,7 @@ package ca.main.game.gfx.panels;
 import java.util.ArrayList;
 
 import ca.main.game.Game;
-import ca.main.game.utilities.simpleMethods;
+import ca.main.game.utilities.SimpleMethods;
 
 public class BoardManager {
 	
@@ -41,7 +41,7 @@ public class BoardManager {
 	}
 	
 	public Board retriveByName(String name){
-		return simpleMethods.retriveFromListByName_Board(name, boardListNames, boardList);
+		return SimpleMethods.retriveFromListByName_Board(name, boardListNames, boardList);
 	}
 	
 	

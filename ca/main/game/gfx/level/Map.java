@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import ca.main.game.Game;
 import ca.main.game.gfx.SpriteSheet;
 import ca.main.game.gfx.SpriteSheetLoader;
-import ca.main.game.utilities.simpleMethods;
+import ca.main.game.utilities.SimpleMethods;
 
 public class Map {
 	
@@ -47,11 +47,11 @@ public class Map {
 		String tile_type = map[column][row];
 		
 		if(tile_type.equalsIgnoreCase("0")){
-			return simpleMethods.retriveFromListByName("grass", tileListNames, tileList);
+			return SimpleMethods.retriveFromListByName("grass", tileListNames, tileList);
 		} else if(tile_type.equals("1")) {
-			return simpleMethods.retriveFromListByName("rock", tileListNames, tileList);
+			return SimpleMethods.retriveFromListByName("rock", tileListNames, tileList);
 		} else{
-			return simpleMethods.retriveFromListByName("voidT", tileListNames, tileList);
+			return SimpleMethods.retriveFromListByName("voidT", tileListNames, tileList);
 		}
 		
 	}

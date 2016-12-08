@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import ca.main.game.Game;
-import ca.main.game.utilities.simpleMethods;
+import ca.main.game.utilities.SimpleMethods;
 
 public class FontLoader {
 	
@@ -93,7 +93,7 @@ public class FontLoader {
 	}
 	
 	public BufferedImage retriveByName(String charName, int fontNr){
-		int pos = simpleMethods.retrivePositionArray(charName, charFonts.get(fontNr));
+		int pos = SimpleMethods.retrivePositionArray(charName, charFonts.get(fontNr));
 		if (pos==-1)return null;
 		return imgFonts.get(fontNr)[pos];
 	}

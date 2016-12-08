@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import ca.main.game.gfx.panels.Board;
 
-public class simpleMethods {
+public class SimpleMethods {
 	
 	public static int retrivePosition(String name, ArrayList<String> list){
 		int pos = 0;
