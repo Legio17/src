@@ -43,23 +43,21 @@ public class DbClient extends Thread {
 
 	public void run() {
 		setIsThreadStarted();
-		while (true) {
-			try {
-				System.out.println("INfROMSERVER");
-				
-				// create input stream attached to the socket.
-				inFromServer = new ObjectInputStream(
-						clientSocket.getInputStream());
-				String temp = (String) inFromServer.readObject();
-				allInfo = temp.split(",");
-				// System.out.println((String) inFromServer.readObject());
-			} catch (IOException e) {
-				System.out.println("error!");
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
+		try {
+			System.out.println("INfROMSERVER");
+
+			// create input stream attached to the socket.
+			inFromServer = new ObjectInputStream(clientSocket.getInputStream());
+			String temp = (String) inFromServer.readObject();
+			allInfo = temp.split(",");
+			// System.out.println((String) inFromServer.readObject());
+		} catch (IOException e) {
+			System.out.println("error!");
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
