@@ -113,7 +113,7 @@ public class Game extends Canvas implements Runnable{
 		
 		try {
 			player1Victory = imageLoader.loadImage("/img/boards/tic-tac-toe/playerboard_player1Win.png");
-			player2Victory = imageLoader.loadImage("/img/boards/tic-tac-toe/playerboard_player1Win.png");
+			player2Victory = imageLoader.loadImage("/img/boards/tic-tac-toe/playerboard_player2Win.png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -443,6 +443,7 @@ public class Game extends Canvas implements Runnable{
 	public void setTicTacFinished(boolean ticTacFinished, String lastMark){
 		this.ticTacFinished = ticTacFinished;
 		ticTacResult = lastMark;
+		System.out.println(ticTacResult);
 	}
 	
 	public void setTicTacFinished(boolean ticTacFinished){
