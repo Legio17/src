@@ -26,6 +26,11 @@ public class OtherPlayersList {
 		return otherPlayers.get(i);
 	}
 	
+	public String getName(int i)
+	{
+		return otherPlayers.get(i).getName();
+	}
+	
 	public void removeOtherPlayer(int i)
 	{
 		otherPlayers.remove(i);
