@@ -297,20 +297,28 @@ public class Game extends Canvas implements Runnable {
 		 */
 		int key = e.getExtendedKeyCode();
 		// ================= Controls login ======================
-		if (login) {
-			if (key == KeyEvent.VK_ENTER) {
+		if (login){
+			if(key == KeyEvent.VK_ENTER){
 				login = false;
 				player.setPlayerName(fontLog.getNickName());
 				dbClient = new dbClient("client", this, SERVER_IP, 1098);
-				client.sendLoginRequest(ipAddress + ":" + player.getName());
+				client.sendLoginRequest(ipAddress+":"+player.getName());
 				dbClient.sendName("00:" + player.getName());
 				System.out.println(player.getName());
-			} else {
-				String c = Character.toString((char) key);
-				fontLog.addToNickName(c);
-
+			}else if(key == KeyEvent.VK_BACK_SPACE){ 	
+				if(fontLog.getNickName().length() != 0){
+					fontLog.setNickName(fontLog.getNickName().substring(0, fontLog.getNickName().length() - 1));
+				}
+			} else{
+				String c = Character.toString((char)key);
+				if (fontLog.retrieveCharExistance(c, 0) && fontLog.getNickName().length() != 9){
+					fontLog.addToNickName(c);
+				}
+				
 			}
 
+			
+			
 			// ================= Controls Tic-Tac-Toe ================
 		} else if (displayGame && ticTacFinished) {
 			if (key == KeyEvent.VK_ENTER) {
