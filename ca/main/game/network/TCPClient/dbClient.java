@@ -45,7 +45,6 @@ public class DbClient extends Thread {
 		setIsThreadStarted();
 
 		try {
-			System.out.println("INfROMSERVER");
 
 			// create input stream attached to the socket.
 			inFromServer = new ObjectInputStream(clientSocket.getInputStream());
