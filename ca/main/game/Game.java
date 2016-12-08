@@ -407,7 +407,7 @@ public class Game extends Canvas implements Runnable {
 				} else if (displayScore) {
 					displayScore = false;
 					sthDisplayed = false;
-					// dbClient.stop();
+					DbClient.stop();
 				}
 
 			} else if (key == KeyEvent.VK_Q) {
