@@ -25,4 +25,9 @@ public class OtherPlayersList {
 	{
 		return otherPlayers.get(i);
 	}
+	
+	public void removeOtherPlayer(int i)
+	{
+		otherPlayers.remove(i);
+	}
 }

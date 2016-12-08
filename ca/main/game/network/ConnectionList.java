@@ -35,4 +35,9 @@ public class ConnectionList {
 	{
 		return conns.get(i).getIP();
 	}
+
+	public void deleteConnection(int i) {
+		conns.remove(i);
+		
+	}
 }

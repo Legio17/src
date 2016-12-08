@@ -83,8 +83,27 @@ public class ServerMain extends Thread {
 				port = receivePacket.getPort();
 				createConnection(ipAddress, port);
 			}
+			else if (identifier.equals("08")) {
+				ipAddress = receivePacket.getAddress();
+				port = receivePacket.getPort();
+				deleteConnection();
+				
+				
+			}
 
 		}
+	}
+
+	private void deleteConnection() {
+		for (int i = 0; i < connections.size(); i++) {
+
+			if (ipAddress.equals(connections.getIP(i))) {
+				connections.deleteConnection(i);
+				
+				break;
+			}
+		}
+		
 	}
 
 	/**

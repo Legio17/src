@@ -75,18 +75,25 @@ public class Client extends Thread {
 
 			if (array[0].equals("03")) {
 				movePlayer(array);
-			}
-			else if (array[0].equals("04")) {
+			} else if (array[0].equals("04")) {
 				searchForPlayer(array);
-			}
-			else if (array[0].equals("05")) {
+			} else if (array[0].equals("05")) {
 				matchPlayers(array);
-			}
-			else if (array[0].equals("06")) {
+			} else if (array[0].equals("06")) {
 				ticTacToeMark(array);
-			}
-			else if (array[0].equals("07")){
+			} else if (array[0].equals("07")) {
 				removeTicTacToe(array);
+			} else if (array[0].equals("08")) {
+				quitGame(array);
+			}
+		}
+	}
+
+	private void quitGame(String[] array) {
+		for (int i = 0; i < game.getOtherPlayers().size(); i++) {
+			if (game.getOtherPlayers().get(i).equals(array[1])) {
+				game.getOtherPlayers().removeOtherPlayer(i);
+				break;
 			}
 		}
 	}
@@ -158,7 +165,7 @@ public class Client extends Thread {
 	 */
 	public void sendTicToeToeMark(String data) {
 		data = "06:" + data + ":" + ticTacToeNr + ":";
-//		System.out.println("Client sending mark position: " + data);
+		// System.out.println("Client sending mark position: " + data);
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
 				data.getBytes().length, ipAddress, port);
 
@@ -184,9 +191,21 @@ public class Client extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void sendEndTicTacToe(String data) {
-		data = "07:" + data +":";
+		data = "07:" + data + ":";
+		DatagramPacket packet = new DatagramPacket(data.getBytes(),
+				data.getBytes().length, ipAddress, port);
+		System.out.println("Sending remove " + data);
+		try {
+			socket.send(packet);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void sendQuit(String data) {
+		data = "08:" + data + ":";
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
 				data.getBytes().length, ipAddress, port);
 		System.out.println("Sending remove " + data);
@@ -241,31 +260,35 @@ public class Client extends Thread {
 
 		String player2 = array[1];
 		player2Set = false;
-		
+
 		for (int i = 0; i < game.getTicTacToeGameList().size(); i++) {
 			if (game.getTicTacToeGameList().get(i).getPlayer2().equals(player2)) {
 				player2Set = true;
-				System.out.println("List size: " + game.getTicTacToeGameList().size());
+				System.out.println("List size: "
+						+ game.getTicTacToeGameList().size());
 			}
 		}
 
 		if (!player2Set) {
 			for (int j = 0; j < game.getTicTacToeGameList().size(); j++) {
-				if (game.getTicTacToeGameList().get(j).getPlayer2().equals("NotSet")) {
+				if (game.getTicTacToeGameList().get(j).getPlayer2()
+						.equals("NotSet")) {
 					game.getTicTacToeGameList().get(j).setPlayer2(player2);
 					if (amIPlayer1(j) || amIPlayer2(j)) {
 						game.setDisplayTicTacToe(true);
 						ticTacToeNr = j;
 						System.out.println("Matching players....."
-								+ game.getTicTacToeGameList().get(j).getPlayer1() + " "
-								+ game.getTicTacToeGameList().get(j).getPlayer2() + " "
-								+ ticTacToeNr);
+								+ game.getTicTacToeGameList().get(j)
+										.getPlayer1()
+								+ " "
+								+ game.getTicTacToeGameList().get(j)
+										.getPlayer2() + " " + ticTacToeNr);
 					}
 				}
 			}
 		}
 	}
-	
+
 	private boolean amIPlayer1(int i) {
 		return game.getTicTacToeGameList().get(i).getPlayer1()
 				.equals(game.getPlayer().getName());
@@ -277,31 +300,36 @@ public class Client extends Thread {
 	}
 
 	private void ticTacToeMark(String[] array) {
-	/*	System.out.println("Client recieving mark info: " + array[0] + " "
-				+ array[1] + " " + array[2] + " " + array[3] + " gameNo "
-				+ array[4]);*/
+		/*
+		 * System.out.println("Client recieving mark info: " + array[0] + " " +
+		 * array[1] + " " + array[2] + " " + array[3] + " gameNo " + array[4]);
+		 */
 		int receivedTicTacToeNr = Integer.parseInt(array[4]);
 		if (ticTacToeNr == receivedTicTacToeNr) {
 			int col = Integer.parseInt(array[1]);
 			int row = Integer.parseInt(array[2]);
 
-			//System.out.println(col + " " + row);
+			// System.out.println(col + " " + row);
 			game.getTicTacToeGameList().get(ticTacToeNr)
 					.mark(col, row, array[3]);
 		}
 	}
-	
+
 	private void removeTicTacToe(String[] array) {
-		int removeAtIndex = Integer.parseInt(array[1]);	
+		int removeAtIndex = Integer.parseInt(array[1]);
 		String player1 = array[2];
 		System.out.println("sizeb4 " + game.getTicTacToeGameList().size());
-		if(game.getTicTacToeGameList().size() != 0 && removeAtIndex < game.getTicTacToeGameList().size()){
-			if(game.getTicTacToeGameList().get(removeAtIndex).getPlayer1().equals(player1)){
+		if (game.getTicTacToeGameList().size() != 0
+				&& removeAtIndex < game.getTicTacToeGameList().size()) {
+			if (game.getTicTacToeGameList().get(removeAtIndex).getPlayer1()
+					.equals(player1)) {
 				game.setDisplayGame(false);
 				game.setTicTacFinished(false);
-				game.getTicTacToeGameList().remove(removeAtIndex);	
-				System.out.println("Removed " + array[1] + " with player " + player1);
-				System.out.println("sizeafter " + game.getTicTacToeGameList().size());
+				game.getTicTacToeGameList().remove(removeAtIndex);
+				System.out.println("Removed " + array[1] + " with player "
+						+ player1);
+				System.out.println("sizeafter "
+						+ game.getTicTacToeGameList().size());
 			}
 		}
 	}
