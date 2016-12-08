@@ -208,7 +208,6 @@ public class Client extends Thread {
 		data = "08:" + data + ":";
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
 				data.getBytes().length, ipAddress, port);
-		System.out.println("Sending remove " + data);
 		try {
 			socket.send(packet);
 		} catch (IOException e) {

@@ -85,16 +85,16 @@ public class ServerMain extends Thread {
 			}
 			else if (identifier.equals("08")) {
 				ipAddress = receivePacket.getAddress();
-				port = receivePacket.getPort();
-				deleteConnection();
-				
+				deleteConnection(ipAddress);
+				sendData = receivePacket.getData();
+				newData = true;
 				
 			}
 
 		}
 	}
 
-	private void deleteConnection() {
+	private void deleteConnection(InetAddress ipAddress) {
 		for (int i = 0; i < connections.size(); i++) {
 
 			if (ipAddress.equals(connections.getIP(i))) {
@@ -153,6 +153,7 @@ public class ServerMain extends Thread {
 		if (!found) {
 			Connection newCon = new Connection(ipAddress, port);
 			connections.addConnection(newCon);
+			
 
 		}
 	}
