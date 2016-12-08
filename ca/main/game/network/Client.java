@@ -323,7 +323,7 @@ public class Client extends Thread {
 			if (game.getTicTacToeGameList().get(removeAtIndex).getPlayer1()
 					.equals(player1)) {
 //				game.setDisplayGame(false);
-				game.setTicTacFinished(false);
+//				game.setTicTacFinished(false); ///TODO: should it be here?
 				game.getTicTacToeGameList().remove(removeAtIndex);
 				System.out.println("Removed " + array[1] + " with player "
 						+ player1);
