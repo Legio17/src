@@ -27,7 +27,7 @@ import ca.main.game.gfx.panels.Board;
 import ca.main.game.gfx.panels.BoardManager;
 import ca.main.game.network.Client;
 import ca.main.game.network.OtherPlayersList;
-import ca.main.game.network.TCPClient.dbClient;
+import ca.main.game.network.TCPClient.DbClient;
 
 public class Game extends Canvas implements Runnable {
 
@@ -80,7 +80,7 @@ public class Game extends Canvas implements Runnable {
 	private boolean login;
 
 	private Client client;
-	private dbClient dbClient;
+	private DbClient DbClient;
 
 	private String ipAddress = "ipError";
 
@@ -300,9 +300,9 @@ public class Game extends Canvas implements Runnable {
 			if(key == KeyEvent.VK_ENTER){
 				login = false;
 				player.setPlayerName(fontLog.getNickName());
-				dbClient = new dbClient("client", this, SERVER_IP, 1098);
+				DbClient = new DbClient("client", this, SERVER_IP, 1098);
 				client.sendLoginRequest(ipAddress+":"+player.getName());
-				dbClient.sendName("00:" + player.getName());
+				DbClient.sendName("00:" + player.getName());
 				System.out.println(player.getName());
 			}else if(key == KeyEvent.VK_BACK_SPACE){ 	
 				if(fontLog.getNickName().length() != 0){
@@ -390,22 +390,29 @@ public class Game extends Canvas implements Runnable {
 				client.sendMatchPlayers((player.getName()));
 			} else if (key == KeyEvent.VK_E) {
 				if (!displayScore && !sthDisplayed) {
-					dbClient = new dbClient("client", this, SERVER_IP, 1098);
-					dbClient.start();
-					dbClient.sendName(player.getName());
+					
+					if(!DbClient.isThreadStarted())
+					{
+						System.out.println("Threads");
+						DbClient = new DbClient("client", this, SERVER_IP, 1098);
+						DbClient.start();
+					}
+					DbClient.sendName(player.getName());
 					try {
 						thread.sleep(500);
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
-					scoreInfo = dbClient.getAllInfo();
+					scoreInfo = DbClient.getAllInfo();
 					displayScore = true;
 					sthDisplayed = true;
+						
 				} else if (displayScore) {
 					displayScore = false;
 					sthDisplayed = false;
-					dbClient.stop();
+					//dbClient.stop();
 				}
+				
 
 			} else if (key == KeyEvent.VK_Q) {
 				if (!displayGame && !sthDisplayed) {
@@ -517,8 +524,8 @@ public class Game extends Canvas implements Runnable {
 		return ticTacToeGameList;
 	}
 
-	public dbClient getdbClient() {
-		return dbClient;
+	public DbClient getdbClient() {
+		return DbClient;
 	}
 
 	public Player getPlayer() {

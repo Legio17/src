@@ -9,7 +9,7 @@ import ca.main.game.gfx.BufferImageLoader;
 import ca.main.game.gfx.FontLoader;
 import ca.main.game.gfx.panels.Board;
 import ca.main.game.gfx.panels.BoardManager;
-import ca.main.game.network.TCPClient.dbClient;
+import ca.main.game.network.TCPClient.DbClient;
 
 public class TicTacToe15x15 {
 
@@ -51,7 +51,7 @@ public class TicTacToe15x15 {
 	private String player1;
 	private String player2;
 	private String localPlayer;
-	private dbClient dbClient;
+	private DbClient dbClient;
 
 	public TicTacToe15x15(Game game, String player1) {
 		localPlayer = game.getPlayer().getName();
@@ -190,7 +190,7 @@ public class TicTacToe15x15 {
 			
 			if(getPlayer1().equals(localPlayer))
 			{
-				dbClient = new dbClient("client", game, game.getServerIp(), 1098);	
+				dbClient = new DbClient("client", game, game.getServerIp(), 1098);	
 			String info = "01:" + getPlayer1() + ":" + getPlayer2() + ":"
 					+ "15X15" + ":" + "12/05/2016" + ":" + getResult();
 			System.out.println(info);

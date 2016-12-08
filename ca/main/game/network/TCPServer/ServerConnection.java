@@ -117,6 +117,7 @@ public class ServerConnection {
 
 			Iterator<ServerConnection> iterator = dbClientList.iterator();
 			// System.out.println(""+iterator.next());
+			
 			while (iterator.hasNext()) {
 				//System.out.println(dbServer.getC());
 				if (dbClientList.contains(dbServer.getC())) {
@@ -124,6 +125,7 @@ public class ServerConnection {
 					// System.out.println("Result: "+dbClientList.getCon(dbServer.getC()));
 					dbClientList.getCon(dbServer.getC()).outToClient
 							.writeObject(info+", "+info2);
+					dbClientList.remove(dbServer.getC());
 					break;
 				}
 			}
