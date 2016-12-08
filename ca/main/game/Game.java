@@ -296,28 +296,28 @@ public class Game extends Canvas implements Runnable {
 		 */
 		int key = e.getExtendedKeyCode();
 		// ================= Controls login ======================
-		if (login){
-			if(key == KeyEvent.VK_ENTER){
+		if (login) {
+			if (key == KeyEvent.VK_ENTER) {
 				login = false;
 				player.setPlayerName(fontLog.getNickName());
 				DbClient = new DbClient("client", this, SERVER_IP, 1098);
-				client.sendLoginRequest(ipAddress+":"+player.getName());
+				client.sendLoginRequest(ipAddress + ":" + player.getName());
 				DbClient.sendName("00:" + player.getName());
 				System.out.println(player.getName());
-			}else if(key == KeyEvent.VK_BACK_SPACE){ 	
-				if(fontLog.getNickName().length() != 0){
-					fontLog.setNickName(fontLog.getNickName().substring(0, fontLog.getNickName().length() - 1));
+			} else if (key == KeyEvent.VK_BACK_SPACE) {
+				if (fontLog.getNickName().length() != 0) {
+					fontLog.setNickName(fontLog.getNickName().substring(0,
+							fontLog.getNickName().length() - 1));
 				}
-			} else{
-				String c = Character.toString((char)key);
-				if (fontLog.retrieveCharExistance(c, 0) && fontLog.getNickName().length() != 9){
+			} else {
+				String c = Character.toString((char) key);
+				if (fontLog.retrieveCharExistance(c, 0)
+						&& fontLog.getNickName().length() != 9) {
 					fontLog.addToNickName(c);
 				}
-				
+
 			}
 
-			
-			
 			// ================= Controls Tic-Tac-Toe ================
 		} else if (displayGame && ticTacFinished) {
 			if (key == KeyEvent.VK_ENTER) {
@@ -390,13 +390,10 @@ public class Game extends Canvas implements Runnable {
 				client.sendMatchPlayers((player.getName()));
 			} else if (key == KeyEvent.VK_E) {
 				if (!displayScore && !sthDisplayed) {
-					
-					if(!DbClient.isThreadStarted())
-					{
-						System.out.println("Threads");
-						DbClient = new DbClient("client", this, SERVER_IP, 1098);
-						DbClient.start();
-					}
+
+					DbClient = new DbClient("client", this, SERVER_IP, 1098);
+					DbClient.start();
+
 					DbClient.sendName(player.getName());
 					try {
 						thread.sleep(500);
@@ -406,13 +403,12 @@ public class Game extends Canvas implements Runnable {
 					scoreInfo = DbClient.getAllInfo();
 					displayScore = true;
 					sthDisplayed = true;
-						
+
 				} else if (displayScore) {
 					displayScore = false;
 					sthDisplayed = false;
-					//dbClient.stop();
+					// dbClient.stop();
 				}
-				
 
 			} else if (key == KeyEvent.VK_Q) {
 				if (!displayGame && !sthDisplayed) {

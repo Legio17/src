@@ -29,7 +29,7 @@ public class ServerConnection {
 	public ServerConnection(Socket connectionSocket,
 			dbClientList<ServerConnection> dbClientList) {
 		try {
-			con = connect.PostgreSQLJDBC("SEP2_data", "Postgres");
+			con = connect.PostgreSQLJDBC("SEP2_data", "peter28mio07");
 			clientSocket = connectionSocket;
 			this.dbClientList = dbClientList;
 			this.ie = new InsertExecutor(con);
@@ -46,19 +46,20 @@ public class ServerConnection {
 
 	}
 
-	
-	 public String getPlayerName() { return name; }
-	 
-	 public void setPlayerName(String name) {
-	
-	 this.name = name; }
-	 
+	public String getPlayerName() {
+		return name;
+	}
+
+	public void setPlayerName(String name) {
+
+		this.name = name;
+	}
 
 	public void check() {
-		
+
 		try {
 			data = (String) inFromClient.readObject();
-			System.out.println("data: "+data);
+			System.out.println("data: " + data);
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
@@ -66,13 +67,10 @@ public class ServerConnection {
 			array = data.split(":");
 			if (array[0].equals("00")) {
 				updateDB();
-			} 
-			else if(array[0].equals("01"))
-			{
+			} else if (array[0].equals("01")) {
 				updateInfoDB();
 			}
-		}
-		else {
+		} else {
 			send();
 		}
 	}
@@ -85,31 +83,31 @@ public class ServerConnection {
 		}
 		System.out.println(array[1]);
 	}
-	
+
 	public void updateInfoDB() {
 		System.out.println("Info sent to database");
 		try {
-			ie.insertToGameHistory(array[1], array[2], array[3], array[4], array[5]);
+			ie.insertToGameHistory(array[1], array[2], array[3], array[4],
+					array[5]);
 			ie.updateRanks();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	//	System.out.println("Info sent to database");
+		// System.out.println("Info sent to database");
 	}
 
 	public void send() {
 		// while (true) {
-		//String name = null;
+		// String name = null;
 		String info = null;
 		String info2 = null;
 		try {
 
-		//	 name = (String) inFromClient.readObject();
-			 setPlayerName(data);
+			// name = (String) inFromClient.readObject();
+			setPlayerName(data);
 
 			info = database_methods.getInfoByName(con, data);
 			info2 = database_methods.getTop5(con);
-			
 
 			// System.out.println(info);
 
@@ -117,18 +115,17 @@ public class ServerConnection {
 
 			Iterator<ServerConnection> iterator = dbClientList.iterator();
 			// System.out.println(""+iterator.next());
-			
+
 			while (iterator.hasNext()) {
-				//System.out.println(dbServer.getC());
+				// System.out.println(dbServer.getC());
 				if (dbClientList.contains(dbServer.getC())) {
-					//System.out.println("here");
+					// System.out.println("here");
 					// System.out.println("Result: "+dbClientList.getCon(dbServer.getC()));
 					dbClientList.getCon(dbServer.getC()).outToClient
-							.writeObject(info+", "+info2);
-					dbClientList.remove(iterator.next());
+							.writeObject(info + ", " + info2);
 					break;
 				}
-			
+
 			}
 			con.close();
 			// System.out.println("Server reply: " + replyMessage);
