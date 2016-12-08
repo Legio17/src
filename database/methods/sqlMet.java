@@ -66,4 +66,11 @@ public class sqlMet {
 	    return (double) tmp / factor;
 	}
 	
+	public static String cutWinLossRatio(String ratio){
+		if(ratio.length() > 4){
+			return ratio.substring(0, 4);
+		}
+		return ratio;
+	}
+	
 }

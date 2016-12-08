@@ -140,7 +140,7 @@ public class database_methods {
 		while (rsScoreInfo.next()) {
 			if (name.equalsIgnoreCase(rsScoreInfo.getString("login"))) {
 				info = rsScoreInfo.getString("rank") + ", "
-						+ rsScoreInfo.getString("winloss_ratio") + ", "
+						+ sqlMet.cutWinLossRatio(rsScoreInfo.getString("winloss_ratio"))+ ", "
 						+ rsScoreInfo.getString("wins") + ", "
 						+ rsScoreInfo.getString("losses");
 				break;
