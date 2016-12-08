@@ -27,7 +27,7 @@ public class dbClientList<T> implements SetADT<T> {
 		}
 
 		public T next() {
-			System.out.println(hasNext());
+			
 			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}

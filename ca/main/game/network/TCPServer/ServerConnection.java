@@ -125,9 +125,10 @@ public class ServerConnection {
 					// System.out.println("Result: "+dbClientList.getCon(dbServer.getC()));
 					dbClientList.getCon(dbServer.getC()).outToClient
 							.writeObject(info+", "+info2);
-					dbClientList.remove(dbServer.getC());
+					dbClientList.remove(iterator.next());
 					break;
 				}
+			
 			}
 			con.close();
 			// System.out.println("Server reply: " + replyMessage);
