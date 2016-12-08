@@ -141,4 +141,18 @@ public class FontLoader {
 	public String getNickName(){
 		return nickName;
 	}
+	
+	public void setNickName(String nickName){
+		this.nickName = nickName;
+	}
+	
+	public boolean retrieveCharExistance(String character ,int charFontNr){
+		String[] tempArray = charFonts.get(charFontNr);
+		for (int i = 0; i < tempArray.length; i++){
+			if (tempArray[i].equals(character)){
+				return true;
+			}
+		}
+		return false;
+	}
 }
