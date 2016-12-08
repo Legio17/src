@@ -155,25 +155,19 @@ public class Game extends Canvas implements Runnable{
 	 */
 	
 	public synchronized void stop(){
-		System.out.println("send quit to server!!");
+		;
 		for(int i=0; i<otherPlayers.size();i++){
-			if(otherPlayers.get(i).getName().equals(getPlayer().getName()))
-					{
+			//System.out.println(otherPlayers.get(i));
+			//if(otherPlayers.get(i).getName().equals(getPlayer().getName()))
+				//	{
 				
-					client.sendQuit("08:"+otherPlayers.get(i).getName()+":");
+					client.sendQuit("08:"+getPlayer().getName()+":");
 					
-					}
-		}
-		if (!running) return; //if game is already dead ignore
-		
-		running = false;
-		try{
-			thread.join(); //groups up all running threads and kills them
-		}catch(InterruptedException e) {
-			e.printStackTrace();
+				//	}
 		}
 		
-		System.exit(1);
+		System.out.println("before exit");
+		System.exit(0);
 		
 	}
 	
