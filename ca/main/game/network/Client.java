@@ -91,7 +91,7 @@ public class Client extends Thread {
 
 	private void quitGame(String[] array) {
 		for (int i = 0; i < game.getOtherPlayers().size(); i++) {
-			if (game.getOtherPlayers().getName(i).equals(array[1])) {
+			if (game.getOtherPlayers().get(i).getIpAddress().equals(array[1])) {
 				game.getOtherPlayers().removeOtherPlayer(i);
 				break;
 			}
