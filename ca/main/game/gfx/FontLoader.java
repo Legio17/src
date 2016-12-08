@@ -36,7 +36,7 @@ public class FontLoader {
 	public void init(){
 		initializeFontCharArrays();
 		loadCharToFont(fontLogChar,"fontLog", 8, 8, 87, 101, 1); //load letter images for login
-		loadCharToFont(fontInfoDisChar,"fontStats", 63, 1, 13, 30, 1);
+		loadCharToFont(fontInfoDisChar,"fontStats", 64, 1, 13, 30, 1);
 		loadCharToFont(fontInfoDisCharYellow,"fontStatsYellow", 63, 1, 13, 30, 1);
 	}
 	
@@ -58,7 +58,7 @@ public class FontLoader {
 				,"F","G","H","I","J","K","L","M"
 				,"N","O","P","Q","R","S","T","U"
 				,"V","W","X","Y","Z","0","1","2","3","4","5","6"
-				,"7","8","9"};
+				,"7","8","9","."};
 		
 		fontInfoDisCharYellow = new String[]{"a","b","c"
 				,"d","e","f","g","h","i","j","k"
