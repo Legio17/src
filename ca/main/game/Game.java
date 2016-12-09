@@ -31,7 +31,7 @@ import ca.main.game.network.TCPClient.DbClient;
 
 public class Game extends Canvas implements Runnable {
 
-	private final String SERVER_IP = "10.52.238.56";
+	private final String SERVER_IP = "10.52.236.152";
 
 	public static final int WIDTH = 94 * 4; // 94 size of one tile without
 											// borders
