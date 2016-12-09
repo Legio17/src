@@ -131,7 +131,7 @@ public class InsertExecutor {
 		}
 		
 		
-		sqlMet.executeStatement(st, sql);
+		//sqlMet.executeStatement(st, sql);
 	} 
 
 	public void insertPlayer(String login) throws SQLException{
