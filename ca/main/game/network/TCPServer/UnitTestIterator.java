@@ -11,10 +11,12 @@ import ca.main.game.utilities.SetADT;
 
 public class UnitTestIterator {
 	private SetADT<String> set;
+	private SetADT<String> setOther;
 
 	@Before
 	public void setUp() throws Exception {
 		set = new dbClientList<String>();
+		setOther = new dbClientList<String>();
 	}
 
 	@Test
@@ -247,6 +249,46 @@ public class UnitTestIterator {
 		}
 	}
 
+	@Test
+	public void testIsSubSet()
+	{
+		set.add("$B$");
+		set.add("$C$");
+		set.add("$D$");
+		set.add("$X$");
+		setOther.add("$B$");
+		setOther.add("$C$");
+		assertTrue(setOther.isSubset(set));
+		setOther.add("$K$");
+		assertFalse(setOther.isSubset(set));
+	}
+	
+	@Test
+	public void testIntersection()
+	{
+		set.add("$B$");
+		set.add("$C$");
+		set.add("$D$");
+		set.add("$X$");
+		setOther.add("$B$");
+		setOther.add("$C$");
+		assertTrue(setOther.intersection(set).size()==2);
+		setOther.add("$K$");
+		assertTrue(setOther.intersection(set).size()==2);
+	}
+	@Test
+	public void testUnion()
+	{
+		set.add("$B$");
+		set.add("$C$");
+		set.add("$D$");
+		set.add("$X$");
+		setOther.add("$B$");
+		setOther.add("$C$");
+		assertTrue(setOther.union(set).size()==4);
+		setOther.add("$K$");
+		assertTrue(setOther.union(set).size()==5);
+	}
 	@Test
 	public void testToString() {
 		// format is not defined only order of elements

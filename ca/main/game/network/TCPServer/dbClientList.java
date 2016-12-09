@@ -120,7 +120,7 @@ public class dbClientList<T> implements SetADT<T> {
 
 	@Override
 	public boolean isSubset(SetADT<T> set) {
-		dbClientList<T> interS = new dbClientList<T>();
+		/*dbClientList<T> interS = new dbClientList<T>();
 
 		Iterator<T> scan = set.iterator();
 		T temp = null;
@@ -135,13 +135,13 @@ public class dbClientList<T> implements SetADT<T> {
 		if (interS.size() == set.size()) {
 			result = true;
 		}
-		return result;
+		return result;*/
 
-		/*
-		 * Iterator<T> iterator=iterator(); while(iterator.hasNext()) { T
-		 * element=iterator.next(); if(!set.contains(element)) return false; }
-		 * return true;
-		 */
+		
+		 Iterator<T> iterator=iterator(); while(iterator.hasNext()) { T
+		 element=iterator.next(); if(!set.contains(element)) return false; }
+		return true;
+		 
 	}
 
 	@Override
