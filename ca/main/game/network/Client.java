@@ -329,7 +329,7 @@ public class Client extends Thread {
 			}
 		}
 		
-		if (removeAtIndex != -1){
+		if (removeAtPos != -1){
 			if (game.getPlayer().getName().trim().equals(player1)){
 				System.out.println("XXXXXXXXXXXXXXX PLAYER1");
 				game.setDisplayGame(false);
