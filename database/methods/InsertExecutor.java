@@ -29,12 +29,17 @@ public class InsertExecutor {
 	 * @throws SQLException
 	 */
 	
-	public void updateScoreInfo(String player1, String player2, String result) throws SQLException{
+	public void insertToGameHistory(String player1, String player2, String type, String date, String result) throws SQLException{
 		String sql;
 		String sqlUpdate="";
 		String sqlRetrivePlayers;
 		Statement st = connection.createStatement();
 		Statement stRetrive = connection.createStatement();
+		//INSERT INTO TABLE_NAME VALUES (value1,value2,value3,...valueN);
+		
+		
+		sql = "INSERT INTO Game_History VALUES(";
+        sql += "(SELECT COUNT(*) FROM Game_History)"+",'"+player1 +"','" + player2 + "','" + date + "','" + type + "','" + result +"');";
         
         // in case player1 wins the game
 		if (result.equals("won")){
@@ -124,12 +129,16 @@ public class InsertExecutor {
 	        	}
 	        }
 		}
+		
+		
+		//sqlMet.executeStatement(st, sql);
 	} 
 
 	public void insertPlayer(String login) throws SQLException{
 		String sqlRetrivePlayers, sqlCreateScoreInfo, model;
 		Statement stWriteTo = connection.createStatement(), stRetrive = connection.createStatement();
 		
+		model = "applejack";
 		boolean exists = false;
 		
 
@@ -145,7 +154,7 @@ public class InsertExecutor {
         	}
         }
         String sqlAddLogin;
-		sqlAddLogin = "INSERT INTO PLAYER_INFO VALUES('"+login+"');";
+		sqlAddLogin = "INSERT INTO PLAYER_INFO VALUES('"+login+"','"+model+"');";
 		sqlCreateScoreInfo = "INSERT INTO SCORE_INFO VALUES('"+login+"','0','0','0','0');";
 		
 		sqlMet.executeStatement(stWriteTo, sqlAddLogin);
