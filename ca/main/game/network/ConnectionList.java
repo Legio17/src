@@ -3,41 +3,63 @@ package ca.main.game.network;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
-
-
+/**
+ * A class representing a list of connection to clients that the server has. The
+ * class purpose is to keep track of which clients to broadcast to.
+ * 
+ * @author Filip Hudec, Signe Rasmussen, Peter Miodrag Varanic, Adam Szekely,
+ *         Ana Iulia Chifor
+ */
 public class ConnectionList {
-	private ArrayList<Connection> conns;
-
+	private ArrayList<Connection> connections;
+	
+	/**
+	 * Creates an arraylist of connections
+	 */
 	public ConnectionList() {
-		conns = new ArrayList<>();
+		connections = new ArrayList<>();
 	};
-
-	public void addConnection(Connection c) {
-		conns.add(c);
-	}
 	
-	public int size()
-	{
-		return conns.size();
-	}
-	
-	public ArrayList<Connection> getAll()
-	{
-		return conns;
-	}
-	
-	public int getPort(int i)
-	{
-		return conns.get(i).getPort();
-	}
-	
-	public InetAddress getIP(int i)
-	{
-		return conns.get(i).getIP();
+	/**
+	 * 
+	 * @param connection to add
+	 */
+	public void addConnection(Connection connection) {
+		connections.add(connection);
 	}
 
+	public int size() {
+		return connections.size();
+	}
+
+	public ArrayList<Connection> getAll() {
+		return connections;
+	}
+	
+	/**
+	 * 
+	 * @param i
+	 * @return conncection at index i
+	 */
+	public int getPort(int i) {
+		return connections.get(i).getPort();
+	}
+	
+	/**
+	 * get 
+	 * @param i
+	 * @return connection at index i
+	 */
+	public InetAddress getIP(int i) {
+		return connections.get(i).getIP();
+	}
+	
+	/**
+	 * delete connection at index i
+	 * @param i 
+	 */
 	public void deleteConnection(int i) {
-		conns.remove(i);
-		
+		connections.remove(i);
+
 	}
 }
