@@ -317,6 +317,7 @@ public class Client extends Thread {
 	private void removeTicTacToe(String[] array) {
 		int removeAtIndex = Integer.parseInt(array[1]);
 		String player1 = array[2].trim();
+		String player2 = "";
 		int removeAtPos = -1;
 		
 		System.out.println("host: "+player1+" array size: "+game.getTicTacToeGameList().size());
@@ -324,14 +325,17 @@ public class Client extends Thread {
 		for (int i = 0; i < game.getTicTacToeGameList().size(); i++){
 			if (game.getTicTacToeGameList().get(i).getPlayer1().trim().equals(player1)){
 				removeAtPos = i;
+				player2 = game.getTicTacToeGameList().get(i).getPlayer2().trim();
 			}
 		}
 		
 		if (removeAtIndex != -1){
 			if (game.getPlayer().getName().trim().equals(player1)){
+				System.out.println("XXXXXXXXXXXXXXX PLAYER1");
 				game.setDisplayGame(false);
 				game.setTicTacFinished(false); 
-			} else if(game.getPlayer().getName().trim().equals(player1)){
+			} else if(game.getPlayer().getName().trim().equals(player2)){
+				System.out.println("XXXXXXXXXXXXXXX PLAYER2");
 				game.setDisplayGame(false);
 				game.setTicTacFinished(false); 
 			}
