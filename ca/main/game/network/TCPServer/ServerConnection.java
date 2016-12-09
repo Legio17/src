@@ -29,7 +29,7 @@ public class ServerConnection {
 	public ServerConnection(Socket connectionSocket,
 			dbClientList<ServerConnection> dbClientList) {
 		try {
-			con = connect.PostgreSQLJDBC("SEP2_data", "peter28mio07");
+			con = connect.PostgreSQLJDBC("SEP2_data", "Postgres");
 			clientSocket = connectionSocket;
 			this.dbClientList = dbClientList;
 			this.ie = new InsertExecutor(con);
@@ -87,8 +87,7 @@ public class ServerConnection {
 	public void updateInfoDB() {
 		System.out.println("Info sent to database");
 		try {
-			ie.insertToGameHistory(array[1], array[2], array[3], array[4],
-					array[5]);
+			ie.updateScoreInfo(array[1], array[2], array[5]);
 			ie.updateRanks();
 		} catch (SQLException e) {
 			e.printStackTrace();
