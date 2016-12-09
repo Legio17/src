@@ -29,7 +29,7 @@ public class UnitTestIterator {
 		assertTrue(itr.hasNext());
 	}// TestHasNext_BaseCase
 
-	public final void testHasNext_C1() throws ConcurrentModificationException {
+	public final void testHasNext1() throws ConcurrentModificationException {
 		SetADT<String> s = new dbClientList<String>();
 		Iterator<String> itr = s.iterator();
 		assertFalse(itr.hasNext());
@@ -46,7 +46,7 @@ public class UnitTestIterator {
 	}// testNext_BaseCase
 
 	@Test(expected = NoSuchElementException.class)
-	public final void testNext_C1() throws ConcurrentModificationException {
+	public final void testNext1() throws ConcurrentModificationException {
 		SetADT<String> s = new dbClientList<String>();
 		Iterator<String> itr = s.iterator();
 		assertFalse(itr.hasNext());
@@ -54,7 +54,7 @@ public class UnitTestIterator {
 	}// testNext_C1
 
 	@Test
-	public final void testNext_C2() throws ConcurrentModificationException {
+	public final void testNext2() throws ConcurrentModificationException {
 		SetADT<String> s = new dbClientList<String>();
 		try {
 			set.add(null);
