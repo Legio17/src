@@ -53,6 +53,10 @@ public class dbClientList<T> implements SetADT<T> {
 
 	@Override
 	public void add(T element) {
+		if(element==null)
+		{
+			throw new IllegalArgumentException("Cannot add null!");
+		}
 		if (!(contains(element))) {
 			sets[size] = element;
 			size++;
@@ -64,14 +68,13 @@ public class dbClientList<T> implements SetADT<T> {
 	public T remove(T element) {
 		int search = -1;
 		for (int i = 0; i < size && search == -1; i++) {
-			if (sets[i].equals(element)) {
+			if (sets[i]==(element)) {
 				search = i;
 			}
-			if (search == -1) {
-				throw new NoSuchElementException();
-			}
 		}
-
+		if (search == -1) {
+			throw new NoSuchElementException();
+		}
 		T result = sets[search];
 		sets[search] = sets[size - 1];
 		sets[size - 1] = null;
@@ -95,9 +98,12 @@ public class dbClientList<T> implements SetADT<T> {
 
 		int search = -1;
 		for (int i = 0; i < size && search == -1; i++) {
-			if (sets[i].equals(element)) {
+			if (sets[i]==(element)) {
 				search = i;
 			}
+			/*else if (sets[i].equals(element)) {
+				search = i;
+			}*/
 		}
 		return (search != -1);
 	}
@@ -173,7 +179,7 @@ public class dbClientList<T> implements SetADT<T> {
 		String result = "";
 
 		for (int index = 0; index < size; index++)
-			result = result + sets[index].toString() + ", ";
+			result = result + sets[index].toString();
 
 		return result;
 	}

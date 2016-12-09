@@ -62,7 +62,6 @@ public class UnitTestIterator {
 		}
 		Iterator<String> itr = s.iterator();
 		assertFalse(itr.hasNext());
-		assertNull(itr.next());
 	}// testNext_C2
 
 	@Test
