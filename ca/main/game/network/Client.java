@@ -315,19 +315,22 @@ public class Client extends Thread {
 	}
 
 	private void removeTicTacToe(String[] array) {
-		int removeAtIndex = Integer.parseInt(array[1]); //changes
+		int removeAtIndex = Integer.parseInt(array[1]);
 		String player1 = array[2];
-		System.out.println("size before: " + game.getTicTacToeGameList().size());
-		
-		for(int i = 0; i < game.getTicTacToeGameList().size(); i++){
-			if (game.getTicTacToeGameList().get(i).getPlayer1()
+		System.out.println("sizeb4 " + game.getTicTacToeGameList().size());
+		if (game.getTicTacToeGameList().size() != 0
+				&& removeAtIndex < game.getTicTacToeGameList().size()) {
+			if (game.getTicTacToeGameList().get(removeAtIndex).getPlayer1()
 					.equals(player1)) {
-				if (amIPlayer1(i) || amIPlayer2(i)){
+				if (amIPlayer1(removeAtIndex) || amIPlayer2(removeAtIndex)){
 					game.setDisplayGame(false);
 					game.setTicTacFinished(false); ///TODO: should it be here?
 				}
-				game.getTicTacToeGameList().remove(i);
-				System.out.println("size after: " + game.getTicTacToeGameList().size());
+				game.getTicTacToeGameList().remove(removeAtIndex);
+				System.out.println("Removed " + array[1] + " with player "
+						+ player1);
+				System.out.println("sizeafter "
+						+ game.getTicTacToeGameList().size());
 			}
 		}
 	}
