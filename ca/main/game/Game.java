@@ -31,7 +31,7 @@ import ca.main.game.network.TCPClient.DbClient;
 
 public class Game extends Canvas implements Runnable {
 
-	private final String SERVER_IP = "10.52.236.152";
+	private final String SERVER_IP = "10.52.236.155";
 
 	public static final int WIDTH = 94 * 4; // 94 size of one tile without
 											// borders
@@ -104,7 +104,7 @@ public class Game extends Canvas implements Runnable {
 
 		addKeyListener(new KeyInput(this));// add keyLister to main game
 
-		player = new Player(100, 100, this, "pinkamena");
+		player = new Player(100, 100, this, "applejack");
 		playerPose = "02";
 		otherPlayers = new OtherPlayersList();
 		ticTacToeGameList = new LinkedList<>();
