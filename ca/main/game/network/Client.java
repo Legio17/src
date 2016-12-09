@@ -322,10 +322,8 @@ public class Client extends Thread {
 				&& removeAtIndex < game.getTicTacToeGameList().size()) {
 			if (game.getTicTacToeGameList().get(removeAtIndex).getPlayer1()
 					.equals(player1)) {
-				if (amIPlayer1(removeAtIndex) || amIPlayer2(removeAtIndex)){
-					game.setDisplayGame(false);
-					game.setTicTacFinished(false); ///TODO: should it be here?
-				}
+//				game.setDisplayGame(false);
+//				game.setTicTacFinished(false); ///TODO: should it be here?
 				game.getTicTacToeGameList().remove(removeAtIndex);
 				System.out.println("Removed " + array[1] + " with player "
 						+ player1);
