@@ -266,8 +266,7 @@ public class Client extends Thread {
 		for (int i = 0; i < game.getTicTacToeGameList().size(); i++) {
 			if (game.getTicTacToeGameList().get(i).getPlayer2().equals(player2)) {
 				player2Set = true;
-				System.out.println("List size: "
-						+ game.getTicTacToeGameList().size());
+				//System.out.println("List size: "+ game.getTicTacToeGameList().size());
 			}
 		}
 
@@ -275,7 +274,9 @@ public class Client extends Thread {
 			for (int j = 0; j < game.getTicTacToeGameList().size(); j++) {
 				if (game.getTicTacToeGameList().get(j).getPlayer2().equals("NotSet")) {
 					for (int games = 0; games < game.getTicTacToeGameList().size(); games++){
-						if (game.getTicTacToeGameList().get(games).getPlayer2().equals(game.getPlayer())){
+						System.out.println(game.getTicTacToeGameList().get(games).getPlayer2().length() +" "+game.getPlayer().getName().toString());
+						System.out.println(game.getTicTacToeGameList().get(games).getPlayer2().equals(game.getPlayer().getName()));
+						if (game.getTicTacToeGameList().get(games).getPlayer2().equals(game.getPlayer().getName())){
 							return;
 						}
 					}
