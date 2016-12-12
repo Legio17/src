@@ -271,10 +271,14 @@ public class Client extends Thread {
 			}
 		}
 
-		if (!player2Set) {
+		if (!player2Set){
 			for (int j = 0; j < game.getTicTacToeGameList().size(); j++) {
-				if (game.getTicTacToeGameList().get(j).getPlayer2()
-						.equals("NotSet")) {
+				if (game.getTicTacToeGameList().get(j).getPlayer2().equals("NotSet")) {
+					for (int games = 0; games < game.getTicTacToeGameList().size(); games++){
+						if (game.getTicTacToeGameList().get(games).getPlayer2().equals(game.getPlayer())){
+							return;
+						}
+					}
 					game.getTicTacToeGameList().get(j).setPlayer2(player2);
 					if (amIPlayer1(j) || amIPlayer2(j)) {
 						game.setDisplayTicTacToe(true);
@@ -318,7 +322,6 @@ public class Client extends Thread {
 	}
 
 	private void removeTicTacToe(String[] array) {
-		int removeAtIndex = Integer.parseInt(array[1]);
 		String player1 = array[2].trim();
 		String player2 = "";
 		int removeAtPos = -1;
