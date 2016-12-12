@@ -231,21 +231,6 @@ public class Client extends Thread {
 					.getIpAddress())) {
 				found = true;
 				index = i;
-				if (game.getOtherPlayers().get(i).getIpAddress().equals(game.getMyIP()) && ((game.getOtherPlayers().get(i).getXChange() != 0) || (game.getOtherPlayers().get(i).getYChange() != 0 ))){
-					switch (array[4]) {
-			         case "01":
-			         case "02":game.addToOffSetY(game.getOtherPlayers().get(i).getYChange()); break;
-			         case "03":
-			         case "04":game.addToOffSetX(game.getOtherPlayers().get(i).getXChange()); break;
-			         case "05": break;
-			         case "06":game.addToOffSetX(game.getOtherPlayers().get(i).getXChange()); break;
-			         case "07":
-			         case "08":game.addToOffSetY(game.getOtherPlayers().get(i).getYChange()); break;
-			         case "09":
-			         default:
-			             throw new IllegalArgumentException("Invalid call on offSet: " + array[4]);
-			     }
-				}
 				break;
 			}
 		}
@@ -347,11 +332,9 @@ public class Client extends Thread {
 		
 		if (removeAtPos != -1){
 			if (game.getPlayer().getName().trim().equals(player1)){
-				System.out.println("XXXXXXXXXXXXXXX PLAYER1");
 				game.setDisplayGame(false);
 				game.setTicTacFinished(false); 
 			} else if(game.getPlayer().getName().trim().equals(player2)){
-				System.out.println("XXXXXXXXXXXXXXX PLAYER2");
 				game.setDisplayGame(false);
 				game.setTicTacFinished(false); 
 			}
