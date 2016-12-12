@@ -6,17 +6,13 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.Iterator;
-
 import database.connection.connect;
 import database.methods.InsertExecutor;
 import database.methods.database_methods;
 
-
 public class ServerConnection {
 
-	private Socket clientSocket;
 	private ObjectOutputStream outToClient;
 	private ObjectInputStream inFromClient;
 	private dbClientList<ServerConnection> dbClientList;
@@ -30,7 +26,6 @@ public class ServerConnection {
 			dbClientList<ServerConnection> dbClientList) {
 		try {
 			con = connect.PostgreSQLJDBC("SEP2_data", "Postgres");
-			clientSocket = connectionSocket;
 			this.dbClientList = dbClientList;
 			this.ie = new InsertExecutor(con);
 			outToClient = new ObjectOutputStream(
@@ -43,7 +38,6 @@ public class ServerConnection {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public String getPlayerName() {
@@ -92,47 +86,30 @@ public class ServerConnection {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// System.out.println("Info sent to database");
 	}
 
 	public void send() {
-		// while (true) {
-		// String name = null;
 		String info = null;
 		String info2 = null;
 		try {
 
-			// name = (String) inFromClient.readObject();
 			setPlayerName(data);
-
 			info = database_methods.getInfoByName(con, data);
 			info2 = database_methods.getTop5(con);
-
-			// System.out.println(info);
-
-			// Send reply to client.
-
 			Iterator<ServerConnection> iterator = dbClientList.iterator();
-			// System.out.println(""+iterator.next());
 
 			while (iterator.hasNext()) {
-				// System.out.println(dbServer.getC());
 				if (dbClientList.contains(dbServer.getC())) {
-					// System.out.println("here");
-					// System.out.println("Result: "+dbClientList.getCon(dbServer.getC()));
 					dbClientList.getCon(dbServer.getC()).outToClient
 							.writeObject(info + ", " + info2);
 					break;
 				}
-
 			}
 			con.close();
-			// System.out.println("Server reply: " + replyMessage);
-			// outToClient.writeObject(replyMessage);
+
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	// }
 
 }

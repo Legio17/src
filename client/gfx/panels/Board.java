@@ -4,12 +4,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import client.Game;
 import client.gfx.BufferImageLoader;
 import client.gfx.Sprite;
-import client.gfx.SpriteSheet;
-import client.gfx.SpriteSheetLoader;
-
 
 public class Board {
 	
@@ -17,8 +13,6 @@ public class Board {
 	private Sprite writableSprite = null;
 	private Sprite gridSprite = null;
 	private BufferImageLoader loader;
-	private SpriteSheetLoader sprite_sheet_loader;
-	private SpriteSheet tile_sheet;
 	
 	private BufferedImage solidBackground;
 	private BufferedImage writableBackground;

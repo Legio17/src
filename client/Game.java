@@ -13,9 +13,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.LinkedList;
-
 import javax.swing.JFrame;
-
 import client.boardGames.TicTacToe15x15;
 import client.control.GameObjectTypeB;
 import client.control.KeyInput;
@@ -32,6 +30,7 @@ import client.network.UDPClient.OtherPlayersList;
 
 public class Game extends Canvas implements Runnable {
 
+	private static final long serialVersionUID = 1L;
 	private final String SERVER_IP = "10.52.236.246";
 	private static InetAddress myIP;
 	private static String myIPString;
@@ -49,9 +48,6 @@ public class Game extends Canvas implements Runnable {
 
 	private Graphics g;
 	boolean ranOnce;
-
-	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT,
-			BufferedImage.TYPE_INT_RGB);
 
 	private Player player;
 	private String playerPose;
@@ -76,24 +72,18 @@ public class Game extends Canvas implements Runnable {
 	private String ticTacResult;
 	
 	private BufferedImage toolPanel;
-	private BufferedImage spaceBackground;
 	private BufferedImage player1Victory;
 	private BufferedImage player2Victory;
 
 	private FontLoader fontLog;
 	private FontLoader fontScore;
-
+	
 	private boolean login;
-
+	
 	private Client client;
 	private DbClient DbClient;
 
 	private String ipAddress = "ipError";
-
-	private int offSetX;
-	private int offSetY;
-	
-	private int updateOnFifth;
 
 	private ArrayList<GameObjectTypeB> typeBObjects;
 
@@ -131,17 +121,12 @@ public class Game extends Canvas implements Runnable {
 		ticTacToeGameList = new LinkedList<>();
 
 		login = true;
-		updateOnFifth = 0;
 		ticTacResult = "";
-		
-		offSetX = 0;
-		offSetY = 0;
+
 
 		try {
 			toolPanel = imageLoader
 					.loadImage("/img/toolPanel.png");
-			spaceBackground = imageLoader
-					.loadImage("/img/space.png");
 			
 			player1Victory = imageLoader
 					.loadImage("/img/boards/tic-tac-toe/playerboard_player1Win.png");
@@ -219,9 +204,10 @@ public class Game extends Canvas implements Runnable {
 		long lastTimer = System.currentTimeMillis();
 		double delta = 0;
 
-		int ticks = 0; // counter for ticks, tick == update basically
-		int frames = 0; // counter for frames
-		long timer = System.currentTimeMillis();
+		@SuppressWarnings("unused")
+		int ticks=0; // counter for ticks, tick == update basically
+		@SuppressWarnings("unused")
+		int frames=0; // counter for frames
 
 		while (running) {
 			long now = System.nanoTime();
@@ -253,11 +239,8 @@ public class Game extends Canvas implements Runnable {
 	private void tick() {
 
 		if (login == false && displayGame == false) {
-			//System.out.println(player.getX() + " " + player.getY()); //player coordinates
 			client.sendPlayerPos((ipAddress + ":" + player.getX() + ":"
 					+ player.getY() + ":" + playerPose));
-			
-
 			player.tick();// updates player position
 		}
 
@@ -289,8 +272,7 @@ public class Game extends Canvas implements Runnable {
 		// ====================== TicTacToe Game =======================
 		} else if (displayGame
 				&& client.getTicTacToeNr() < ticTacToeGameList.size()) {
-			ticTacToeGameList.get(client.getTicTacToeNr()).render(g); // TODO
-																		// new
+			ticTacToeGameList.get(client.getTicTacToeNr()).render(g); 							
 			if (ticTacFinished) {
 				if (ticTacResult.equals("X"))
 					g.drawImage(player1Victory, 0, 0, null);
@@ -300,21 +282,16 @@ public class Game extends Canvas implements Runnable {
 		} else {
 			
 		// ====================== Game lobby ============================	
-			//g.drawImage(spaceBackground, -100, -100, null);
 			map1.render(g, 94, 1, 0, 0); // 94 - borders are already ignored in grab
 			//g.drawImage(toolPanel, 0, 540, null);
-
 			
-			//typeBObjects.get(0).renderZone(g); used
 			for (int i = 0; i < otherPlayers.size(); i++) {
 				otherPlayers.get(i).render(g);
 			}
-
 			if (displayScore) {
 				scoreBoard.render(g);
 				fontScore.renderScore(g, 1, 280, 63, 13, 55, scoreInfo);
 			}
-
 		}
 		// ///////// end of drawing here! /////////////////////////////
 		g.dispose();
@@ -325,12 +302,8 @@ public class Game extends Canvas implements Runnable {
 	 * @param e
 	 *            controls for player on key down(key pressed)
 	 */
+	@SuppressWarnings("deprecation")
 	public void keyPressed(KeyEvent e) {
-		// String ipAddress="ipError";
-		/*
-		 * try { ipAddress = InetAddress.getLocalHost().getHostAddress(); }
-		 * catch (UnknownHostException e1) { e1.printStackTrace(); }
-		 */
 		int key = e.getExtendedKeyCode();
 		// ================= Controls login ======================
 		if (login) {
@@ -352,9 +325,7 @@ public class Game extends Canvas implements Runnable {
 						&& fontLog.getNickName().length() != 9) {
 					fontLog.addToNickName(c);
 				}
-
 			}
-
 			// ================= Controls Tic-Tac-Toe ================
 		} else if (displayGame && ticTacFinished) {
 			if (key == KeyEvent.VK_ENTER) {
@@ -397,7 +368,6 @@ public class Game extends Canvas implements Runnable {
 					sthDisplayed = false;
 				}
 			}
-
 			// ================= Controls Lobby ======================
 		} else {
 
@@ -431,7 +401,7 @@ public class Game extends Canvas implements Runnable {
 
 					DbClient.sendName(player.getName());
 					try {
-						thread.sleep(500);
+						Thread.sleep(500);
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
@@ -506,13 +476,6 @@ public class Game extends Canvas implements Runnable {
 			sthDisplayed = false;
 	}
 	
-	public void addToOffSetX(double offSetX){
-		this.offSetX += offSetX;
-	}
-	
-	public void addToOffSetY(double offSetY){
-		this.offSetY += offSetY;
-	}
 
 	public void setTicTacFinished(boolean ticTacFinished, String lastMark) {
 		this.ticTacFinished = ticTacFinished;
@@ -620,7 +583,6 @@ public class Game extends Canvas implements Runnable {
 		JFrame frame = new JFrame(game.TITLE);
 		frame.add(game);
 		frame.pack(); // basically pack everything together/extends window class
-		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);

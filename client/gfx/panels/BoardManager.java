@@ -10,14 +10,12 @@ public class BoardManager {
 	private ArrayList<Board> boardList;
 	private ArrayList<String> boardListNames;
 	
-	private Game game;
 	private int gameWidth;
 	private int gameHeight;
 	
 	public BoardManager(Game game){
 		boardList = new ArrayList<Board>();
 		boardListNames = new ArrayList<String>();
-		this.game = game;
 		gameWidth = game.getWidth();
 		gameHeight = game.getHeight();
 		

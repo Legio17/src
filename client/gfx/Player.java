@@ -22,7 +22,6 @@ public class Player{
 	private double velY = 0; //they are not necessary, but movement looks nicer
 	
 	private String playerName;
-	private int size;
 	
 	private double xChanged;
 	private double yChanged;

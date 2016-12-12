@@ -1,7 +1,5 @@
 package client.network.UDPClient;
 
-import java.net.InetAddress;
-
 import client.Game;
 import client.gfx.Player;
 
@@ -9,7 +7,6 @@ import client.gfx.Player;
 public class PlayerMP extends Player{
 
 	private String ipAddress;
-	private double x, y;
 	
 	public PlayerMP(Game game, String ipAddress) {
 		super(100, 100, game, "applejack");

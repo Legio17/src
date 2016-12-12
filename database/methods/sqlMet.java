@@ -1,8 +1,6 @@
 package database.methods;
 
-import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.Types;
 
 public class sqlMet {
 

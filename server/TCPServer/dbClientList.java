@@ -1,11 +1,7 @@
 package server.TCPServer;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.NoSuchElementException;
-
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter.DEFAULT;
 
 import client.network.utilities.SetADT;
 
@@ -36,11 +32,13 @@ public class dbClientList<T> implements SetADT<T> {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public dbClientList() {
 		size = 0;
 		sets = (T[]) (new Object[DEFAULT_CAPACITY]);
 	}
 
+	@SuppressWarnings("unchecked")
 	public dbClientList(int initialCapacity) {
 		size = 0;
 		sets = (T[]) (new Object[initialCapacity]);
@@ -61,7 +59,6 @@ public class dbClientList<T> implements SetADT<T> {
 			sets[size] = element;
 			size++;
 		}
-
 	}
 
 	@Override
@@ -101,9 +98,6 @@ public class dbClientList<T> implements SetADT<T> {
 			if (sets[i]==(element)) {
 				search = i;
 			}
-			/*else if (sets[i].equals(element)) {
-				search = i;
-			}*/
 		}
 		return (search != -1);
 	}
@@ -120,28 +114,10 @@ public class dbClientList<T> implements SetADT<T> {
 
 	@Override
 	public boolean isSubset(SetADT<T> set) {
-		/*dbClientList<T> interS = new dbClientList<T>();
 
-		Iterator<T> scan = set.iterator();
-		T temp = null;
-		while (scan.hasNext()) {
-			temp = scan.next();
-			if (contains(temp)) {
-				interS.add(temp);
-			}
-
-		}
-		boolean result = false;
-		if (interS.size() == set.size()) {
-			result = true;
-		}
-		return result;*/
-
-		
 		 Iterator<T> iterator=iterator(); while(iterator.hasNext()) { T
 		 element=iterator.next(); if(!set.contains(element)) return false; }
-		return true;
-		 
+		return true;	 
 	}
 
 	@Override
@@ -156,7 +132,6 @@ public class dbClientList<T> implements SetADT<T> {
 			if (contains(temp)) {
 				interS.add(temp);
 			}
-
 		}
 		return interS;
 	}
@@ -171,7 +146,6 @@ public class dbClientList<T> implements SetADT<T> {
 		Iterator<T> scan = set.iterator();
 		while (scan.hasNext())
 			both.add(scan.next());
-
 		return both;
 	}
 

@@ -72,15 +72,9 @@ public class Count {
 	}
 
 	public static <T> boolean isThereFive(int howManyToWin, T[][] arr) {
-		StringBuffer buf = new StringBuffer();
 		System.out.println("IS THERE FIVE METHOD");
 		for (int i = 0; i < arr.length; i++) {
 			for (int j = 0; j < arr[0].length; j++) {
-
-				/*
-				 * buf.append(arr[j][i]); buf.append('\t'); if(arr[j][i]=="X") {
-				 * System.out.println(arr[j][i]+"here"); }
-				 */
 				try {
 					if ((arr[i][j] == null || arr[i][j + 1] == null
 							|| arr[i][j + 2] == null || arr[i][j + 3] == null || arr[i][j + 4] == null)) {
@@ -218,12 +212,7 @@ public class Count {
 					 
 				}
 			}
-			// else
-			// return false;
-			// buf.append('\n');
-
 		}
-		// System.out.println(buf.toString());
 		return false;
 	}
 }

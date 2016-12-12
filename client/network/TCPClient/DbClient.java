@@ -1,18 +1,11 @@
 package client.network.TCPClient;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.rmi.AlreadyBoundException;
-import java.rmi.NotBoundException;
-
 import client.Game;
-import server.TCPServer.dbServer;
 
 public class DbClient extends Thread {
 
@@ -22,13 +15,11 @@ public class DbClient extends Thread {
 	ObjectOutputStream outToServer;
 	ObjectInputStream inFromServer;
 	String name;
-	private Game game;
 	private String[] allInfo;
 	private boolean isThreadStarted;
 
 	public DbClient(String name, Game game, String ipAddress, int port) {
 		this.name = name;
-		this.game = game;
 		this.HOST = ipAddress;
 		this.PORT = port;
 		try {
@@ -50,12 +41,10 @@ public class DbClient extends Thread {
 			inFromServer = new ObjectInputStream(clientSocket.getInputStream());
 			String temp = (String) inFromServer.readObject();
 			allInfo = temp.split(",");
-			// System.out.println((String) inFromServer.readObject());
 		} catch (IOException e) {
 			System.out.println("error!");
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

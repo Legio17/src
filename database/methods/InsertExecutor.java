@@ -30,7 +30,6 @@ public class InsertExecutor {
 	 */
 	
 	public void updateScoreInfo(String player1, String player2, String result) throws SQLException{
-		String sql;
 		String sqlUpdate="";
 		String sqlRetrivePlayers;
 		Statement st = connection.createStatement();
@@ -127,12 +126,9 @@ public class InsertExecutor {
 	} 
 
 	public void insertPlayer(String login) throws SQLException{
-		String sqlRetrivePlayers, sqlCreateScoreInfo, model;
+		String sqlRetrivePlayers, sqlCreateScoreInfo;
 		Statement stWriteTo = connection.createStatement(), stRetrive = connection.createStatement();
 		
-		boolean exists = false;
-		
-
 		sqlRetrivePlayers = "SELECT login FROM player_info";
 		stRetrive = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rsRetrive = stRetrive.executeQuery(sqlRetrivePlayers);

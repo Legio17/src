@@ -55,7 +55,6 @@ public class TicTacToe15x15 {
 
 	public TicTacToe15x15(Game game, String player1) {
 		localPlayer = game.getPlayer().getName();
-		//dbClient = game.getdbClient();
 
 		this.player1 = player1;
 		player2 = "NotSet";
@@ -178,13 +177,7 @@ public class TicTacToe15x15 {
 
 		array[col][row] = mark;
 		lastMark = mark;
-		StringBuffer buf = new StringBuffer();
 
-		/*
-		 * for (int i = 0; i < array.length; i++) { for (int j = 0; j <
-		 * array.length; j++) { buf.append(array[j][i]); buf.append('\t'); }
-		 * buf.append('\n'); } System.out.println(buf.toString());
-		 */
 		if (Count.isThereFive(5, array)) {
 			game.setTicTacFinished(true, lastMark);
 			

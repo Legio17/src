@@ -3,7 +3,6 @@ package client.gfx.level;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class MapReader {
 
@@ -17,7 +16,6 @@ public class MapReader {
 		try {
 			readFromFile(path);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 	}

@@ -5,7 +5,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
-
 import client.network.utilities.UDPMethods;
 
 /**
@@ -55,9 +54,6 @@ public class ServerMain extends Thread {
 
 			try {
 				serverSocket.receive(receivePacket);
-
-				// System.out.println("receiving data"+new
-				// String(receivePacket.getData()));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -89,10 +85,8 @@ public class ServerMain extends Thread {
 				ipAddress = receivePacket.getAddress();
 				deleteConnection(ipAddress);
 				sendData = receivePacket.getData();
-				newData = true;
-				
+				newData = true;			
 			}
-
 		}
 	}
 
@@ -105,7 +99,6 @@ public class ServerMain extends Thread {
 				break;
 			}
 		}
-		
 	}
 
 	/**
@@ -155,8 +148,6 @@ public class ServerMain extends Thread {
 		if (!found) {
 			Connection newCon = new Connection(ipAddress, port);
 			connections.addConnection(newCon);
-			
-
 		}
 	}
 

@@ -1,6 +1,5 @@
 package client.gfx;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 

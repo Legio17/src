@@ -14,7 +14,7 @@ public class CreateDomainEx {
 	
 	public void addNewDomain(String name, String type, String defaultValue, String[] check) throws SQLException{
 		
-		String sql, chooice;
+		String sql;
 		Statement st = connection.createStatement();
 		
 		sql = "CREATE DOMAIN " + name + " AS " + type;
@@ -31,7 +31,7 @@ public class CreateDomainEx {
 	
 	public void addNewDomain(String name, String type, int expectedDigits) throws SQLException{
 		
-		String sql, chooice;
+		String sql;
 		Statement st = connection.createStatement();
 		
 		sql = "CREATE DOMAIN " + name + " AS " + type;

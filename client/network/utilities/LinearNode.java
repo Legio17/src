@@ -3,7 +3,7 @@ package client.network.utilities;
 public class LinearNode<T> {
 	
 	private T element;
-	private LinearNode next;
+	private LinearNode<T> next;
 	
 	public LinearNode()
 	{

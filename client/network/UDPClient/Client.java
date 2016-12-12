@@ -70,9 +70,6 @@ public class Client extends Thread {
 				e.printStackTrace();
 			}
 			String message = new String(packet.getData());
-
-			// System.out.println(message.substring(0, 2));
-			// System.out.println(message);
 			String[] array = message.split(":");
 
 			if (array[0].equals("03")) {
@@ -167,7 +164,6 @@ public class Client extends Thread {
 	 */
 	public void sendTicToeToeMark(String data) {
 		data = "06:" + data + ":" + ticTacToeNr + ":";
-		// System.out.println("Client sending mark position: " + data);
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
 				data.getBytes().length, ipAddress, port);
 
@@ -266,7 +262,6 @@ public class Client extends Thread {
 		for (int i = 0; i < game.getTicTacToeGameList().size(); i++) {
 			if (game.getTicTacToeGameList().get(i).getPlayer2().equals(player2)) {
 				player2Set = true;
-				//System.out.println("List size: "+ game.getTicTacToeGameList().size());
 			}
 		}
 
@@ -313,16 +308,12 @@ public class Client extends Thread {
 	}
 
 	private void ticTacToeMark(String[] array) {
-		/*
-		 * System.out.println("Client recieving mark info: " + array[0] + " " +
-		 * array[1] + " " + array[2] + " " + array[3] + " gameNo " + array[4]);
-		 */
+
 		int receivedTicTacToeNr = Integer.parseInt(array[4]);
 		if (ticTacToeNr == receivedTicTacToeNr) {
 			int col = Integer.parseInt(array[1]);
 			int row = Integer.parseInt(array[2]);
-
-			// System.out.println(col + " " + row);
+			
 			game.getTicTacToeGameList().get(ticTacToeNr)
 					.mark(col, row, array[3]);
 		}
@@ -332,8 +323,6 @@ public class Client extends Thread {
 		String player1 = array[2].trim();
 		String player2 = "";
 		int removeAtPos = -1;
-		
-		System.out.println("host: "+player1+" array size: "+game.getTicTacToeGameList().size());
 		
 		for (int i = 0; i < game.getTicTacToeGameList().size(); i++){
 			if (game.getTicTacToeGameList().get(i).getPlayer1().trim().equals(player1)){

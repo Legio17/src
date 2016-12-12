@@ -2,6 +2,7 @@ package client.network.utilities;
 
 public class LinkedList<T> implements ListADT<T> {
 
+	private static final long serialVersionUID = 1L;
 	private int count;
 	private LinearNode<T> front;
 	private LinearNode<T> rear;
@@ -29,7 +30,6 @@ public class LinkedList<T> implements ListADT<T> {
 		for (int i = 0; i < index; i++) {
 			current = current.getNext();
 		}
-		// System.out.println(current != null);
 		return current;
 	}
 
