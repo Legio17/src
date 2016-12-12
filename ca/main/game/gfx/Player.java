@@ -15,11 +15,17 @@ public class Player{
 	private double x;
 	private double y;
 	
+	private int pWidth;
+	private int pHeight;
+	
 	private double velX = 0; //both velocities are purely for increasing smoothness of movement
 	private double velY = 0; //they are not necessary, but movement looks nicer
 	
 	private String playerName;
 	private int size;
+	
+	private double xChanged;
+	private double yChanged;
 	
 	SpriteSheetLoader sprite_sheet_loader;
 	SpriteSheet player_sheet;
@@ -42,12 +48,13 @@ public class Player{
 	public Player(double x, double y, Game game, int model_nr){
 		this.x = x;
 		this.y = y;
-		this.size = 96;
 		
 		sprite_sheet_loader = game.getSpriteSheetLoader();//fetch SpriteSheet from Game class
 		player_sheet = sprite_sheet_loader.retrivePlayerModel(model_nr);
 		loadBasicPositioning();
 		player = player_down; //player facing this pos after spawned
+		pWidth = player.getWidth();
+		pHeight = player.getHeight();
 	}
 	
 	/**
@@ -65,6 +72,8 @@ public class Player{
 		player_sheet = sprite_sheet_loader.retrivePlayerModel(model_name);
 		loadBasicPositioning();
 		player = player_down; //player facing this pos after spawned
+		pWidth = player.getWidth();
+		pHeight = player.getHeight();
 	}
 	
 	
@@ -103,6 +112,14 @@ public class Player{
 		return y;
 	}
 	
+	public double getXChange(){
+		return xChanged;
+	}
+	
+	public double getYChange(){
+		return yChanged;
+	}
+	
 	/**
 	 * @param x sets players x position
 	 */
@@ -123,6 +140,14 @@ public class Player{
 	}
 	
 	public void setCoord(double x, double y, String playerPos){
+		if (this.x != x){
+			xChanged = this.x - Math.abs(x);
+		}else{ xChanged = 0;};
+		
+		if (this.y != y){
+			yChanged = this.y - Math.abs(y);
+		}else{ yChanged = 0;};
+		
 		this.x = x;
 		this.y = y;
 		setPlayerPos(playerPos);
@@ -177,8 +202,8 @@ public class Player{
 	public int[] getCenter()
 	{
 		int[] cord = new int[2];
-		cord[0] = (int)(getX()+getX()+size)/2;
-		cord[1] = (int)(getY()+getY()+size)/2;
+		cord[0] = (int)(getX()+(pWidth/2));
+		cord[1] = (int)(getY()+(pHeight/2));
 		return cord;
 	}
 

@@ -19,7 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import ca.main.game.network.TCPClient.ClientReceiver;
+
 
 public class ChatView extends JFrame implements ActionListener, KeyListener {
 

@@ -18,7 +18,7 @@ public class buildDbMain
    public static void main(String args[]) throws ClassNotFoundException, SQLException
    {
 	  Connection con = null;
-	  con = connect.PostgreSQLJDBC("SEP2_data", "Postgres");
+	  con = connect.PostgreSQLJDBC("SEP2_data", "jens");
 	  
 	  CreateDomainEx exD = new CreateDomainEx(con); 
 	  CreateTableEx exT = new CreateTableEx(con); 
@@ -28,7 +28,7 @@ public class buildDbMain
 	  boolean ignore = false;
 	  
 	  //create domains
-	  if (ignore)createDomains(exD);
+	  if (!ignore)createDomains(exD);
 	  
 	  //create tables
 	  if (!ignore)createTables(exT);

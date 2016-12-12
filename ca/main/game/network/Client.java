@@ -223,6 +223,7 @@ public class Client extends Thread {
 
 		double coordinateX = Double.parseDouble(array[2]);
 		double coordinateY = Double.parseDouble(array[3]);
+		array[4] = array[4].substring(00, 02);
 		boolean found = false;
 		int index = 0;
 		for (int i = 0; i < game.getOtherPlayers().size(); i++) {
@@ -230,6 +231,21 @@ public class Client extends Thread {
 					.getIpAddress())) {
 				found = true;
 				index = i;
+				if (game.getOtherPlayers().get(i).getIpAddress().equals(game.getMyIP()) && ((game.getOtherPlayers().get(i).getXChange() != 0) || (game.getOtherPlayers().get(i).getYChange() != 0 ))){
+					switch (array[4]) {
+			         case "01":
+			         case "02":game.addToOffSetY(game.getOtherPlayers().get(i).getYChange()); break;
+			         case "03":
+			         case "04":game.addToOffSetX(game.getOtherPlayers().get(i).getXChange()); break;
+			         case "05": break;
+			         case "06":game.addToOffSetX(game.getOtherPlayers().get(i).getXChange()); break;
+			         case "07":
+			         case "08":game.addToOffSetY(game.getOtherPlayers().get(i).getYChange()); break;
+			         case "09":
+			         default:
+			             throw new IllegalArgumentException("Invalid call on offSet: " + array[4]);
+			     }
+				}
 				break;
 			}
 		}
@@ -238,7 +254,7 @@ public class Client extends Thread {
 		}
 
 		game.getOtherPlayers().get(index)
-				.setCoord(coordinateX, coordinateY, array[4].substring(00, 02));
+				.setCoord(coordinateX, coordinateY, array[4]);
 
 	}
 

@@ -32,12 +32,12 @@ public class Map {
 		
 	}
 	
-	public void render(Graphics g, int tileSize, int tileBorder){
+	public void render(Graphics g, int tileSize, int tileBorder, int offSetX, int offSetY){
 		for (int column = 0; column < map.length; column++)
 		{
 			for (int row = 0; row < map[0].length; row ++){
 				
-				g.drawImage(drawTile(column, row), (tileSize*column), (tileSize*row), null); 
+				g.drawImage(drawTile(column, row), (tileSize*column)+offSetX, (tileSize*row)+offSetY, null); 
 			}
 		}
 	}

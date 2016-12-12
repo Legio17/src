@@ -29,18 +29,17 @@ public  class GameObject {
 		System.out.println("obj cor2" + cor2PosX + ":" + cor2PosY);
 	}
 	
-	public boolean isInside(int playerCenterX, int playerCenterY, int playerWidth, int playerHeight){
-		int playerCor1PosX = playerCenterX - playerWidth/2;
-		int playerCor1PosY = playerCenterY - playerHeight/2;
-		int playerCor2PosX = playerCenterX + playerWidth/2;
-		int playerCor2PosY = playerCenterY + playerHeight/2;
+	public boolean isInside(int[] playerCenter, int playerWidth, int playerHeight){
+		int playerCor1PosX = playerCenter[0] - playerWidth/2;
+		int playerCor1PosY = playerCenter[1] - playerHeight/2;
+		int playerCor2PosX = playerCenter[0] + playerWidth/2;
+		int playerCor2PosY = playerCenter[1] + playerHeight/2;
 		
-		if((cor1PosX < playerCor1PosX) && (playerCor1PosX < cor2PosX)){
-			if ((cor1PosY < playerCor1PosY) && (playerCor1PosY < cor2PosY)){
+		if((cor1PosX < playerCenter[0]) && (playerCenter[0] < cor2PosX)){
+			if ((cor1PosY < playerCenter[1]) && (playerCenter[1] < cor2PosY)){
 				return true;
 			}
 		}
-		
 		return false;
 	}
 	
