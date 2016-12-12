@@ -272,6 +272,10 @@ public class Client extends Thread {
 
 		if (!player2Set){
 			for (int j = 0; j < game.getTicTacToeGameList().size(); j++) {
+				if (game.getTicTacToeGameList().get(j).getPlayer2().equals(game.getPlayer().getName())){
+					return;
+				}
+				
 				if (game.getTicTacToeGameList().get(j).getPlayer2().equals("NotSet")) {
 					for (int games = 0; games < game.getTicTacToeGameList().size(); games++){
 						System.out.println("======== TEST =========================="+ " game nr "+games);
