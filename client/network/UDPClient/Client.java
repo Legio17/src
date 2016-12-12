@@ -323,10 +323,11 @@ public class Client extends Thread {
 		String player1 = array[2].trim();
 		String player2 = "";
 		int removeAtPos = -1;
-		
+
 		for (int i = 0; i < game.getTicTacToeGameList().size(); i++){
 			if (game.getTicTacToeGameList().get(i).getPlayer1().trim().equals(player1)){
 				removeAtPos = i;
+				System.out.println("game Existence "+i);
 				player2 = game.getTicTacToeGameList().get(i).getPlayer2().trim();
 			}
 		}
