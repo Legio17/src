@@ -213,7 +213,7 @@ public class Game extends Canvas implements Runnable {
 	public void run() {
 		init();
 		long lastTime = System.nanoTime();
-		double nsPerTick = 1000000000D / 50D; // how much ns does our game tick
+		double nsPerTick = 1000000000D / 60D; // how much ns does our game tick
 												// take
 
 		long lastTimer = System.currentTimeMillis();
