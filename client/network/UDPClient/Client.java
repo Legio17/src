@@ -204,7 +204,6 @@ public class Client extends Thread {
 
 	public void sendQuit(String data) {
 		data = "08:" + data + ":";
-		System.out.println("send data " + data);
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
 				data.getBytes().length, ipAddress, port);
 		try {
@@ -335,11 +334,11 @@ public class Client extends Thread {
 		
 		if (removeAtPos != -1){
 			if (game.getPlayer().getName().trim().equals(player1)){
-				System.out.println("condi"+game.getPlayer().getName());
+				System.out.println("cond1 "+game.getPlayer().getName());
 				game.setDisplayGame(false);
 				game.setTicTacFinished(false); 
 			} else if(game.getPlayer().getName().trim().equals(player2)){
-				System.out.println("cond"+game.getPlayer().getName());
+				System.out.println("cond2 "+game.getPlayer().getName());
 				game.setDisplayGame(false);
 				game.setTicTacFinished(false); 
 			}
