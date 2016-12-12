@@ -60,13 +60,13 @@ public class ServerMain extends Thread {
 			String identifier = UDPMethods.IndentifyDatagram(receivePacket);
 
 			if (identifier.equals("03")) {
-				sendData = null;
+				//sendData = null;
 				sendData = receivePacket.getData();
 				newData = true;
 
 			} else if (identifier.equals("04") || identifier.equals("05")
 					|| identifier.equals("06") || identifier.equals("07")) {
-				sendData = null;
+				//sendData = null;
 				sendData = receivePacket.getData();
 				newData = true;
 				
