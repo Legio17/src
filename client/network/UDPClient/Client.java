@@ -335,11 +335,13 @@ public class Client extends Thread {
 		
 		if (removeAtPos != -1){
 			if (game.getPlayer().getName().trim().equals(player1)){
-				//game.setDisplayGame(false);
-				//game.setTicTacFinished(false); 
+				System.out.println("condi"+game.getPlayer().getName());
+				game.setDisplayGame(false);
+				game.setTicTacFinished(false); 
 			} else if(game.getPlayer().getName().trim().equals(player2)){
-				//game.setDisplayGame(false);
-				//game.setTicTacFinished(false); 
+				System.out.println("cond"+game.getPlayer().getName());
+				game.setDisplayGame(false);
+				game.setTicTacFinished(false); 
 			}
 			game.getTicTacToeGameList().remove(removeAtPos);
 		}
