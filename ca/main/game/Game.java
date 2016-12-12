@@ -32,7 +32,7 @@ import ca.main.game.network.TCPClient.DbClient;
 
 public class Game extends Canvas implements Runnable {
 
-	private final String SERVER_IP = "localhost";
+	private final String SERVER_IP = "10.52.236.246";
 	private static InetAddress myIP;
 	private static String myIPString;
 
