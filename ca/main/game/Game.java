@@ -402,28 +402,16 @@ public class Game extends Canvas implements Runnable {
 		} else {
 
 			if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
-				if(player.getX() >= 635){
-					player.setVelX(0);
-					player.setX(635);
-				} else{ player.setVelX(5);}
+				player.setVelX(5);
 				playerPose = "06";
 			} else if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
-				if(player.getX() <= 185){
-					player.setVelX(0);
-					player.setX(185);
-				} else{ player.setVelX(-5);}
+				player.setVelX(-5);
 				playerPose = "04";
 			} else if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
-				if(player.getY() >= 285){
-					player.setVelY(0);
-					player.setY(285);
-				} else{ player.setVelY(5);}
+				player.setVelY(5);
 				playerPose = "02";
 			} else if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
-				if(player.getY() <= 85){
-					player.setVelY(0);
-					player.setY(85);
-				} else{ player.setVelY(-5);}
+				player.setVelY(-5);
 				playerPose = "08";
 			}
 			// Special actions

@@ -81,8 +81,23 @@ public class Player{
 	 *  handles player actions in real-time
 	 */
 	public void tick(){
-		x += velX;
-		y += velY;
+		if(x >= 635){
+			x = 634;
+		} 
+		else if(x <= 185){
+			x = 186;
+		}
+		else if(y >= 285){
+			y = 284;
+		}
+		else if(y <= 85){
+			y = 86;
+		}
+		
+		else{
+			x += velX;
+			y += velY;
+		}
 		
 		//prevent player to leave s // implement here later!
 	}
