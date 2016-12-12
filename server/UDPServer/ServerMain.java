@@ -146,7 +146,7 @@ public class ServerMain extends Thread {
 			}
 		}
 		if (!found) {
-			Connection newCon = new Connection(ipAddress, port);
+			UDPConnection newCon = new UDPConnection(ipAddress, port);
 			connections.addConnection(newCon);
 		}
 	}

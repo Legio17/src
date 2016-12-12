@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *         Ana Iulia Chifor
  */
 public class ConnectionList {
-	private ArrayList<Connection> connections;
+	private ArrayList<UDPConnection> connections;
 	
 	/**
 	 * Creates an arraylist of connections
@@ -24,7 +24,7 @@ public class ConnectionList {
 	 * 
 	 * @param connection to add
 	 */
-	public void addConnection(Connection connection) {
+	public void addConnection(UDPConnection connection) {
 		connections.add(connection);
 	}
 
@@ -32,7 +32,7 @@ public class ConnectionList {
 		return connections.size();
 	}
 
-	public ArrayList<Connection> getAll() {
+	public ArrayList<UDPConnection> getAll() {
 		return connections;
 	}
 	
