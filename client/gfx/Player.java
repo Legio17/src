@@ -83,14 +83,14 @@ public class Player{
 		if(x >= 691){
 			x = 690;
 		} 
-		else if(x <= -16){
-			x = -15;
+		else if(x <= -21){
+			x = -20;
 		}
-		else if(y >= 480){
-			y = 479;
+		else if(y >= 455){
+			y = 454;
 		}
-		else if(y <= -16){
-			y = -15;
+		else if(y <= -21){
+			y = -20;
 		}
 		
 		else{
