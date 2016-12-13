@@ -47,7 +47,7 @@ public class UnitTestIterator {
 		Iterator<String> itr = s.iterator();
 		assertTrue(itr.hasNext());
 	}
-	
+
 	/**
 	 * Tests if the hasNext() method works correctly.
 	 * 
@@ -63,7 +63,7 @@ public class UnitTestIterator {
 	}
 
 	/**
-	 * Tests if the hasNext() methods work correctly.
+	 * Tests if the hasNext() methods works correctly.
 	 * 
 	 * @throws ConcurrentModificationException
 	 *             may be thrown by methods that have detected concurrent
@@ -117,6 +117,9 @@ public class UnitTestIterator {
 		itr.next();
 	}
 
+	/**
+	 * Tests if the testAddElement() method works correctly.
+	 */
 	@Test
 	public void testAddElement() {
 		set.add("$A$");
@@ -142,6 +145,9 @@ public class UnitTestIterator {
 
 	}
 
+	/**
+	 * Tests if the testRemoveElement() method works correctly.
+	 */
 	@Test
 	public void testRemoveElement() {
 		set.add("$A$");
@@ -188,6 +194,9 @@ public class UnitTestIterator {
 
 	}
 
+	/**
+	 * Tests if the testRemoveElement() method works correctly.
+	 */
 	@Test(expected = NoSuchElementException.class)
 	public void testRemoveElementException1() {
 		set.add("$A$");
@@ -197,6 +206,9 @@ public class UnitTestIterator {
 		set.remove("???");
 	}
 
+	/**
+	 * Tests if the testRemoveElement() method works correctly.
+	 */
 	@Test(expected = NoSuchElementException.class)
 	public void testRemoveElementException2() {
 		set.add("$A$");
@@ -206,6 +218,9 @@ public class UnitTestIterator {
 		set.remove(null);
 	}
 
+	/**
+	 * Tests if the testRemoveElement() method works correctly.
+	 */
 	@Test(expected = NoSuchElementException.class)
 	public void testRemoveElementException3() {
 		set.add("$A$");
@@ -219,6 +234,9 @@ public class UnitTestIterator {
 		}
 	}
 
+	/**
+	 * Tests if the contains() method works correctly.
+	 */
 	@Test
 	public void testContains() {
 		assertFalse(set.contains("$A$"));
@@ -238,6 +256,9 @@ public class UnitTestIterator {
 
 	}
 
+	/**
+	 * Tests if the isEmpty() method works correctly.
+	 */
 	@Test
 	public void testIsEmpty() {
 		assertTrue(set.isEmpty());
@@ -267,6 +288,9 @@ public class UnitTestIterator {
 		}
 	}
 
+	/**
+	 * Tests if the size() method works correctly.
+	 */
 	@Test
 	public void testSize() {
 		assertEquals(0, set.size());
@@ -301,6 +325,9 @@ public class UnitTestIterator {
 		}
 	}
 
+	/**
+	 * Tests if the isSubSet() method works correctly.
+	 */
 	@Test
 	public void testIsSubSet() {
 		set.add("$B$");
@@ -314,6 +341,9 @@ public class UnitTestIterator {
 		assertFalse(setOther.isSubset(set));
 	}
 
+	/**
+	 * Tests if the intersection() method works correctly.
+	 */
 	@Test
 	public void testIntersection() {
 		set.add("$B$");
@@ -327,6 +357,9 @@ public class UnitTestIterator {
 		assertTrue(setOther.intersection(set).size() == 2);
 	}
 
+	/**
+	 * Tests if the union() method works correctly.
+	 */
 	@Test
 	public void testUnion() {
 		set.add("$B$");
@@ -340,6 +373,9 @@ public class UnitTestIterator {
 		assertTrue(setOther.union(set).size() == 5);
 	}
 
+	/**
+	 * Tests if the toString() method works correctly.
+	 */
 	@Test
 	public void testToString() {
 		// format is not defined only order of elements
@@ -362,6 +398,9 @@ public class UnitTestIterator {
 
 	}
 
+	/**
+	 * Tests if the toString() method works correctly.
+	 */
 	private boolean containsToString(String... s) {
 		String listString = set.toString();
 		// System.out.println(listString);
@@ -386,6 +425,9 @@ public class UnitTestIterator {
 		return true;
 	}
 
+	/**
+	 * Tests if the toString() method works correctly.
+	 */
 	private String replace(String s, String target, char replacementChar) {
 		String replace = "";
 		for (int k = 0; k < target.length(); k++)
