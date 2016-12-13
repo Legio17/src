@@ -31,7 +31,7 @@ import client.network.UDPClient.OtherPlayersList;
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-	private final String SERVER_IP = "10.52.236.246";
+	private final String SERVER_IP = "192.168.1.236";
 	private static InetAddress myIP;
 	private static String myIPString;
 
