@@ -295,6 +295,7 @@ public class Game extends Canvas implements Runnable {
 			else if(displayHelp){
 				g.drawImage(helpBubble, 300, 270, null);
 			}
+			g.drawImage(toolPanel, 0, 540, null);
 		}
 		// ///////// end of drawing here! /////////////////////////////
 		g.dispose();
