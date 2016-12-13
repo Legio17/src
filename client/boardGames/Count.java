@@ -1,11 +1,27 @@
 package client.boardGames;
 
+/**
+ * A class containing methods to check if one of the players won and fill up the
+ * array with null.
+ * 
+ * @author Adam Szekely, Filip Hudec, Signe Rasmussen, Peter Miodrag Varanic,
+ *         Ana Iulia Chifor
+ *
+ */
 public class Count {
-
+	/**
+	 * Checks diagonally,vertically and horizontally if there are 3 of the same
+	 * object in the array.
+	 * 
+	 * @param arr
+	 *            is a 2 dimensional array containing objects which will be
+	 *            checked
+	 * @return true if there are 3 "X" or "O" diagonally,vertically or
+	 *         horizontally in the array, else false
+	 */
 	public static <T> boolean isThereThree(T[][] arr) {
 		for (int i = 0; i < arr.length; i++) {
 			for (int j = 0; j < arr[0].length; j++) {
-				// System.out.println(i+","+j);
 				if (j == 0)
 					if ((arr[i][j].equals("X") && arr[i][j + 1].equals("X") && arr[i][j + 2]
 							.equals("X"))) {
@@ -49,13 +65,19 @@ public class Count {
 						return true;
 					}
 				}
-				// else
-				// return false;
 			}
 		}
 		return false;
 	}
 
+	/**
+	 * Checks if there is a null in the array.
+	 * 
+	 * @param arr
+	 *            is a 2 dimensional array containing objects which will be
+	 *            checked
+	 * @return true if there is a null in the array, else false
+	 */
 	public static <T> boolean isThereNull(T[][] arr) {
 		for (int i = 0; i < arr.length; i++)
 			for (int j = 0; j < arr[0].length; j++)
@@ -65,13 +87,30 @@ public class Count {
 		return false;
 	}
 
+	/**
+	 * Sets all the positions in the array to null.
+	 * 
+	 * @param arr
+	 *            is a 2 dimensional array containing objects which will be
+	 *            replaced
+	 */
 	public static <T> void setToNull(T[][] arr) {
 		for (int i = 0; i < arr.length; i++)
 			for (int j = 0; j < arr[0].length; j++)
 				arr[i][j] = null;
 	}
 
-	public static <T> boolean isThereFive(int howManyToWin, T[][] arr) {
+	/**
+	 * Checks diagonally,vertically and horizontally if there are 5 of the same
+	 * object in the array.
+	 * 
+	 * @param arr
+	 *            is a 2 dimensional array containing objects which will be
+	 *            checked
+	 * @return true if there are 5 "X" or "O" diagonally,vertically or
+	 *         horizontally in the array, else false
+	 */
+	public static <T> boolean isThereFive(T[][] arr) {
 		System.out.println("IS THERE FIVE METHOD");
 		for (int i = 0; i < arr.length; i++) {
 			for (int j = 0; j < arr[0].length; j++) {
@@ -89,7 +128,7 @@ public class Count {
 						}
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					 
+
 				}
 				try {
 					if (arr[i][j] == (null) || arr[i + 1][j] == (null)
@@ -105,7 +144,7 @@ public class Count {
 						}
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					 
+
 				}
 				try {
 					if (arr[i][j] == (null) || arr[i + 1][j + 1] == (null)
@@ -123,7 +162,7 @@ public class Count {
 						}
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					 
+
 				}
 				try {
 					if (arr[i][j] == (null) || arr[i - 1][j + 1] == (null)
@@ -141,7 +180,7 @@ public class Count {
 						}
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					 
+
 				}
 
 				try {
@@ -157,7 +196,7 @@ public class Count {
 						}
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					 
+
 				}
 				try {
 					if (arr[i][j] == (null) || arr[i + 1][j] == (null)
@@ -173,7 +212,7 @@ public class Count {
 						}
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					 
+
 				}
 				try {
 					if (arr[i][j] == (null) || arr[i + 1][j + 1] == (null)
@@ -191,7 +230,7 @@ public class Count {
 						}
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					 
+
 				}
 				try {
 					if (arr[i][j] == (null) || arr[i - 1][j + 1] == (null)
@@ -209,7 +248,7 @@ public class Count {
 						}
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					 
+
 				}
 			}
 		}

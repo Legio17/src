@@ -9,16 +9,35 @@ import org.junit.Test;
 
 import client.network.utilities.SetADT;
 
+/**
+ * A class represents a JUnit test for the Iterator and dbClientList class which
+ * is an ArraySet.
+ * 
+ * @author Adam Szekely, Peter Miodrag Varanic, Filip Hudec, Signe Rasmussen,
+ *         Ana Iulia Chifor
+ *
+ */
 public class UnitTestIterator {
 	private SetADT<String> set;
 	private SetADT<String> setOther;
 
+	/**
+	 * Initialize set and setOther.
+	 */
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		set = new dbClientList<String>();
 		setOther = new dbClientList<String>();
 	}
 
+	/**
+	 * Tests if the hasNext() method works correctly.
+	 * 
+	 * @throws ConcurrentModificationException
+	 *             may be thrown by methods that have detected concurrent
+	 *             modification of an object when such modification is not
+	 *             permissible
+	 */
 	@Test
 	public final void testHasNext_BaseCase()
 			throws ConcurrentModificationException {
@@ -27,34 +46,32 @@ public class UnitTestIterator {
 		s.add("dog");
 		Iterator<String> itr = s.iterator();
 		assertTrue(itr.hasNext());
-	}// TestHasNext_BaseCase
-
+	}
+	
+	/**
+	 * Tests if the hasNext() method works correctly.
+	 * 
+	 * @throws ConcurrentModificationException
+	 *             may be thrown by methods that have detected concurrent
+	 *             modification of an object when such modification is not
+	 *             permissible
+	 */
 	public final void testHasNext1() throws ConcurrentModificationException {
 		SetADT<String> s = new dbClientList<String>();
 		Iterator<String> itr = s.iterator();
 		assertFalse(itr.hasNext());
-	}// TestHasNext_C1
+	}
 
+	/**
+	 * Tests if the hasNext() methods work correctly.
+	 * 
+	 * @throws ConcurrentModificationException
+	 *             may be thrown by methods that have detected concurrent
+	 *             modification of an object when such modification is not
+	 *             permissible
+	 */
 	@Test
-	public final void testNext_BaseCase()
-			throws ConcurrentModificationException {
-		SetADT<String> s = new dbClientList<String>();
-		s.add("cat");
-		Iterator<String> itr = s.iterator();
-		assertTrue(itr.hasNext());
-		assertEquals("cat", itr.next());
-	}// testNext_BaseCase
-
-	@Test(expected = NoSuchElementException.class)
-	public final void testNext1() throws ConcurrentModificationException {
-		SetADT<String> s = new dbClientList<String>();
-		Iterator<String> itr = s.iterator();
-		assertFalse(itr.hasNext());
-		itr.next();
-	}// testNext_C1
-
-	@Test
-	public final void testNext2() throws ConcurrentModificationException {
+	public final void testHasNext2() throws ConcurrentModificationException {
 		SetADT<String> s = new dbClientList<String>();
 		try {
 			set.add(null);
@@ -64,7 +81,41 @@ public class UnitTestIterator {
 		}
 		Iterator<String> itr = s.iterator();
 		assertFalse(itr.hasNext());
-	}// testNext_C2
+	}
+
+	/**
+	 * Tests if the hasNext() and next() methods work correctly.
+	 * 
+	 * @throws ConcurrentModificationException
+	 *             may be thrown by methods that have detected concurrent
+	 *             modification of an object when such modification is not
+	 *             permissible
+	 */
+	@Test
+	public final void testNext_BaseCase()
+			throws ConcurrentModificationException {
+		SetADT<String> s = new dbClientList<String>();
+		s.add("cat");
+		Iterator<String> itr = s.iterator();
+		assertTrue(itr.hasNext());
+		assertEquals("cat", itr.next());
+	}
+
+	/**
+	 * Tests if the hasNext() and next() methods work correctly.
+	 * 
+	 * @throws ConcurrentModificationException
+	 *             may be thrown by methods that have detected concurrent
+	 *             modification of an object when such modification is not
+	 *             permissible
+	 */
+	@Test(expected = NoSuchElementException.class)
+	public final void testNext1() throws ConcurrentModificationException {
+		SetADT<String> s = new dbClientList<String>();
+		Iterator<String> itr = s.iterator();
+		assertFalse(itr.hasNext());
+		itr.next();
+	}
 
 	@Test
 	public void testAddElement() {
@@ -132,8 +183,9 @@ public class UnitTestIterator {
 		assertTrue(set.size() == 3 && set.contains("$B$")
 				&& set.contains("$D$") && set.contains("$A$"));
 		assertEquals("$B$", set.remove("$B$")); // first
-		assertTrue(set.size() == 2 && set.contains("$D$") && set.contains("$A$"));
-		
+		assertTrue(set.size() == 2 && set.contains("$D$")
+				&& set.contains("$A$"));
+
 	}
 
 	@Test(expected = NoSuchElementException.class)
@@ -250,8 +302,7 @@ public class UnitTestIterator {
 	}
 
 	@Test
-	public void testIsSubSet()
-	{
+	public void testIsSubSet() {
 		set.add("$B$");
 		set.add("$C$");
 		set.add("$D$");
@@ -262,33 +313,33 @@ public class UnitTestIterator {
 		setOther.add("$K$");
 		assertFalse(setOther.isSubset(set));
 	}
-	
+
 	@Test
-	public void testIntersection()
-	{
+	public void testIntersection() {
 		set.add("$B$");
 		set.add("$C$");
 		set.add("$D$");
 		set.add("$X$");
 		setOther.add("$B$");
 		setOther.add("$C$");
-		assertTrue(setOther.intersection(set).size()==2);
+		assertTrue(setOther.intersection(set).size() == 2);
 		setOther.add("$K$");
-		assertTrue(setOther.intersection(set).size()==2);
+		assertTrue(setOther.intersection(set).size() == 2);
 	}
+
 	@Test
-	public void testUnion()
-	{
+	public void testUnion() {
 		set.add("$B$");
 		set.add("$C$");
 		set.add("$D$");
 		set.add("$X$");
 		setOther.add("$B$");
 		setOther.add("$C$");
-		assertTrue(setOther.union(set).size()==4);
+		assertTrue(setOther.union(set).size() == 4);
 		setOther.add("$K$");
-		assertTrue(setOther.union(set).size()==5);
+		assertTrue(setOther.union(set).size() == 5);
 	}
+
 	@Test
 	public void testToString() {
 		// format is not defined only order of elements

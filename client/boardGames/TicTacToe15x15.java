@@ -178,7 +178,7 @@ public class TicTacToe15x15 {
 		array[col][row] = mark;
 		lastMark = mark;
 
-		if (Count.isThereFive(5, array)) {
+		if (Count.isThereFive(array)) {
 			game.setTicTacFinished(true, lastMark);
 			
 			if(getPlayer1().equals(localPlayer))
