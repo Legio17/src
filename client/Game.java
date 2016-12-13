@@ -283,7 +283,7 @@ public class Game extends Canvas implements Runnable {
 			
 		// ====================== Game lobby ============================	
 			map1.render(g, 94, 1, 0, 0); // 94 - borders are already ignored in grab
-			g.drawImage(toolPanel, 0, 540, null);
+			
 			
 			for (int i = 0; i < otherPlayers.size(); i++) {
 				otherPlayers.get(i).render(g);
@@ -295,6 +295,7 @@ public class Game extends Canvas implements Runnable {
 			else if(displayHelp){
 				g.drawImage(helpBubble, 300, 270, null);
 			}
+			g.drawImage(toolPanel, 0, 540, null);
 		}
 		// ///////// end of drawing here! /////////////////////////////
 		g.dispose();
