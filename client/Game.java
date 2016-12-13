@@ -64,7 +64,7 @@ public class Game extends Canvas implements Runnable {
 	private boolean sthDisplayed;
 
 	private boolean displayHelp;
-	
+
 	private Board scoreBoard;
 	private boolean displayScore;
 	private String[] scoreInfo;
@@ -73,7 +73,7 @@ public class Game extends Canvas implements Runnable {
 	private Board fancyBoard;
 	private boolean ticTacFinished;
 	private String ticTacResult;
-	
+
 	private BufferedImage toolPanel;
 	private BufferedImage helpBubble;
 	private BufferedImage player1Victory;
@@ -81,9 +81,9 @@ public class Game extends Canvas implements Runnable {
 
 	private FontLoader fontLog;
 	private FontLoader fontScore;
-	
+
 	private boolean login;
-	
+
 	private Client client;
 	private DbClient DbClient;
 
@@ -92,17 +92,17 @@ public class Game extends Canvas implements Runnable {
 	/**
 	 * construction of necessary items before game can start
 	 */
-	
+
 	public void init() {
 		requestFocus();
-		
+
 		try {
 			myIP = InetAddress.getLocalHost();
 		} catch (UnknownHostException e2) {
 			e2.printStackTrace();
 		}
 		myIPString = cutLocalIp(myIP.toString());
-		
+
 		sprite_sheet_loader = new SpriteSheetLoader();
 		imageLoader = new BufferImageLoader();
 		boardManager = new BoardManager(this);
@@ -122,10 +122,8 @@ public class Game extends Canvas implements Runnable {
 		login = true;
 		ticTacResult = "";
 
-
 		try {
-			toolPanel = imageLoader
-					.loadImage("/img/toolPanel.png");
+			toolPanel = imageLoader.loadImage("/img/toolPanel.png");
 			helpBubble = imageLoader.loadImage("/img/speechbubble.png");
 			player1Victory = imageLoader
 					.loadImage("/img/boards/tic-tac-toe/playerboard_player1Win.png");
@@ -142,18 +140,17 @@ public class Game extends Canvas implements Runnable {
 		sthDisplayed = false;
 		ticTacFinished = false;
 
-		
 		try {
 			ipAddress = InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e1) {
 			e1.printStackTrace();
 		}
-		
-	      addMouseListener(new MouseAdapter() { 
-	          public void mousePressed(MouseEvent me) { 
-	            clickActions(me); 
-	          } 
-	      }); 
+
+		addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent me) {
+				clickActions(me);
+			}
+		});
 	}
 
 	/**
@@ -173,7 +170,8 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	/**
-	 * stop game thread
+	 * Stops game thread. Sends the local IP address to the server, then exits
+	 * the game.
 	 */
 
 	public synchronized void stop() {
@@ -205,9 +203,9 @@ public class Game extends Canvas implements Runnable {
 		double delta = 0;
 
 		@SuppressWarnings("unused")
-		int ticks=0; // counter for ticks, tick == update basically
+		int ticks = 0; // counter for ticks, tick == update basically
 		@SuppressWarnings("unused")
-		int frames=0; // counter for frames
+		int frames = 0; // counter for frames
 
 		while (running) {
 			long now = System.nanoTime();
@@ -263,16 +261,16 @@ public class Game extends Canvas implements Runnable {
 		g = bs.getDrawGraphics();
 
 		// ////////// Everything we want to draw on our screen /////////
-		
+
 		// ====================== login ================================
 		if (login) {
 			fancyBoard.render(g);
 			fontLog.renderNick(g, 0, 170, 190, 45);
-			
-		// ====================== TicTacToe Game =======================
+
+			// ====================== TicTacToe Game =======================
 		} else if (displayGame
 				&& client.getTicTacToeNr() < ticTacToeGameList.size()) {
-			ticTacToeGameList.get(client.getTicTacToeNr()).render(g); 							
+			ticTacToeGameList.get(client.getTicTacToeNr()).render(g);
 			if (ticTacFinished) {
 				if (ticTacResult.equals("X"))
 					g.drawImage(player1Victory, 0, 0, null);
@@ -280,19 +278,19 @@ public class Game extends Canvas implements Runnable {
 					g.drawImage(player2Victory, 0, 0, null);
 			}
 		} else {
-			
-		// ====================== Game lobby ============================	
-			map1.render(g, 94, 1, 0, 0); // 94 - borders are already ignored in grab
+
+			// ====================== Game lobby ============================
+			map1.render(g, 94, 1, 0, 0); // 94 - borders are already ignored in
+											// grab
 			g.drawImage(toolPanel, 0, 540, null);
-			
+
 			for (int i = 0; i < otherPlayers.size(); i++) {
 				otherPlayers.get(i).render(g);
 			}
 			if (displayScore) {
 				scoreBoard.render(g);
 				fontScore.renderScore(g, 1, 280, 63, 13, 55, scoreInfo);
-			}
-			else if(displayHelp){
+			} else if (displayHelp) {
 				g.drawImage(helpBubble, 300, 270, null);
 			}
 		}
@@ -332,8 +330,8 @@ public class Game extends Canvas implements Runnable {
 			// ================= Controls Tic-Tac-Toe ================
 		} else if (displayGame && ticTacFinished) {
 			if (key == KeyEvent.VK_ENTER) {
-				//setDisplayGame(false);
-				//ticTacFinished = false;
+				// setDisplayGame(false);
+				// ticTacFinished = false;
 				if (ticTacToeGameList.get(client.getTicTacToeNr()).getPlayer1()
 						.equals((getPlayer().getName()))) {
 					client.sendEndTicTacToe(client.getTicTacToeNr() + ":"
@@ -343,7 +341,7 @@ public class Game extends Canvas implements Runnable {
 			}
 		} else if (displayGame) {
 			if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
-				ticTacToeGameList.get(client.getTicTacToeNr()).incPosX(); 
+				ticTacToeGameList.get(client.getTicTacToeNr()).incPosX();
 			} else if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
 				ticTacToeGameList.get(client.getTicTacToeNr()).decPosX();
 			} else if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
@@ -469,7 +467,6 @@ public class Game extends Canvas implements Runnable {
 		else
 			sthDisplayed = false;
 	}
-	
 
 	public void setTicTacFinished(boolean ticTacFinished, String lastMark) {
 		this.ticTacFinished = ticTacFinished;
@@ -488,8 +485,8 @@ public class Game extends Canvas implements Runnable {
 	public String getServerIp() {
 		return SERVER_IP;
 	}
-	
-	public String getMyIP(){
+
+	public String getMyIP() {
 		return myIPString;
 	}
 
@@ -523,15 +520,15 @@ public class Game extends Canvas implements Runnable {
 	public LinkedList<TicTacToe15x15> getTicTacToeGameList() {
 		return ticTacToeGameList;
 	}
-	
-	public void clickActions(MouseEvent click){
+
+	public void clickActions(MouseEvent click) {
 		int xClick, yClick;
 		xClick = click.getX();
 		yClick = click.getY();
-		
+
 		helpButton(xClick, yClick);
 		statsButton(xClick, yClick);
-		
+
 	}
 
 	public DbClient getdbClient() {
@@ -541,8 +538,15 @@ public class Game extends Canvas implements Runnable {
 	public Player getPlayer() {
 		return player;
 	}
-	
-	public String[] requestScoreInfo(){
+
+	/**
+	 * Start the thread which waits for the reply from the server then sends the
+	 * name of the player to the server. Afterwards it waits for 0,5 seconds and
+	 * returns all the information received from the server.
+	 * 
+	 * @return all the information received from server
+	 */
+	public String[] requestScoreInfo() {
 		DbClient = new DbClient("client", this, SERVER_IP, 1098);
 		DbClient.start();
 
@@ -555,15 +559,14 @@ public class Game extends Canvas implements Runnable {
 		scoreInfo = DbClient.getAllInfo();
 		return scoreInfo;
 	}
-	
-	public void helpButton(int x, int y){
-		if((x > 718) && (x < 750)){
-			if ((y > 542) && (y < 565)){
-				if(displayHelp){
+
+	public void helpButton(int x, int y) {
+		if ((x > 718) && (x < 750)) {
+			if ((y > 542) && (y < 565)) {
+				if (displayHelp) {
 					displayHelp = false;
 					sthDisplayed = false;
-				}
-				else {
+				} else {
 					displayHelp = true;
 					sthDisplayed = true;
 				}
@@ -571,30 +574,28 @@ public class Game extends Canvas implements Runnable {
 			}
 		}
 	}
-	
-	public void statsButton(int x, int y){
-		if ((x > 9) && (x < 38)){
-			if ((y > 541) && (y < 564)){
-				if(displayScore){
+
+	public void statsButton(int x, int y) {
+		if ((x > 9) && (x < 38)) {
+			if ((y > 541) && (y < 564)) {
+				if (displayScore) {
 					displayScore = false;
 					sthDisplayed = false;
 					DbClient.stop();
-				}
-				else {
+				} else {
 					scoreInfo = requestScoreInfo();
 					displayScore = true;
 					sthDisplayed = true;
 				}
-				
+
 			}
 		}
 	}
-	
-	
-	public String cutLocalIp(String localIp){
-		for (int i = 0; i < localIp.length(); i++){
-			if(localIp.charAt(i)=='/'){
-				return localIp.substring(i+1, localIp.length());
+
+	public String cutLocalIp(String localIp) {
+		for (int i = 0; i < localIp.length(); i++) {
+			if (localIp.charAt(i) == '/') {
+				return localIp.substring(i + 1, localIp.length());
 			}
 		}
 		return "error";

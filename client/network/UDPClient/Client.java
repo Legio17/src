@@ -7,9 +7,6 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-
-
-
 import client.Game;
 import client.boardGames.TicTacToe15x15;
 
@@ -88,6 +85,14 @@ public class Client extends Thread {
 		}
 	}
 
+	/**
+	 * Deletes the player, who quit the game, from the OtherPlayersList so his/her
+	 * character disappears from the screen.
+	 * 
+	 * @param array
+	 *            contains the information about the other player who quit the
+	 *            game and has to be deleted from the list
+	 */
 	private void quitGame(String[] array) {
 		for (int i = 0; i < game.getOtherPlayers().size(); i++) {
 			if (game.getOtherPlayers().get(i).getIpAddress().equals(array[1])) {
@@ -124,7 +129,7 @@ public class Client extends Thread {
 	 * local player is searching for someone else to play tic-tac-toe with.
 	 * 
 	 * @param data
-	 *            the data that needs to be broadcast to the other players so it
+	 *            the data that needs to be broadcasted to the other players so it
 	 *            is known that the sender wants to start a game
 	 */
 	public void sendSearchingForPlayer(String data) {
@@ -202,6 +207,13 @@ public class Client extends Thread {
 		}
 	}
 
+	/**
+	 * Sends data to the server for quitting the game so the player who quits
+	 * will disappear from the screen of all the other clients.
+	 * 
+	 * @param data
+	 *            is the information sent to the server
+	 */
 	public void sendQuit(String data) {
 		data = "08:" + data + ":";
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
@@ -265,19 +277,30 @@ public class Client extends Thread {
 			}
 		}
 
-		if (!player2Set){
+		if (!player2Set) {
 			for (int j = 0; j < game.getTicTacToeGameList().size(); j++) {
-				if (game.getTicTacToeGameList().get(j).getPlayer2().equals(game.getPlayer().getName())){
+				if (game.getTicTacToeGameList().get(j).getPlayer2()
+						.equals(game.getPlayer().getName())) {
 					return;
 				}
-				
-				if (game.getTicTacToeGameList().get(j).getPlayer2().equals("NotSet")) {
-					for (int games = 0; games < game.getTicTacToeGameList().size(); games++){
-						System.out.println("======== TEST =========================="+ " game nr "+games);
-						System.out.println(game.getTicTacToeGameList().get(games).getPlayer2() +" "+player2);
-						System.out.println(game.getTicTacToeGameList().get(games).getPlayer2().length() +" "+player2.toString());
-						System.out.println(game.getTicTacToeGameList().get(games).getPlayer2().equals(player2));
-						if (game.getTicTacToeGameList().get(games).getPlayer2().equals(player2)){
+
+				if (game.getTicTacToeGameList().get(j).getPlayer2()
+						.equals("NotSet")) {
+					for (int games = 0; games < game.getTicTacToeGameList()
+							.size(); games++) {
+						System.out
+								.println("======== TEST =========================="
+										+ " game nr " + games);
+						System.out.println(game.getTicTacToeGameList()
+								.get(games).getPlayer2()
+								+ " " + player2);
+						System.out.println(game.getTicTacToeGameList()
+								.get(games).getPlayer2().length()
+								+ " " + player2.toString());
+						System.out.println(game.getTicTacToeGameList()
+								.get(games).getPlayer2().equals(player2));
+						if (game.getTicTacToeGameList().get(games).getPlayer2()
+								.equals(player2)) {
 							return;
 						}
 					}
@@ -313,7 +336,7 @@ public class Client extends Thread {
 		if (ticTacToeNr == receivedTicTacToeNr) {
 			int col = Integer.parseInt(array[1]);
 			int row = Integer.parseInt(array[2]);
-			
+
 			game.getTicTacToeGameList().get(ticTacToeNr)
 					.mark(col, row, array[3]);
 		}
@@ -324,23 +347,25 @@ public class Client extends Thread {
 		String player2 = "";
 		int removeAtPos = -1;
 
-		for (int i = 0; i < game.getTicTacToeGameList().size(); i++){
-			if (game.getTicTacToeGameList().get(i).getPlayer1().trim().equals(player1)){
+		for (int i = 0; i < game.getTicTacToeGameList().size(); i++) {
+			if (game.getTicTacToeGameList().get(i).getPlayer1().trim()
+					.equals(player1)) {
 				removeAtPos = i;
-				System.out.println("game Existence "+i);
-				player2 = game.getTicTacToeGameList().get(i).getPlayer2().trim();
+				System.out.println("game Existence " + i);
+				player2 = game.getTicTacToeGameList().get(i).getPlayer2()
+						.trim();
 			}
 		}
-		
-		if (removeAtPos != -1){
-			if (game.getPlayer().getName().trim().equals(player1)){
-				System.out.println("cond1 "+game.getPlayer().getName());
+
+		if (removeAtPos != -1) {
+			if (game.getPlayer().getName().trim().equals(player1)) {
+				System.out.println("cond1 " + game.getPlayer().getName());
 				game.setDisplayGame(false);
-				game.setTicTacFinished(false); 
-			} else if(game.getPlayer().getName().trim().equals(player2)){
-				System.out.println("cond2 "+game.getPlayer().getName());
+				game.setTicTacFinished(false);
+			} else if (game.getPlayer().getName().trim().equals(player2)) {
+				System.out.println("cond2 " + game.getPlayer().getName());
 				game.setDisplayGame(false);
-				game.setTicTacFinished(false); 
+				game.setTicTacFinished(false);
 			}
 			game.getTicTacToeGameList().remove(removeAtPos);
 		}
