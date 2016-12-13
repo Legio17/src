@@ -13,9 +13,10 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
 import javax.swing.JFrame;
+
 import client.boardGames.TicTacToe15x15;
-import client.control.GameObjectTypeB;
 import client.control.KeyInput;
 import client.gfx.BufferImageLoader;
 import client.gfx.FontLoader;
@@ -62,6 +63,8 @@ public class Game extends Canvas implements Runnable {
 	private BoardManager boardManager;
 	private boolean sthDisplayed;
 
+	private boolean displayHelp;
+	
 	private Board scoreBoard;
 	private boolean displayScore;
 	private String[] scoreInfo;
@@ -72,6 +75,7 @@ public class Game extends Canvas implements Runnable {
 	private String ticTacResult;
 	
 	private BufferedImage toolPanel;
+	private BufferedImage helpBubble;
 	private BufferedImage player1Victory;
 	private BufferedImage player2Victory;
 
@@ -84,8 +88,6 @@ public class Game extends Canvas implements Runnable {
 	private DbClient DbClient;
 
 	private String ipAddress = "ipError";
-
-	private ArrayList<GameObjectTypeB> typeBObjects;
 
 	/**
 	 * construction of necessary items before game can start
@@ -105,9 +107,6 @@ public class Game extends Canvas implements Runnable {
 		imageLoader = new BufferImageLoader();
 		boardManager = new BoardManager(this);
 		loadBoards();
-		
-		typeBObjects = new ArrayList<GameObjectTypeB>(); //unsused
-		//typeBObjects.add(new GameObjectTypeB(this,50,50,100,100,"Legio")); //unused
 
 		fontLog = new FontLoader(this);
 		fontScore = new FontLoader(this);
@@ -127,7 +126,7 @@ public class Game extends Canvas implements Runnable {
 		try {
 			toolPanel = imageLoader
 					.loadImage("/img/toolPanel.png");
-			
+			helpBubble = imageLoader.loadImage("/img/speechbubble.png");
 			player1Victory = imageLoader
 					.loadImage("/img/boards/tic-tac-toe/playerboard_player1Win.png");
 			player2Victory = imageLoader
@@ -137,6 +136,7 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		ranOnce = false;
+		displayHelp = false;
 		displayScore = false;
 		displayGame = false;
 		sthDisplayed = false;
@@ -283,7 +283,7 @@ public class Game extends Canvas implements Runnable {
 			
 		// ====================== Game lobby ============================	
 			map1.render(g, 94, 1, 0, 0); // 94 - borders are already ignored in grab
-			//g.drawImage(toolPanel, 0, 540, null);
+			g.drawImage(toolPanel, 0, 540, null);
 			
 			for (int i = 0; i < otherPlayers.size(); i++) {
 				otherPlayers.get(i).render(g);
@@ -291,6 +291,9 @@ public class Game extends Canvas implements Runnable {
 			if (displayScore) {
 				scoreBoard.render(g);
 				fontScore.renderScore(g, 1, 280, 63, 13, 55, scoreInfo);
+			}
+			else if(displayHelp){
+				g.drawImage(helpBubble, 300, 270, null);
 			}
 		}
 		// ///////// end of drawing here! /////////////////////////////
@@ -359,7 +362,7 @@ public class Game extends Canvas implements Runnable {
 									.getLocalMark());
 				}
 
-			} else if (key == KeyEvent.VK_Q || key == KeyEvent.VK_ESCAPE) {
+			} else if (key == KeyEvent.VK_ESCAPE) {
 				if (!displayGame && !sthDisplayed) {
 					displayGame = true;
 					sthDisplayed = true;
@@ -396,16 +399,7 @@ public class Game extends Canvas implements Runnable {
 			} else if (key == KeyEvent.VK_E) {
 				if (!displayScore && !sthDisplayed) {
 
-					DbClient = new DbClient("client", this, SERVER_IP, 1098);
-					DbClient.start();
-
-					DbClient.sendName(player.getName());
-					try {
-						Thread.sleep(500);
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
-					}
-					scoreInfo = DbClient.getAllInfo();
+					scoreInfo = requestScoreInfo();
 					displayScore = true;
 					sthDisplayed = true;
 
@@ -415,12 +409,12 @@ public class Game extends Canvas implements Runnable {
 					DbClient.stop();
 				}
 
-			} else if (key == KeyEvent.VK_Q) {
-				if (!displayGame && !sthDisplayed) {
-					displayGame = true;
+			} else if (key == KeyEvent.VK_H) {
+				if (!displayHelp && !sthDisplayed) {
+					displayHelp = true;
 					sthDisplayed = true;
-				} else if (displayGame) {
-					displayGame = false;
+				} else if (displayHelp) {
+					displayHelp = false;
 					sthDisplayed = false;
 				}
 			}
@@ -503,14 +497,6 @@ public class Game extends Canvas implements Runnable {
 		running = b;
 
 	}
-	
-	public boolean isInsideSolidObject(){
-		for (int objectANr = 0; objectANr < typeBObjects.size(); objectANr++){
-			if(typeBObjects.get(0).isInside(player.getCenter(), 0, 0))return true;
-			
-		}
-		return false;
-	}
 
 	/**
 	 * @return game frame width
@@ -539,7 +525,12 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	public void clickActions(MouseEvent click){
-		System.out.println(click.getX()+" "+click.getY());
+		int xClick, yClick;
+		xClick = click.getX();
+		yClick = click.getY();
+		
+		helpButton(xClick, yClick);
+		statsButton(xClick, yClick);
 		
 	}
 
@@ -551,9 +542,54 @@ public class Game extends Canvas implements Runnable {
 		return player;
 	}
 	
-	public ArrayList<GameObjectTypeB> getSolidObjects(){
-		return typeBObjects;
+	public String[] requestScoreInfo(){
+		DbClient = new DbClient("client", this, SERVER_IP, 1098);
+		DbClient.start();
+
+		DbClient.sendName(player.getName());
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+		scoreInfo = DbClient.getAllInfo();
+		return scoreInfo;
 	}
+	
+	public void helpButton(int x, int y){
+		if((x > 718) && (x < 750)){
+			if ((y > 542) && (y < 565)){
+				if(displayHelp){
+					displayHelp = false;
+					sthDisplayed = false;
+				}
+				else {
+					displayHelp = true;
+					sthDisplayed = true;
+				}
+
+			}
+		}
+	}
+	
+	public void statsButton(int x, int y){
+		if ((x > 9) && (x < 38)){
+			if ((y > 541) && (y < 564)){
+				if(displayScore){
+					displayScore = false;
+					sthDisplayed = false;
+					DbClient.stop();
+				}
+				else {
+					scoreInfo = requestScoreInfo();
+					displayScore = true;
+					sthDisplayed = true;
+				}
+				
+			}
+		}
+	}
+	
 	
 	public String cutLocalIp(String localIp){
 		for (int i = 0; i < localIp.length(); i++){
