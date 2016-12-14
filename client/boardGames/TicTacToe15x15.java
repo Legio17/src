@@ -19,6 +19,7 @@ public class TicTacToe15x15 {
 
 	private BoardManager bm;
 	private Board gameBoard;
+	private int gameID;
 
 	private BufferedImage cross;
 	private BufferedImage circle;
@@ -53,9 +54,10 @@ public class TicTacToe15x15 {
 	private String localPlayer;
 	private DbClient dbClient;
 
-	public TicTacToe15x15(Game game, String player1) {
+	public TicTacToe15x15(Game game, String player1, int gameID) {
 		localPlayer = game.getPlayer().getName();
-
+		this.gameID = gameID;
+		
 		this.player1 = player1;
 		player2 = "NotSet";
 		this.game = game;
@@ -211,6 +213,10 @@ public class TicTacToe15x15 {
 
 	public String getLocalMark() {
 		return localMark;
+	}
+	
+	public int getGameID(){
+		return gameID;
 	}
 
 	public String getPlayer1() {

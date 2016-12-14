@@ -243,10 +243,15 @@ public class Client extends Thread {
 
 	private void searchForPlayer(String[] array) {
 		String player1 = array[1];
-		int gameCreatedNum = Integer.parseInt(array[2]);
-		if (game.getTicTacToeGameList().size() == gameCreatedNum) {
-			game.getTicTacToeGameList().add(new TicTacToe15x15(game, player1));
+		int gameID = Integer.parseInt(array[2]);
+		
+		for (int i = 0; i < game.getTicTacToeGameList().size(); i++){
+			if ((game.getTicTacToeGameList().get(i).getPlayer1().equals(player1)) ||
+					(game.getTicTacToeGameList().get(i).getGameID()==gameID)){
+				return;
+			}
 		}
+		game.getTicTacToeGameList().add(new TicTacToe15x15(game, player1, gameID));
 	}
 
 	/**
