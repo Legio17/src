@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
@@ -31,7 +32,7 @@ import client.network.UDPClient.OtherPlayersList;
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-	private final String SERVER_IP = "10.52.238.45";
+	private final String SERVER_IP = "localhost";
 	private static String myIPString;
 
 	public static final int WIDTH = 94 * 4; // 94 size of one tile without
@@ -176,7 +177,7 @@ public class Game extends Canvas implements Runnable {
 	public synchronized void stop() {
 
 		try {
-			client.sendQuit(InetAddress.getLocalHost().getHostAddress());
+			client.sendQuit(InetAddress.getLocalHost().getHostAddress()+":"+player.getName()+":");
 		} catch (UnknownHostException e) {
 
 			e.printStackTrace();
@@ -237,7 +238,7 @@ public class Game extends Canvas implements Runnable {
 
 		if (login == false && displayGame == false) {
 			client.sendPlayerPos((ipAddress + ":" + player.getX() + ":"
-					+ player.getY() + ":" + playerPose));
+					+ player.getY() + ":" + playerPose + ":" + player.getName() + ":"));
 			player.tick();// updates player position
 		}
 
@@ -281,7 +282,6 @@ public class Game extends Canvas implements Runnable {
 		// ====================== Game lobby ============================	
 			map1.render(g, 94, 1, 0, 0); // 94 - borders are already ignored in grab
 			g.drawImage(toolPanel, 0, 540, null);
-			
 			for (int i = 0; i < otherPlayers.size(); i++) {
 				otherPlayers.get(i).render(g);
 			}
@@ -312,7 +312,7 @@ public class Game extends Canvas implements Runnable {
 				login = false;
 				player.setPlayerName(fontLog.getNickName());
 				DbClient = new DbClient("client", this, SERVER_IP, 1098);
-				client.sendLoginRequest(ipAddress + ":" + player.getName());
+				client.sendLoginRequest(ipAddress + ":" + player.getName()+":");
 				DbClient.sendInfo("00:" + player.getName());
 				System.out.println(player.getName());
 			} else if (key == KeyEvent.VK_BACK_SPACE) {
@@ -387,10 +387,14 @@ public class Game extends Canvas implements Runnable {
 			}
 			// Special actions
 			else if (key == KeyEvent.VK_5) {
-				player.ticTac15x15();
+				Random gameIDrand = new Random();
+				int gameID = gameIDrand.nextInt(8999) + 1000;
+				player.ticTac15x15(); //player position change
 				playerPose = "05";
 				client.sendSearchingForPlayer(player.getName() + ":"
-						+ ticTacToeGameList.size());
+						+ gameID);
+				
+				
 			} else if (key == KeyEvent.VK_6) {
 				playerPose = "05";
 				client.sendMatchPlayers((player.getName()));

@@ -5,6 +5,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+
 import client.network.utilities.UDPMethods;
 
 /**
@@ -48,7 +49,7 @@ public class ServerMain extends Thread {
 	public void run() {
 		while (true) {
 			newData = false;
-			receiveData = new byte[35];
+			receiveData = new byte[40];
 
 			receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
@@ -63,6 +64,12 @@ public class ServerMain extends Thread {
 				//sendData = null;
 				sendData = receivePacket.getData();
 				newData = true;
+				
+				try {
+					Thread.sleep(1);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 
 			} else if (identifier.equals("04") || identifier.equals("05")
 					|| identifier.equals("06") || identifier.equals("07")) {
@@ -79,23 +86,31 @@ public class ServerMain extends Thread {
 			} else if (identifier.equals("00")) {
 				ipAddress = receivePacket.getAddress();
 				port = receivePacket.getPort();
-				createConnection(ipAddress, port);
+				String[] array = UDPMethods.DatagramPacketToString(receivePacket).split(":");
+				System.out.println("server array1 "+array[2]);
+				String name = array[2];
+				createConnection(ipAddress, port, name);
 			}
 			else if (identifier.equals("08")) {
 				ipAddress = receivePacket.getAddress();
-				deleteConnection(ipAddress);
+				String[] array = UDPMethods.DatagramPacketToString(receivePacket).split(":");
+				deleteConnection(ipAddress, array[2]);
 				sendData = receivePacket.getData();
-				newData = true;			
+				newData = true;	
+				
+				try {
+					Thread.sleep(1);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
 
-	private void deleteConnection(InetAddress ipAddress) {
+	private void deleteConnection(InetAddress ipAddress, String name) {
 		for (int i = 0; i < connections.size(); i++) {
-
-			if (ipAddress.equals(connections.getIP(i))) {
+			if ((ipAddress.equals(connections.getIP(i))) && (name.equals(connections.getAtIndex(i).getName()))) {
 				connections.deleteConnection(i);
-				
 				break;
 			}
 		}
@@ -135,19 +150,20 @@ public class ServerMain extends Thread {
 	 * @param port
 	 *            the port of the client to connect to
 	 */
-	public void createConnection(InetAddress ipAddress, int port) {
+	public void createConnection(InetAddress ipAddress, int port, String name) {
 		boolean found = false;
 
 		for (int i = 0; i < connections.size(); i++) {
 
-			if (ipAddress.equals(connections.getIP(i))) {
+			if ((ipAddress.equals(connections.getIP(i))) && (connections.getAtIndex(i).getName().equals(name))) {
 				found = true;
 				break;
 			}
 		}
 		if (!found) {
-			UDPConnection newCon = new UDPConnection(ipAddress, port);
+			UDPConnection newCon = new UDPConnection(ipAddress, port, name);
 			connections.addConnection(newCon);
+			System.out.println(name+" con size: "+connections.size());
 		}
 	}
 

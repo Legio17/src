@@ -36,6 +36,10 @@ public class ConnectionList {
 		return connections;
 	}
 	
+	public UDPConnection getAtIndex(int Index){
+		return connections.get(Index);
+	}
+	
 	/**
 	 * 
 	 * @param i

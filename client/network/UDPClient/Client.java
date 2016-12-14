@@ -60,7 +60,7 @@ public class Client extends Thread {
 	public void run() {
 
 		while (true) {
-			byte[] data = new byte[35];
+			byte[] data = new byte[40];
 			DatagramPacket packet = new DatagramPacket(data, data.length);
 
 			try {
@@ -90,7 +90,7 @@ public class Client extends Thread {
 
 	private void quitGame(String[] array) {
 		for (int i = 0; i < game.getOtherPlayers().size(); i++) {
-			if (game.getOtherPlayers().get(i).getIpAddress().equals(array[1])) {
+			if ((game.getOtherPlayers().get(i).getIpAddress().equals(array[1])) && (game.getOtherPlayers().get(i).getName().equals(array[2]))) {
 				game.getOtherPlayers().removeOtherPlayer(i);
 				break;
 			}
@@ -221,19 +221,19 @@ public class Client extends Thread {
 
 		double coordinateX = Double.parseDouble(array[2]);
 		double coordinateY = Double.parseDouble(array[3]);
-		array[4] = array[4].substring(00, 02);
 		boolean found = false;
 		int index = 0;
 		for (int i = 0; i < game.getOtherPlayers().size(); i++) {
-			if (array[1].equalsIgnoreCase(game.getOtherPlayers().get(i)
-					.getIpAddress())) {
+			if ((array[1].equals(game.getOtherPlayers().get(i)
+					.getIpAddress())) && (array[5].equals(game.getOtherPlayers().get(i).getName()))) {
 				found = true;
 				index = i;
 				break;
 			}
 		}
 		if (!found) {
-			game.getOtherPlayers().addOtherPlayer(new PlayerMP(game, array[1]));
+			System.out.println("playerName:"+array[5]+":");
+			game.getOtherPlayers().addOtherPlayer(new PlayerMP(game, array[1], array[5]));
 		}
 
 		game.getOtherPlayers().get(index)
