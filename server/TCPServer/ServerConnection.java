@@ -93,7 +93,7 @@ public class ServerConnection {
 	/**
 	 * Checks the type of the information received from the client. If the
 	 * received data starts with 00 then the player name has to be inserted into
-	 * the database. If it starts with 01 then the game history has to be
+	 * the database. If it starts with 01 then the score information has to be
 	 * updated in the database. Else the score information about the player and
 	 * the top five players have to be sent to the player whose name was
 	 * received in the incoming data.
