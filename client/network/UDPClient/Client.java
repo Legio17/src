@@ -283,7 +283,9 @@ public class Client extends Thread {
 					}
 					game.getTicTacToeGameList().get(j).setPlayer2(player2);
 					if (amIPlayer1(j) || amIPlayer2(j)) {
-						game.setDisplayTicTacToe(true);
+						game.setDisplayGame(true);
+						//game.setDisplayTicTacToe(true);
+						game.setTicTacFinished(false); 
 						ticTacToeNr = j;
 						System.out.println("Matching players....."
 								+ game.getTicTacToeGameList().get(j)

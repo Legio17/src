@@ -88,7 +88,7 @@ public class Game extends Canvas implements Runnable {
 	private String ipAddress = "ipError";
 
 	/**
-	 * construction of necessary items before game can start
+	 * initialization of necessary items before game can start
 	 */
 	
 	public void init() {
@@ -173,7 +173,6 @@ public class Game extends Canvas implements Runnable {
 	/**
 	 * stop game thread
 	 */
-
 	public synchronized void stop() {
 
 		try {
@@ -232,7 +231,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	/**
-	 * game objects that requires update each time tick happens
+	 * game objects that requires update each time game tick happens
 	 */
 	private void tick() {
 
@@ -245,7 +244,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	/**
-	 * draw all graphics onto player screen screen overwritten every time new
+	 * draw all graphics on player screen
 	 * render happens
 	 */
 	private void render() {
@@ -302,7 +301,7 @@ public class Game extends Canvas implements Runnable {
 
 	/**
 	 * @param e
-	 *            controls for player on key down(key pressed)
+	 * controls for player on key down(key pressed)
 	 */
 	@SuppressWarnings("deprecation")
 	public void keyPressed(KeyEvent e) {
@@ -422,7 +421,7 @@ public class Game extends Canvas implements Runnable {
 
 	/**
 	 * @param e
-	 *            * controls for player on key released
+	 * controls for player on key released
 	 */
 	public void keyReleased(KeyEvent e) {
 
@@ -443,6 +442,10 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
+	/**
+	 *  loads graphics for login
+	 * 	loads graphics for statistics
+	 */
 	private void loadBoards() {
 		scoreBoard = boardManager.retriveByName("scoreBoard");
 		fancyBoard = boardManager.retriveByName("fancyBoard");
@@ -460,6 +463,10 @@ public class Game extends Canvas implements Runnable {
 		return sprite_sheet_loader;
 	}
 
+	/**
+	 * @param displayGame - status of TicTacToe game 
+	 * display TicTacToe game for player
+	 */
 	public void setDisplayGame(boolean displayGame) {
 		this.displayGame = displayGame;
 
@@ -470,28 +477,48 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 
+	/**
+	 * @param ticTacFinished - state of TicTacToe game
+	 * @param lastMark - last symbol added to TicTacToe game
+	 */
 	public void setTicTacFinished(boolean ticTacFinished, String lastMark) {
 		this.ticTacFinished = ticTacFinished;
 		ticTacResult = lastMark;
 		System.out.println(ticTacResult);
 	}
 
+	/**
+	 * @param ticTacFinished
+	 * sets status of TicTacToe game, without influencing any other parameters
+	 */
 	public void setTicTacFinished(boolean ticTacFinished) {
 		this.ticTacFinished = ticTacFinished;
 	}
 
+	/**
+	 * @return retrieves board manager from game
+	 */
 	public BoardManager getBoardManager() {
 		return boardManager;
 	}
 
+	/**
+	 * @return IP of server game is connected to
+	 */
 	public String getServerIp() {
 		return SERVER_IP;
 	}
 	
+	/**
+	 * @return my IP as a String
+	 */
 	public String getMyIP(){
 		return myIPString;
 	}
 
+	/**
+	 * @param b turn on/off game 
+	 */
 	public void setRunning(boolean b) {
 		running = b;
 
@@ -504,6 +531,9 @@ public class Game extends Canvas implements Runnable {
 		return WIDTH;
 	}
 
+	/**
+	 * @return retrieves BufferImage ImageLoader for graphics classes
+	 */
 	public BufferImageLoader getImageLoader() {
 		return imageLoader;
 	}
@@ -515,14 +545,24 @@ public class Game extends Canvas implements Runnable {
 		return HEIGHT;
 	}
 
+	/**
+	 * @return list of players inside game
+	 */
 	public OtherPlayersList getOtherPlayers() {
 		return otherPlayers;
 	}
 
+	/**
+	 * @return list of existing TicTacToe games
+	 */
 	public LinkedList<TicTacToe15x15> getTicTacToeGameList() {
 		return ticTacToeGameList;
 	}
 	
+	/**
+	 * @param click - info about clicks made inside game
+	 * executes methods if click is made in specific area
+	 */
 	public void clickActions(MouseEvent click){
 		int xClick, yClick;
 		xClick = click.getX();
@@ -533,14 +573,23 @@ public class Game extends Canvas implements Runnable {
 		
 	}
 
+	/**
+	 * @return database client object
+	 */
 	public DbClient getdbClient() {
 		return DbClient;
 	}
 
+	/**
+	 * @return get local player object
+	 */
 	public Player getPlayer() {
 		return player;
 	}
 	
+	/**
+	 * @return statistic information about player from database
+	 */
 	public String[] requestScoreInfo(){
 		DbClient = new DbClient("client", this, SERVER_IP, 1098);
 		DbClient.start();
@@ -555,6 +604,11 @@ public class Game extends Canvas implements Runnable {
 		return scoreInfo;
 	}
 	
+	/**
+	 * @param x click coordinate
+	 * @param y click coordinate
+	 * activates help bubble if icon for help is clicked
+	 */
 	public void helpButton(int x, int y){
 		if((x > 718) && (x < 750)){
 			if ((y > 542) && (y < 565)){
@@ -571,6 +625,11 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 	
+	/**
+	 * @param x click coordinate
+	 * @param y click coordinate
+	 * retrieves and displays score info that belong to client 
+	 */
 	@SuppressWarnings("deprecation")
 	public void statsButton(int x, int y){
 		if ((x > 9) && (x < 38)){
@@ -590,6 +649,9 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
+	/**
+	 * @return graphics set used for game
+	 */ 
 	public Graphics getG() {
 		return g;
 	}
@@ -620,8 +682,8 @@ public class Game extends Canvas implements Runnable {
 		game.start();// call on game to start
 	}
 
-	public void setDisplayTicTacToe(boolean b) {
-		displayGame = true;
+	/**
+	 * @param b display TicTacToe game 
+	 */
 
-	}
 }
