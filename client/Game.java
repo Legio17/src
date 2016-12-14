@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.JFrame;
@@ -33,7 +32,6 @@ public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 	private final String SERVER_IP = "192.168.1.236";
-	private static InetAddress myIP;
 	private static String myIPString;
 
 	public static final int WIDTH = 94 * 4; // 94 size of one tile without
@@ -97,11 +95,11 @@ public class Game extends Canvas implements Runnable {
 		requestFocus();
 		
 		try {
-			myIP = InetAddress.getLocalHost();
+			myIPString = InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e2) {
 			e2.printStackTrace();
 		}
-		myIPString = cutLocalIp(myIP.toString());
+		
 		
 		sprite_sheet_loader = new SpriteSheetLoader();
 		imageLoader = new BufferImageLoader();
@@ -573,6 +571,7 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void statsButton(int x, int y){
 		if ((x > 9) && (x < 38)){
 			if ((y > 541) && (y < 564)){
@@ -589,16 +588,6 @@ public class Game extends Canvas implements Runnable {
 				
 			}
 		}
-	}
-	
-	
-	public String cutLocalIp(String localIp){
-		for (int i = 0; i < localIp.length(); i++){
-			if(localIp.charAt(i)=='/'){
-				return localIp.substring(i+1, localIp.length());
-			}
-		}
-		return "error";
 	}
 
 	public Graphics getG() {
