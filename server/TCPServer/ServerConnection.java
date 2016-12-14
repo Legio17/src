@@ -102,7 +102,6 @@ public class ServerConnection {
 
 		try {
 			data = (String) inFromClient.readObject();
-			System.out.println("data: " + data);
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
@@ -114,7 +113,7 @@ public class ServerConnection {
 				updateInfoDB();
 			}
 		} else {
-			sendScoreInfo();
+			sendScoreInfoToClient();
 		}
 	}
 
@@ -127,7 +126,6 @@ public class ServerConnection {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(array[1]);
 	}
 
 	/**
@@ -147,7 +145,7 @@ public class ServerConnection {
 	 * Sends, score information about the player, and the top five players, to
 	 * the player whose name was received in the incoming data.
 	 */
-	public void sendScoreInfo() {
+	public void sendScoreInfoToClient() {
 		String info = null;
 		String info2 = null;
 		try {

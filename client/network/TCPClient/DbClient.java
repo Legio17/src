@@ -82,10 +82,10 @@ public class DbClient extends Thread {
 	}
 
 	/**
-	 * Send player's name to the database server.
+	 * Send info to the database server.
 	 * 
-	 * @param name
-	 *            the name of the player
+	 * @param info
+	 *            the info to be sent
 	 */
 	public void sendInfo(String info) {
 
