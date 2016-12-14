@@ -270,10 +270,7 @@ public class Game extends Canvas implements Runnable {
 		} else if (displayGame){
 			for(int i = 0; i < ticTacToeGameList.size(); i++){
 				if((ticTacToeGameList.get(i).getPlayer1().equals(player.getName())) || (ticTacToeGameList.get(i).getPlayer2().equals(player.getName()))){
-					if((ticTacToeGameList.get(i) != null)){
-						ticTacToeGameList.get(i).render(g); 
-					}
-	
+					ticTacToeGameList.get(client.getTicTacToeNr()).render(g); 	
 				}
 			}							
 			if (ticTacFinished) {
