@@ -267,7 +267,8 @@ public class Game extends Canvas implements Runnable {
 			fontLog.renderNick(g, 0, 170, 190, 45);
 			
 		// ====================== TicTacToe Game =======================
-		} else if (displayGame) {
+		} else if (displayGame
+				&& client.getTicTacToeNr() < ticTacToeGameList.size()) {
 			ticTacToeGameList.get(client.getTicTacToeNr()).render(g); 							
 			if (ticTacFinished) {
 				if (ticTacResult.equals("X"))
@@ -329,6 +330,8 @@ public class Game extends Canvas implements Runnable {
 			// ================= Controls Tic-Tac-Toe ================
 		} else if (displayGame && ticTacFinished) {
 			if (key == KeyEvent.VK_ENTER) {
+				//setDisplayGame(false);
+				//ticTacFinished = false;
 				if (ticTacToeGameList.get(client.getTicTacToeNr()).getPlayer1()
 						.equals((getPlayer().getName()))) {
 					client.sendEndTicTacToe(client.getTicTacToeNr() + ":"
