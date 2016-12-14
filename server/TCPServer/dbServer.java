@@ -42,8 +42,8 @@ public class dbServer extends Thread {
 
 	/**
 	 * Starts the thread and waits for requests to come in over the network.
-	 * After the connection is made the it is added to the client list.
-	 * Afterwards a check method starts from the class ServerConnection.
+	 * After the connection is made it is added to the client list. Afterwards a
+	 * check method is called from the ServerConnection class.
 	 */
 	public void run() {
 
@@ -52,11 +52,8 @@ public class dbServer extends Thread {
 			try {
 				System.out.println("Waiting for a client");
 				connectionSocket = welcomeSocket.accept();
-
 				c = new ServerConnection(connectionSocket, dbClientList);
-				System.out.println("Result1: " + c);
 				dbClientList.add(c);
-				System.out.println(dbClientList.size());
 				c.check();
 
 			} catch (IOException e) {
@@ -64,10 +61,12 @@ public class dbServer extends Thread {
 			}
 		}
 	}
-/**
- * Returns a ServerConnection.
- * @return a ServerConnection.
- */
+
+	/**
+	 * Returns a ServerConnection.
+	 * 
+	 * @return a ServerConnection.
+	 */
 	public static ServerConnection getC() {
 		return c;
 	}

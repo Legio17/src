@@ -114,7 +114,7 @@ public class ServerConnection {
 				updateInfoDB();
 			}
 		} else {
-			send();
+			sendScoreInfo();
 		}
 	}
 
@@ -147,7 +147,7 @@ public class ServerConnection {
 	 * Sends, score information about the player, and the top five players, to
 	 * the player whose name was received in the incoming data.
 	 */
-	public void send() {
+	public void sendScoreInfo() {
 		String info = null;
 		String info2 = null;
 		try {
