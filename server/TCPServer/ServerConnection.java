@@ -55,7 +55,7 @@ public class ServerConnection {
 	public ServerConnection(Socket connectionSocket,
 			dbClientList<ServerConnection> dbClientList) {
 		try {
-			con = connect.PostgreSQLJDBC("SEP2_data", "Postgres");
+			con = connect.PostgreSQLJDBC("SEP2_data", "peter28mio07");
 			this.dbClientList = dbClientList;
 			this.ie = new InsertExecutor(con);
 			outToClient = new ObjectOutputStream(

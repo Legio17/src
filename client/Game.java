@@ -31,7 +31,7 @@ import client.network.UDPClient.OtherPlayersList;
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-	private final String SERVER_IP = "192.168.1.236";
+	private final String SERVER_IP = "10.52.238.45";
 	private static String myIPString;
 
 	public static final int WIDTH = 94 * 4; // 94 size of one tile without
@@ -313,7 +313,7 @@ public class Game extends Canvas implements Runnable {
 				player.setPlayerName(fontLog.getNickName());
 				DbClient = new DbClient("client", this, SERVER_IP, 1098);
 				client.sendLoginRequest(ipAddress + ":" + player.getName());
-				DbClient.sendName("00:" + player.getName());
+				DbClient.sendInfo("00:" + player.getName());
 				System.out.println(player.getName());
 			} else if (key == KeyEvent.VK_BACK_SPACE) {
 				if (fontLog.getNickName().length() != 0) {
@@ -594,7 +594,7 @@ public class Game extends Canvas implements Runnable {
 		DbClient = new DbClient("client", this, SERVER_IP, 1098);
 		DbClient.start();
 
-		DbClient.sendName(player.getName());
+		DbClient.sendInfo(player.getName());
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e1) {
