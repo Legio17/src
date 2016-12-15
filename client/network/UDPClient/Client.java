@@ -164,7 +164,6 @@ public class Client extends Thread {
 	 */
 	public void sendTicToeToeMark(String data) {
 		data = "06:" + data + ":" + yourGameID + ":";
-		System.out.println(data);
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
 				data.getBytes().length, ipAddress, port);
 
@@ -203,7 +202,6 @@ public class Client extends Thread {
 		data = "07:" + data + ":";
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
 				data.getBytes().length, ipAddress, port);
-		System.out.println("Sending remove " + data);
 		try {
 			socket.send(packet);
 		} catch (IOException e) {
@@ -233,6 +231,9 @@ public class Client extends Thread {
 		return yourGameID;
 	}
 
+	/*
+	 * @param array containing the a players new position. this method will update their position variables in the Game class. 
+	 */
 	private void movePlayer(String[] array) {
 
 		double coordinateX = Double.parseDouble(array[2]);
@@ -249,23 +250,20 @@ public class Client extends Thread {
 			}
 		}
 		if (!found) {
-			System.out.println("playerName:" + array[5] + ":");
 			game.getOtherPlayers().addOtherPlayer(
 					new PlayerMP(game, array[1], array[5]));
 		}
 
 		game.getOtherPlayers().get(index)
 				.setCoord(coordinateX, coordinateY, array[4]);
-
 	}
 
-	/**
+	/*
+	 * recieving hosting request from server
 	 * 
-	 * 
-	 * @param array
+	 * @param array data with information about player 1 needed to create a new tic-tac-toe
 	 */
-	private void searchForPlayer(String[] array) { // recieving hosting request
-													// from server
+	private void searchForPlayer(String[] array) {
 		String player1 = array[1];
 		int gameID = Integer.parseInt(array[2]);
 
@@ -276,12 +274,11 @@ public class Client extends Thread {
 				return;
 			}
 		}
-		System.out.println("TICTAC CREATED");
 		game.getTicTacToeGameList().add(
 				new TicTacToe15x15(game, player1, gameID));
 	}
 
-	/**
+	/*
 	 * When a user tries to join a tic-tac-toe game this code will be executed.
 	 * The user will whom is trying to join a game will be set as player 2 for
 	 * the first available game
@@ -302,7 +299,6 @@ public class Client extends Thread {
 		}
 
 		if (!player2Set) {
-			System.out.println("PLAYER SET");
 			for (int gameListNr = 0; gameListNr < game.getTicTacToeGameList()
 					.size(); gameListNr++) {
 				if ((game.getTicTacToeGameList().get(gameListNr).getPlayer2()
@@ -328,7 +324,7 @@ public class Client extends Thread {
 		}
 	}
 
-	/**
+	/*
 	 * 
 	 * @param array
 	 *            of data for where to put a tic-tac-toe mark
@@ -351,8 +347,7 @@ public class Client extends Thread {
 		}
 	}
 
-	/**
-	 * 
+	/*
 	 * @param array
 	 *            the data that contains the information for which game to
 	 *            remove
@@ -360,7 +355,6 @@ public class Client extends Thread {
 	private void removeTicTacToe(String[] array) {
 		String player1 = array[1].trim();
 		String player2 = "";
-		System.out.println("GAME HOST " + player1);
 		int removeAtPos = -1;
 
 		for (int i = 0; i < game.getTicTacToeGameList().size(); i++) {
@@ -385,7 +379,9 @@ public class Client extends Thread {
 	}
 
 	/*
+	 * Removes a player from the game when they quit it
 	 * 
+	 * @param array data with the ip and name of the player quiting the game
 	 */
 	private void quitGame(String[] array) {
 		for (int i = 0; i < game.getOtherPlayers().size(); i++) {

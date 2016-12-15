@@ -187,11 +187,11 @@ public class Game extends Canvas implements Runnable {
 
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Updates game variables and renders graphics
 	 * 
-	 * @see java.lang.Runnable#run() limits amount of updates that games can
-	 * make per second
+	 * @see java.lang.Runnable#run() 
+	 * limits amount of updates that games can make per second
 	 */
 	public void run() {
 		init();
