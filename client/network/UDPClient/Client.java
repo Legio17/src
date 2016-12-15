@@ -247,7 +247,12 @@ public class Client extends Thread {
 				.setCoord(coordinateX, coordinateY, array[4]);
 
 	}
-
+	
+	/**
+	 * 
+	 * 
+	 * @param array
+	 */
 	private void searchForPlayer(String[] array) { //recieving hosting request from server
 		String player1 = array[1];
 		int gameID = Integer.parseInt(array[2]);
@@ -263,9 +268,9 @@ public class Client extends Thread {
 	}
 
 	/**
-	 * Matching....
+	 * When a user tries to join a tic-tac-toe game this code will be executed. The user will whom is trying to join a game will be set as player 2 for the first available game
 	 * 
-	 * @param array
+	 * @param array with data about which user that tries to join a game
 	 */
 	private void matchPlayers(String[] array) { //Receiving player2 who wants to join someponies game
 
@@ -298,7 +303,11 @@ public class Client extends Thread {
 			}
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @param array of data for where to put a tic-tac-toe mark
+	 */
 	private void ticTacToeMark(String[] array) {
 
 		int GameID = Integer.parseInt(array[4]);
@@ -314,7 +323,11 @@ public class Client extends Thread {
 
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @param array the data that contains the information for which game to remove
+	 */
 	private void removeTicTacToe(String[] array) {
 		String player1 = array[1].trim();
 		String player2 = "";
