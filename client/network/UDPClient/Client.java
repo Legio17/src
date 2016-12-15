@@ -232,11 +232,6 @@ public class Client extends Thread {
 	public int getYourGameID() {
 		return yourGameID;
 	}
-	
-	/* not used?*/
-	public String getClientNameTEST() {
-		return name;
-	}
 
 	private void movePlayer(String[] array) {
 
