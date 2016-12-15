@@ -235,7 +235,6 @@ public class Game extends Canvas implements Runnable {
 	 * game objects that requires update each time game tick happens
 	 */
 	private void tick() {
-
 		if (login == false && displayGame == false) {
 			client.sendPlayerPos((ipAddress + ":" + player.getX() + ":"
 					+ player.getY() + ":" + playerPose + ":" + player.getName() + ":"));
@@ -331,12 +330,10 @@ public class Game extends Canvas implements Runnable {
 		} else if (displayGame && ticTacFinished) {
 			if (key == KeyEvent.VK_ENTER) {
 
-				if (ticTacToeGameList.get(0).getPlayer1()
-						.equals((getPlayer().getName()))) {
-					client.sendEndTicTacToe(0 + ":"
-							+ getPlayer().getName());
+				if (ticTacToeGameList.get(getYourTicTacToeGame()).getPlayer1().equals((getPlayer().getName()))) {
+					client.sendEndTicTacToe(getPlayer().getName());
 				}
-				System.out.println(0 + "");
+
 			}
 		} else if (displayGame) {
 			if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
@@ -369,16 +366,16 @@ public class Game extends Canvas implements Runnable {
 		} else {
 
 			if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
-				player.setVelX(5);
+				player.setVelX(3);
 				playerPose = "06";
 			} else if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
-				player.setVelX(-5);
+				player.setVelX(-3);
 				playerPose = "04";
 			} else if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
-				player.setVelY(5);
+				player.setVelY(3);
 				playerPose = "02";
 			} else if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
-				player.setVelY(-5);
+				player.setVelY(-3);
 				playerPose = "08";
 			}
 			// Special actions

@@ -129,6 +129,12 @@ public class Client extends Thread {
 	 */
 	public void sendSearchingForPlayer(String data) {
 		data = "04:" + data + ":";
+		String name = data.split(":")[1];
+		for (int gameListNr = 0; gameListNr < game.getTicTacToeGameList().size(); gameListNr++){
+			if (name.equals(game.getTicTacToeGameList().get(gameListNr).getPlayer1())){
+				return;
+			}
+		}
 		DatagramPacket packet = new DatagramPacket(data.getBytes(),
 				data.getBytes().length, ipAddress, port);
 
@@ -310,8 +316,9 @@ public class Client extends Thread {
 	}
 
 	private void removeTicTacToe(String[] array) {
-		String player1 = array[2].trim();
+		String player1 = array[1].trim();
 		String player2 = "";
+		System.out.println("GAME HOST "+player1);
 		int removeAtPos = -1;
 
 		for (int i = 0; i < game.getTicTacToeGameList().size(); i++){
