@@ -64,12 +64,6 @@ public class ServerMain extends Thread {
 				//sendData = null;
 				sendData = receivePacket.getData();
 				newData = true;
-				
-			/*	try {
-					Thread.sleep(1);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}*/
 
 			} else if (identifier.equals("04") || identifier.equals("05")
 					|| identifier.equals("06") || identifier.equals("07")) {
