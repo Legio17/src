@@ -283,6 +283,7 @@ public class Game extends Canvas implements Runnable {
 			g.drawImage(toolPanel, 0, 540, null);
 			for (int i = 0; i < otherPlayers.size(); i++) {
 				otherPlayers.get(i).render(g);
+				otherPlayers.get(i).renderNick(g);
 			}
 			if (displayScore) {
 				scoreBoard.render(g);

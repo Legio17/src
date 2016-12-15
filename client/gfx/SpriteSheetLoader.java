@@ -40,6 +40,7 @@ public class SpriteSheetLoader{
 		loadFont("/sheets/fonts/", "fontLog");
 		loadFont("/sheets/fonts/", "fontStats");
 		loadFont("/sheets/fonts/", "fontStatsYellow");
+		loadFont("/sheets/fonts/", "fontLobbyNicks");
 	}
 	
 	

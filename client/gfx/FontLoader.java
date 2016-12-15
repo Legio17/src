@@ -21,6 +21,8 @@ public class FontLoader {
 
 	private String[] fontInfoDisCharYellow;
 	
+	private String[] fontUserName;
+	
 	
 	public FontLoader(Game game){
 		charFonts = new ArrayList<String[]>();
@@ -38,6 +40,7 @@ public class FontLoader {
 		loadCharToFont(fontLogChar,"fontLog", 8, 8, 87, 101, 1); //load letter images for login
 		loadCharToFont(fontInfoDisChar,"fontStats", 64, 1, 13, 30, 1);
 		loadCharToFont(fontInfoDisCharYellow,"fontStatsYellow", 63, 1, 13, 30, 1);
+		loadCharToFont(fontUserName,"fontLobbyNicks", 26, 1, 13, 26, 0);
 	}
 	
 	private void initializeFontCharArrays() {
@@ -69,6 +72,11 @@ public class FontLoader {
 				,"N","O","P","Q","R","S","T","U"
 				,"V","W","X","Y","Z","0","1","2","3","4","5","6"
 				,"7","8","9"};
+		
+		fontUserName = new String[]{"A","B","C","D","E"
+				,"F","G","H","I","J","K","L","M"
+				,"N","O","P","Q","R","S","T","U"
+				,"V","W","X","Y","Z"};
 		
 	}
 
