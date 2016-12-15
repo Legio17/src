@@ -331,8 +331,9 @@ public class Game extends Canvas implements Runnable {
 		} else if (displayGame && ticTacFinished) {
 			if (key == KeyEvent.VK_ENTER) {
 
-				if (ticTacToeGameList.get(getYourTicTacToeGame()).getPlayer1().equals((getPlayer().getName()))) {
-					client.sendEndTicTacToe(getPlayer().getName());
+				if ((ticTacToeGameList.get(getYourTicTacToeGame()).getPlayer1().equals((getPlayer().getName()))) || 
+						(ticTacToeGameList.get(getYourTicTacToeGame()).getPlayer2().equals((getPlayer().getName())))) {
+					client.sendEndTicTacToe(ticTacToeGameList.get(getYourTicTacToeGame()).getPlayer1());
 				}
 
 			}
