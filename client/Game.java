@@ -329,7 +329,7 @@ public class Game extends Canvas implements Runnable {
 			}
 			// ================= Controls Tic-Tac-Toe ================
 		} else if (displayGame && ticTacFinished) {
-			if (key == KeyEvent.VK_ENTER) {
+			if ((key == KeyEvent.VK_ENTER) || (key == KeyEvent.VK_ESCAPE)) {
 
 				if ((ticTacToeGameList.get(getYourTicTacToeGame()).getPlayer1().equals((getPlayer().getName()))) || 
 						(ticTacToeGameList.get(getYourTicTacToeGame()).getPlayer2().equals((getPlayer().getName())))) {
@@ -356,12 +356,8 @@ public class Game extends Canvas implements Runnable {
 				}
 
 			} else if (key == KeyEvent.VK_ESCAPE) {
-				if (!displayGame && !sthDisplayed) {
-					displayGame = true;
-					sthDisplayed = true;
-				} else if (displayGame) {
-					displayGame = false;
-					sthDisplayed = false;
+				if (displayGame){
+					client.sendEndTicTacToe(ticTacToeGameList.get(getYourTicTacToeGame()).getPlayer1());
 				}
 			}
 			// ================= Controls Lobby ======================
