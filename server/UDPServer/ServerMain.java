@@ -87,7 +87,6 @@ public class ServerMain extends Thread {
 				ipAddress = receivePacket.getAddress();
 				port = receivePacket.getPort();
 				String[] array = UDPMethods.DatagramPacketToString(receivePacket).split(":");
-				System.out.println("server array1 "+array[2]);
 				String name = array[2];
 				createConnection(ipAddress, port, name);
 			}
@@ -163,7 +162,6 @@ public class ServerMain extends Thread {
 		if (!found) {
 			UDPConnection newCon = new UDPConnection(ipAddress, port, name);
 			connections.addConnection(newCon);
-			System.out.println(name+" con size: "+connections.size());
 		}
 	}
 

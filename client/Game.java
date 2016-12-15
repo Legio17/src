@@ -268,9 +268,9 @@ public class Game extends Canvas implements Runnable {
 			fontLog.renderNick(g, 0, 170, 190, 45);
 			
 		// ====================== TicTacToe Game =======================
-		} else if (displayGame
-				&& client.getTicTacToeNr() < ticTacToeGameList.size()) {
-			ticTacToeGameList.get(client.getTicTacToeNr()).render(g); 							
+		} else if (displayGame) {
+			ticTacToeGameList.get(getYourTicTacToeGame()).render(g); 
+									
 			if (ticTacFinished) {
 				if (ticTacResult.equals("X"))
 					g.drawImage(player1Victory, 0, 0, null);
@@ -330,34 +330,30 @@ public class Game extends Canvas implements Runnable {
 			// ================= Controls Tic-Tac-Toe ================
 		} else if (displayGame && ticTacFinished) {
 			if (key == KeyEvent.VK_ENTER) {
-				//setDisplayGame(false);
-				//ticTacFinished = false;
-				if (ticTacToeGameList.get(client.getTicTacToeNr()).getPlayer1()
+
+				if (ticTacToeGameList.get(0).getPlayer1()
 						.equals((getPlayer().getName()))) {
-					client.sendEndTicTacToe(client.getTicTacToeNr() + ":"
+					client.sendEndTicTacToe(0 + ":"
 							+ getPlayer().getName());
 				}
-				System.out.println(client.getTicTacToeNr() + "");
+				System.out.println(0 + "");
 			}
 		} else if (displayGame) {
 			if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
-				ticTacToeGameList.get(client.getTicTacToeNr()).incPosX(); 
+				ticTacToeGameList.get(getYourTicTacToeGame()).incPosX(); 
 			} else if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
-				ticTacToeGameList.get(client.getTicTacToeNr()).decPosX();
+				ticTacToeGameList.get(getYourTicTacToeGame()).decPosX();
 			} else if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
-				ticTacToeGameList.get(client.getTicTacToeNr()).incPosY();
+				ticTacToeGameList.get(getYourTicTacToeGame()).incPosY();
 			} else if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
-				ticTacToeGameList.get(client.getTicTacToeNr()).decPosY();
+				ticTacToeGameList.get(getYourTicTacToeGame()).decPosY();
 			} else if (key == KeyEvent.VK_ENTER) {
-				if (ticTacToeGameList.get(client.getTicTacToeNr()).yourTurn()) {
-					client.sendTicToeToeMark(ticTacToeGameList.get(
-							client.getTicTacToeNr()).getSelectorXpos()
+				if (ticTacToeGameList.get(getYourTicTacToeGame()).yourTurn()) {
+					client.sendTicToeToeMark(ticTacToeGameList.get(getYourTicTacToeGame()).getSelectorXpos()
 							+ ":"
-							+ ticTacToeGameList.get(client.getTicTacToeNr())
-									.getSelectorYpos()
+							+ ticTacToeGameList.get(getYourTicTacToeGame()).getSelectorYpos()
 							+ ":"
-							+ ticTacToeGameList.get(client.getTicTacToeNr())
-									.getLocalMark());
+							+ ticTacToeGameList.get(getYourTicTacToeGame()).getLocalMark());
 				}
 
 			} else if (key == KeyEvent.VK_ESCAPE) {
@@ -684,6 +680,15 @@ public class Game extends Canvas implements Runnable {
 			}
 		});
 		game.start();// call on game to start
+	}
+	
+	public int getYourTicTacToeGame(){
+		for (int gameListNr = 0; gameListNr < getTicTacToeGameList().size(); gameListNr ++){
+			if (getTicTacToeGameList().get(gameListNr).getGameID()==client.getYourGameID()){
+				return gameListNr;		
+			}
+		}	
+		return -1;
 	}
 
 	/**
