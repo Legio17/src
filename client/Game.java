@@ -650,6 +650,19 @@ public class Game extends Canvas implements Runnable {
 	public Graphics getG() {
 		return g;
 	}
+	
+	/**
+	 * Gets the index of your game from the game list.
+	 * @return the index if gameID at a given index equals your gameID, else -1 
+	 */
+	public int getYourTicTacToeGame(){
+		for (int gameListNr = 0; gameListNr < getTicTacToeGameList().size(); gameListNr ++){
+			if (getTicTacToeGameList().get(gameListNr).getGameID()==client.getYourGameID()){
+				return gameListNr;		
+			}
+		}	
+		return -1;
+	}
 
 	/**
 	 * @param args
@@ -676,18 +689,5 @@ public class Game extends Canvas implements Runnable {
 		});
 		game.start();// call on game to start
 	}
-	
-	public int getYourTicTacToeGame(){
-		for (int gameListNr = 0; gameListNr < getTicTacToeGameList().size(); gameListNr ++){
-			if (getTicTacToeGameList().get(gameListNr).getGameID()==client.getYourGameID()){
-				return gameListNr;		
-			}
-		}	
-		return -1;
-	}
-
-	/**
-	 * @param b display TicTacToe game 
-	 */
 
 }
