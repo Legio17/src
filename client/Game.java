@@ -32,7 +32,7 @@ import client.network.UDPClient.OtherPlayersList;
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-	private final String SERVER_IP = "localhost";
+	private final String SERVER_IP = "10.52.236.177";
 	private static String myIPString;
 
 	public static final int WIDTH = 94 * 4; // 94 size of one tile without
